@@ -1,20 +1,24 @@
-import { AntdRegistry } from '@ant-design/nextjs-registry'
-import type { Metadata } from 'next'
 import './globals.css'
+import { AntdRegistry } from '@ant-design/nextjs-registry'
+import { SessionProvider } from 'next-auth/react'
+import AppLayout from './AppLayout'
+import { auth } from '@/auth/auth'
 
-export const metadata: Metadata = {
-  title: 'Coral Nurture'
-}
-
-export default function RootLayout({
+export default async function RootLayout({
   children
-}: Readonly<{
+}: {
   children: React.ReactNode
-}>) {
+}) {
+  // Prepopulate SessionProvider to avoid loading state on client
+  const session = await auth()
   return (
     <html lang="en">
       <body>
-        <AntdRegistry>{children}</AntdRegistry>
+        <AntdRegistry>
+          <SessionProvider session={session}>
+            <AppLayout>{children}</AppLayout>
+          </SessionProvider>
+        </AntdRegistry>
       </body>
     </html>
   )
