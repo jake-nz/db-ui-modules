@@ -10,13 +10,139 @@ export type Generated<T> =
     ? ColumnType<S, I | undefined, U>
     : ColumnType<T, T | undefined, T>
 
+export type Json = JsonValue
+
+export type JsonArray = JsonValue[]
+
+export type JsonObject = {
+  [x: string]: JsonValue | undefined
+}
+
+export type JsonPrimitive = boolean | number | string | null
+
+export type JsonValue = JsonArray | JsonObject | JsonPrimitive
+
+export type Origin = 'Donor Colony' | 'Fragment of Opportunity' | 'Nursery'
+
+export type Timestamp = ColumnType<Date, Date | string, Date | string>
+
+export interface CPDOutplantingMastersheet {
+  CNPTraitMorph: string | null
+  'Cumulative outplants': number | null
+  Date: string | null
+  Day: number | null
+  Deployment: string | null
+  Genus: string | null
+  Month: string | null
+  notes1: string | null
+  notes2: string | null
+  notes3: string | null
+  notes4: string | null
+  notes5: string | null
+  Operator: string | null
+  'Operator Morph': string | null
+  Origin: string | null
+  'Other details /comments': string | null
+  Outplants: number | null
+  Reef: string | null
+  Site: string | null
+  Species: string | null
+  TraitValuePC1: number | null
+  TraitValuePC2: number | null
+  TraitValuePC3: number | null
+  TraitValuePC32: string | null
+  Year: number | null
+}
+
+export interface Operators {
+  id: string
+  name: string
+  region: string
+}
+
+export interface OperatorsSites {
+  id: Generated<number>
+  operator: string
+  site: string
+}
+
+export interface Outplants {
+  count: number
+  createdAt: Generated<Timestamp>
+  date: Timestamp
+  id: Generated<number>
+  morph: string
+  notes: string | null
+  operator: string
+  origin: Origin
+  originalData: Json
+  site: string
+  species: string
+}
+
+export interface Reefs {
+  id: string
+  name: string
+  region: string
+}
+
+export interface Regions {
+  id: string
+  name: string
+}
+
+export interface Sites {
+  id: string
+  name: string
+  reef: string
+}
+
+export interface Species {
+  genus: string
+  id: string
+  species: string | null
+}
+
 export interface Users {
   email: string | null
   id: Generated<string>
   name: string | null
-  password: string | null
+  password: string
+}
+
+export interface WSOutplantingMastersheet {
+  CNPTraitMorph: string | null
+  'Cumulative outplants': number | null
+  Date: number | null
+  DateOg: string | null
+  Deployment: number | null
+  Genus: string | null
+  Month: string | null
+  notes1: string | null
+  notes2: string | null
+  notes3: string | null
+  Operator: string | null
+  'Operator Morph': string | null
+  Origin: string | null
+  'Other details /comments': string | null
+  Outplants: number | null
+  Reef: string | null
+  Site: string | null
+  Species: string | null
+  'Species/genus': string | null
+  TraitValuePC1: string | null
+  TraitValuePC2: string | null
+  TraitValuePC3: string | null
+  Year: number | null
 }
 
 export interface DB {
+  operators: Operators
+  operatorsSites: OperatorsSites
+  outplants: Outplants
+  reefs: Reefs
+  regions: Regions
+  sites: Sites
+  species: Species
   users: Users
 }
