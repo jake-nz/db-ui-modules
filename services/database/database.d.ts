@@ -87,6 +87,7 @@ export interface Reefs {
 }
 
 export interface Regions {
+  color: string
   id: string
   name: string
 }
@@ -137,6 +138,7 @@ export interface WSOutplantingMastersheet {
 }
 
 export interface DB {
+  CPDOutplantingMastersheet: CPDOutplantingMastersheet
   operators: Operators
   operatorsSites: OperatorsSites
   outplants: Outplants
@@ -145,4 +147,5 @@ export interface DB {
   sites: Sites
   species: Species
   users: Users
+  WSOutplantingMastersheet: WSOutplantingMastersheet
 }

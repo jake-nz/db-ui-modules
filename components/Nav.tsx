@@ -10,11 +10,45 @@ const menuItems: ItemType[] = [
     icon: <HomeOutlined />,
     label: 'Home'
   },
+  {
+    key: '/outplants',
+    icon: <TruckOutlined />,
+    label: 'Outplants'
+  },
+  {
+    key: '/regions',
+    icon: <TruckOutlined />,
+    label: 'Regions'
+  },
+
+  {
+    key: '/reefs',
+    icon: <TruckOutlined />,
+    label: 'Reefs',
+    disabled: true
+  },
+  {
+    key: '/sites',
+    icon: <TruckOutlined />,
+    label: 'Sites',
+    disabled: true
+  },
 
   {
     key: '/operators',
     icon: <TruckOutlined />,
     label: 'Operators'
+  },
+  {
+    key: '/species',
+    icon: <TruckOutlined />,
+    label: 'Species'
+  },
+  {
+    key: '/users',
+    icon: <TruckOutlined />,
+    label: 'Users',
+    disabled: true
   }
 ]
 
