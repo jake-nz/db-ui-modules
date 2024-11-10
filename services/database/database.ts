@@ -1,5 +1,5 @@
-import { DB } from './database.d'
-import { CamelCasePlugin, Kysely, PostgresDialect, sql } from 'kysely'
+import { DB } from './database.types'
+import { CamelCasePlugin, Kysely, PostgresDialect } from 'kysely'
 import { Pool } from 'pg'
 
 export const database = new Kysely<DB>({
@@ -10,5 +10,3 @@ export const database = new Kysely<DB>({
   }),
   plugins: [new CamelCasePlugin({ maintainNestedObjectKeys: true })]
 })
-
-export const now = sql<Date>`now()`

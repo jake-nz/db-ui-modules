@@ -34,7 +34,7 @@ export default function CreateOutplants() {
     const last = outplants[outplants.length - 1]
     if (last.origin)
       form.setFieldsValue({ outplants: [...outplants, { key: last.key + 1 }] })
-  }, [outplants])
+  }, [outplants, form])
 
   return (
     <Card bordered={false}>
@@ -73,10 +73,10 @@ export default function CreateOutplants() {
             label="Number of crew"
             name="crew"
             rules={[
-              { required: true, message: 'Please enter the number of crew' },
               {
+                required: true,
                 min: 1,
-                message: 'There must be at least one crew member',
+                message: 'Please enter the number of crew',
                 transform: Number
               }
             ]}
@@ -142,7 +142,7 @@ const columns = (
   {
     title: 'Species',
     key: 'species',
-    render: ({ key, name, ...restField }) => {
+    render: function Render({ key, name, ...restField }) {
       const rowHasData = useRowHasData(name)
       return (
         <Form.Item
@@ -159,7 +159,7 @@ const columns = (
   {
     title: 'Morphology',
     key: 'morphology',
-    render: ({ key, name, ...restField }) => {
+    render: function Render({ key, name, ...restField }) {
       const rowHasData = useRowHasData(name)
       return (
         <Form.Item
@@ -181,17 +181,23 @@ const columns = (
   {
     title: 'Count',
     key: 'count',
-    render: ({ key, name, ...restField }) => {
+    render: function Render({ key, name, ...restField }) {
       const rowHasData = useRowHasData(name)
       return (
         <Form.Item
           style={{ marginBottom: 0 }}
           {...restField}
           name={[name, 'count']}
-          rules={[
-            { required: rowHasData, message: 'Please enter the count' },
-            { min: 1, message: 'Please enter the count', transform: Number }
-          ]}
+          rules={
+            rowHasData && [
+              {
+                required: true,
+                min: 1,
+                message: 'Please enter the count',
+                transform: Number
+              }
+            ]
+          }
         >
           <Input type="number" style={{ width: 80 }} />
         </Form.Item>
@@ -201,7 +207,7 @@ const columns = (
   {
     title: 'Origin',
     key: 'origin',
-    render: ({ key, name, ...restField }) => {
+    render: function Render({ key, name, ...restField }) {
       const rowHasData = useRowHasData(name)
       return (
         <Form.Item
@@ -217,7 +223,7 @@ const columns = (
   },
   {
     key: 'remove',
-    render: ({ name }) => {
+    render: function Render({ name }) {
       const hasData = useRowHasData(name)
       return (
         <Tooltip title={!hasData && 'Blank row will not be saved'}>

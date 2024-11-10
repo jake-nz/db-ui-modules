@@ -39,7 +39,7 @@ export const SiteSelect = ({
     if (!value && data?.length === 1 && value !== data[0].id) {
       onChange?.(data[0].id)
     }
-  }, [data, value, onChange])
+  }, [data, value, onChange, form])
 
   const options = data?.map(site => ({
     label: (

@@ -87,7 +87,7 @@ export interface Reefs {
 }
 
 export interface Regions {
-  color: string
+  color: string | null
   id: string
   name: string
 }

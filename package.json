@@ -9,12 +9,11 @@
     "lint": "next lint",
     "migrate": "kysely migrate",
     "knip": "knip",
-    "generate-db-types": "kysely-codegen --out-file services/database/database.d.ts --camel-case --include-pattern '(public.*)' && prettier -w services/database/database.d.ts"
+    "generate-db-types": "kysely-codegen --out-file services/database/database.types.ts --camel-case --include-pattern '(public.*)' && prettier -w services/database/database.types.ts"
   },
   "dependencies": {
     "@ant-design/icons": "^5.5.1",
     "@ant-design/nextjs-registry": "^1.0.1",
-    "@casl/ability": "^6.7.2",
     "antd": "^5.21.6",
     "bcrypt": "^5.1.1",
     "castellate": "^0.0.1",
@@ -40,6 +39,7 @@
     "knip": "^5.36.3",
     "kysely-codegen": "^0.17.0",
     "kysely-ctl": "^0.9.0",
+    "prettier": "^3.3.3",
     "typescript": "^5"
   }
 }

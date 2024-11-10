@@ -1,8 +1,7 @@
 import { HomeOutlined, TruckOutlined } from '@ant-design/icons'
-import { Menu } from 'antd'
+import { Menu, MenuProps } from 'antd'
 import { ItemType } from 'antd/es/menu/interface'
 import { usePathname, useRouter } from 'next/navigation'
-import { MenuInfo } from 'rc-menu/lib/interface'
 
 const menuItems: ItemType[] = [
   {
@@ -64,7 +63,7 @@ const getSelectedKeys = (pathname: string) => {
 export const Nav = () => {
   const router = useRouter()
   const pathname = usePathname()
-  const go = ({ key }: MenuInfo) => router.push(key)
+  const go: MenuProps['onClick'] = ({ key }) => router.push(key)
 
   return (
     <Menu

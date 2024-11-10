@@ -1,4 +1,4 @@
-import { Origin } from '@/services/database/database.d'
+import { Origin } from '@/services/database/database.types'
 import { Tag } from 'antd'
 
 export const origins: Record<
