@@ -2,17 +2,12 @@
 
 import { operatorsFetcher } from '@/app/operators/operatorsFetcher'
 import { Select, Typography } from 'antd'
+import { ComponentProps } from 'react'
 import useSWR from 'swr'
 
 const { Text } = Typography
 
-export const OperatorSelect = ({
-  value,
-  onChange
-}: {
-  value?: string
-  onChange?: (value: string) => void
-}) => {
+export const OperatorSelect = (props: ComponentProps<typeof Select>) => {
   const { data, isLoading } = useSWR(
     {
       page: 1,
@@ -37,10 +32,9 @@ export const OperatorSelect = ({
     <Select
       loading={isLoading}
       options={options}
-      onChange={onChange}
-      value={value}
       filterOption
       showSearch
+      {...props}
     />
   )
 }

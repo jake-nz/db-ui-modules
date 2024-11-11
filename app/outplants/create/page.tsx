@@ -13,6 +13,7 @@ import {
   Form,
   FormListFieldData,
   Input,
+  Select,
   Table,
   TableColumnsType,
   Tooltip,
@@ -82,6 +83,41 @@ export default function CreateOutplants() {
             ]}
           >
             <Input type="number" />
+          </Form.Item>
+          <Form.Item
+            label="Funding source"
+            name="funding"
+            rules={[
+              {
+                required: true,
+                message: 'Please select the funding source'
+              }
+            ]}
+          >
+            <Select
+              options={[
+                {
+                  label: 'GBRF phase 1-2',
+                  value: 'GBRF12'
+                },
+                {
+                  label: 'GBRF phase 3',
+                  value: 'GBRF3'
+                },
+                {
+                  label: 'GBRF phase 4',
+                  value: 'GBRF4'
+                },
+                {
+                  label: 'Diageo',
+                  value: 'Diageo'
+                },
+                {
+                  label: 'TRPI',
+                  value: 'TRPI'
+                }
+              ]}
+            />
           </Form.Item>
         </div>
 

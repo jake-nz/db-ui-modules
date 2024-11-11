@@ -1,7 +1,7 @@
 'use server'
 import { database } from '@/services/database/database'
 // import { InsertObject, UpdateObject } from 'kysely'
-import { ListQuery, paginate } from 'snaks'
+import { iterateSorter, ListQuery, paginate } from 'snaks'
 
 export const outplantsFetcher = async ({
   page,
@@ -30,7 +30,17 @@ export const outplantsFetcher = async ({
       'species.genus',
       'notes'
     ])
-    .orderBy('date desc')
+    .where('date', '>', new Date('2024-01-01'))
+
+  if (filters.operator)
+    query = query.where('operators.id', 'in', filters.operator as string[])
+
+  for (const [column, direction] of iterateSorter(sorter)) {
+    switch (column) {
+      case 'date':
+        query = query.orderBy('date', direction)
+    }
+  }
 
   return paginate(query, page, 100).execute()
 }

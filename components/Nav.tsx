@@ -1,4 +1,13 @@
-import { HomeOutlined, TruckOutlined } from '@ant-design/icons'
+import ColonyIcon from '@/components/icons/coral.svg'
+import MapPin from '@/components/icons/map-pin-line.svg'
+import Boat from '@/components/icons/sailboat-line.svg'
+import ReefIcon from '@/components/icons/reef.svg'
+import Globe from '@/components/icons/globe.svg'
+import Icon, {
+  HomeOutlined,
+  UserOutlined,
+  NodeExpandOutlined
+} from '@ant-design/icons'
 import { Menu, MenuProps } from 'antd'
 import { ItemType } from 'antd/es/menu/interface'
 import { usePathname, useRouter } from 'next/navigation'
@@ -11,41 +20,41 @@ const menuItems: ItemType[] = [
   },
   {
     key: '/outplants',
-    icon: <TruckOutlined />,
+    icon: <Icon component={ColonyIcon} />,
     label: 'Outplants'
   },
   {
     key: '/regions',
-    icon: <TruckOutlined />,
+    icon: <Icon component={Globe} />,
     label: 'Regions'
   },
 
   {
     key: '/reefs',
-    icon: <TruckOutlined />,
+    icon: <Icon component={ReefIcon} />,
     label: 'Reefs',
     disabled: true
   },
   {
     key: '/sites',
-    icon: <TruckOutlined />,
-    label: 'Sites',
-    disabled: true
+    icon: <Icon component={MapPin} />,
+    label: 'Sites'
+    // disabled: true
   },
 
   {
     key: '/operators',
-    icon: <TruckOutlined />,
+    icon: <Icon component={Boat} />,
     label: 'Operators'
   },
   {
     key: '/species',
-    icon: <TruckOutlined />,
+    icon: <NodeExpandOutlined />,
     label: 'Species'
   },
   {
     key: '/users',
-    icon: <TruckOutlined />,
+    icon: <UserOutlined />,
     label: 'Users',
     disabled: true
   }
