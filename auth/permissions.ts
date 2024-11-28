@@ -2,25 +2,35 @@ import { CastellateBase, Roles, Permissions } from 'castellate'
 import { type DefaultSession } from 'next-auth'
 import { JWT } from 'next-auth/jwt'
 
-export type Role = 'Public' | 'Admin' | 'Operator'
+export type Role = 'Public' | 'Admin' | 'Staff' | 'Operator'
 
 export type PermissionsTypes = {
   UserId: number
-  Tenant: null // Not multi tenant
+  Tenant: string | null // Users may belong to an operator and operator IDs are strings
   Role: Role
   Subject: 'User' | 'Operator' | 'all'
   Action: CastellateBase['Action'] // defaults
 } & CastellateBase
 
 export const permissions: Permissions<PermissionsTypes> = {
-  Public({ can: allow, cannot: forbid }, { userId }) {
+  Public({ can: allow, cannot: forbid }) {
     // No permissions
   },
   Admin({ can: allow, cannot: forbid }) {
     allow('manage', 'all')
   },
-  Operator({ can: allow, cannot: forbid }) {
-    // allow('manage', 'Operator')
+  Staff({ can: allow, cannot: forbid }, { userId }) {
+    // Can do everything
+    allow('manage', 'all')
+    // Except manage users
+    forbid('manage', 'User')
+    // But can edit self
+    allow('read', 'User', { id: userId })
+    allow('edit', 'User', { id: userId })
+  },
+  Operator({ can: allow, cannot: forbid }, { tenantId }) {
+    allow('manage', 'Operator', { id: tenantId })
+    // TODO - more permissions as needed
   }
 }
 

@@ -26,6 +26,8 @@ export type Origin = 'Donor Colony' | 'Fragment of Opportunity' | 'Nursery'
 
 export type Timestamp = ColumnType<Date, Date | string, Date | string>
 
+export type UserRole = 'Admin' | 'Operator' | 'Staff'
+
 export interface CPDOutplantingMastersheet {
   CNPTraitMorph: string | null
   'Cumulative outplants': number | null
@@ -115,7 +117,9 @@ export interface Users {
   email: string | null
   id: Generated<string>
   name: string | null
+  operatorId: string | null
   password: string
+  role: UserRole
 }
 
 export interface WSOutplantingMastersheet {
