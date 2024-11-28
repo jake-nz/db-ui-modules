@@ -9,26 +9,25 @@ export const outplantsFetcher = async ({
   sorter
 }: ListQuery) => {
   let query = database
-    .selectFrom('outplants')
-    .innerJoin('operators', 'operators.id', 'outplants.operator')
+    .selectFrom('outplantDays')
+    .innerJoin('operators', 'operators.id', 'outplantDays.operator')
     .innerJoin('regions', 'regions.id', 'operators.region')
-    .innerJoin('sites', 'sites.id', 'outplants.site')
-    .innerJoin('species', 'species.id', 'outplants.species')
+    .innerJoin('sites', 'sites.id', 'outplantDays.site')
+    // .innerJoin('species', 'species.id', 'outplants.species')
     .leftJoin('reefs', 'reefs.id', 'sites.reef')
     .select(sb => [
-      'outplants.id',
+      'outplantDays.id',
       'date',
-      'count',
-      'morph',
       'operators.name as operator',
       'regions.name as region',
       'regions.color as regionColor',
-      'origin',
       'sites.name as site',
       'reefs.name as reef',
-      'species.species',
-      'species.genus',
-      'notes'
+      sb
+        .selectFrom('outplants')
+        .select(sb => sb.fn.sum('count').as('count'))
+        .whereRef('outplants.day', '=', 'outplantDays.id')
+        .as('outplantCount')
     ])
     .where('date', '>', new Date('2024-01-01'))
 

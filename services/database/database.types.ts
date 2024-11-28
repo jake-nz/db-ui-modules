@@ -66,17 +66,24 @@ export interface OperatorsSites {
   site: string
 }
 
-export interface Outplants {
-  count: number
+export interface OutplantDays {
   createdAt: Generated<Timestamp>
   date: Timestamp
   id: Generated<number>
-  morph: string
-  notes: string | null
   operator: string
-  origin: Origin
   originalData: Json
   site: string
+}
+
+export interface Outplants {
+  count: number
+  createdAt: Generated<Timestamp>
+  day: number | null
+  id: Generated<number>
+  morph: string
+  notes: string | null
+  origin: Origin
+  originalData: Json
   species: string
 }
 
@@ -87,7 +94,7 @@ export interface Reefs {
 }
 
 export interface Regions {
-  color: string | null
+  color: string
   id: string
   name: string
 }
@@ -141,6 +148,7 @@ export interface DB {
   CPDOutplantingMastersheet: CPDOutplantingMastersheet
   operators: Operators
   operatorsSites: OperatorsSites
+  outplantDays: OutplantDays
   outplants: Outplants
   reefs: Reefs
   regions: Regions

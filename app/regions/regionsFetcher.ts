@@ -7,7 +7,8 @@ export const regionsFetcher = async ({ page, filters, sorter }: ListQuery) => {
   let query = database
     .selectFrom('regions')
     .innerJoin('operators', 'operators.region', 'regions.id')
-    .leftJoin('outplants', 'operators.id', 'outplants.operator')
+    .leftJoin('outplantDays', 'outplantDays.operator', 'operators.id')
+    .leftJoin('outplants', 'outplants.day', 'outplantDays.id')
     .select(sb => [
       'regions.name',
       'color',

@@ -35,28 +35,11 @@ const columns: TableColumnsType<Row> = [
   { title: 'Reef', dataIndex: 'reef', key: 'reef' },
   { title: 'Site', dataIndex: 'site', key: 'site' },
   {
-    title: 'Species',
-    key: 'species',
-    render: ({ species, genus }) => (
-      <i>
-        {genus} {species}
-      </i>
-    )
-  },
-  { title: 'Morph', dataIndex: 'morph', key: 'morph' },
-  {
-    title: 'Count',
-    dataIndex: 'count',
-    key: 'count',
-    width: 80
-  },
-  {
-    title: 'Origin',
-    dataIndex: 'origin',
-    key: 'origin',
-    render: origin => <OriginTag origin={origin} />
-  },
-  { title: 'Notes', dataIndex: 'notes', key: 'notes' }
+    title: 'Outplants',
+    dataIndex: 'outplantCount',
+    key: 'outplantCount',
+    width: 100
+  }
 ]
 
 export default function Outplants() {

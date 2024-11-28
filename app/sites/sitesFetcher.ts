@@ -9,7 +9,8 @@ export const sitesFetcher = async ({ page, filters, sorter }: ListQuery) => {
     .innerJoin('reefs', 'sites.reef', 'reefs.id')
     .leftJoin('operatorsSites', 'sites.id', 'operatorsSites.site')
     .innerJoin('operators', 'operatorsSites.operator', 'operators.id')
-    .leftJoin('outplants', 'outplants.site', 'sites.id')
+    .leftJoin('outplantDays', 'outplantDays.site', 'sites.id')
+    .leftJoin('outplants', 'outplants.day', 'outplantDays.id')
     .select(sb => [
       'sites.id',
       'sites.name',
