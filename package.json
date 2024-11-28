@@ -7,9 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "typecheck": "tsc --noemit",
     "migrate": "kysely migrate",
     "knip": "knip",
-    "generate-db-types": "kysely-codegen --out-file services/database/database.types.ts --camel-case --include-pattern '(public.*)' && prettier -w services/database/database.types.ts"
+    "generate-db-types": "kysely-codegen --out-file services/database/database.types.ts --camel-case --include-pattern '(public.*)' && prettier -w services/database/database.types.ts",
+    "prepare": "husky"
   },
   "dependencies": {
     "@ant-design/icons": "^5.5.1",
@@ -37,6 +39,7 @@
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "14.1.3",
+    "husky": "^9.1.7",
     "knip": "^5.36.3",
     "kysely-codegen": "^0.17.0",
     "kysely-ctl": "^0.9.0",
