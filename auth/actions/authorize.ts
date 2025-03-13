@@ -1,8 +1,8 @@
 'use server'
+import { Role } from '@/services/auth/permissions'
 import { database } from '@/services/database/database'
 import bcrypt from 'bcrypt'
 import { User } from 'next-auth'
-import { Role } from '../services/auth/permissions'
 
 export const authorize = async (credentials: {
   username?: unknown

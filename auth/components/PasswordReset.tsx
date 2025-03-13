@@ -1,17 +1,19 @@
 'use client'
-import { Alert, Button, Card, Form, Input, Space, Typography } from 'antd'
+import { Alert, Button, Form, Input, Skeleton, Typography } from 'antd'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { AuthCard } from './AuthCard'
 import { confirmPasswordRules, passwordRules } from './formRules'
+import { validateToken } from '../actions/validateToken'
+import { resetPassword } from '../actions/resetPassword'
 const { Text } = Typography
 
+type Status = 'validating' | 'loading' | 'success' | null
+
 export const PasswordReset = () => {
-  const [loading, setLoading] = useState(false)
-  const [validating, setValidating] = useState(true)
+  const [status, setStatus] = useState<Status>('validating')
   const [error, setError] = useState<string | null>(null)
-  const [changed, setChanged] = useState(false)
   const searchParams = useSearchParams()
   const router = useRouter()
 
@@ -20,72 +22,50 @@ export const PasswordReset = () => {
   useEffect(() => {
     if (!token) {
       setError('Invalid or missing reset token')
-      setValidating(false)
+      setStatus(null)
       return
     }
 
     // Validate the token
-    const validateToken = async () => {
+    const XvalidateToken = async () => {
       try {
-        const response = await fetch('/api/auth/validate-token', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ token })
-        })
-
-        if (!response.ok) {
-          const data = await response.json()
-          throw new Error(data.error || 'Invalid or expired token')
-        }
-
-        setValidating(false)
+        const valid = await validateToken(token)
+        if (!valid) setError('Invalid or expired token')
       } catch (err: any) {
         setError(err.message)
-        setValidating(false)
       }
+      setStatus(null)
     }
 
-    validateToken()
+    XvalidateToken()
   }, [token])
 
   const setPassword = async (credentials: { password: string }) => {
-    setChanged(false)
-    setLoading(true)
+    setStatus('loading')
     try {
-      const response = await fetch('/api/auth/reset-password', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          token,
-          password: credentials.password
-        })
+      const response = await resetPassword({
+        token: token!,
+        password: credentials.password
       })
 
-      if (!response.ok) {
-        const data = await response.json()
-        throw new Error(data.error || 'Failed to reset password')
-      }
+      if (!response.error)
+        throw new Error(response.error || 'Failed to reset password')
 
-      setChanged(true)
+      setStatus('success')
       // Redirect to signin page after 3 seconds
       setTimeout(() => {
         router.push('/auth/signin')
       }, 3000)
     } catch (err: any) {
       setError(err.message)
-    } finally {
-      setLoading(false)
+      setStatus(null)
     }
   }
 
   return (
     <AuthCard title="Set New Password">
-      {validating ? (
-        <Validating />
+      {status === 'validating' ? (
+        <Skeleton active />
       ) : error ? (
         <ErrorMessage error={error} />
       ) : (
@@ -108,25 +88,21 @@ export const PasswordReset = () => {
           </Form.Item>
 
           <Form.Item wrapperCol={{ offset: 6, span: 18 }}>
-            <Button type="primary" htmlType="submit" loading={loading}>
+            <Button
+              type="primary"
+              htmlType="submit"
+              loading={status === 'loading'}
+            >
               Set Password
             </Button>
           </Form.Item>
         </Form>
       )}
 
-      {changed && <Success />}
+      {status === 'success' && <Success />}
     </AuthCard>
   )
 }
-
-const Validating = () => (
-  <Alert
-    message="Validating"
-    description="Validating your reset token..."
-    type="info"
-  />
-)
 
 const ErrorMessage = ({ error }: { error: string }) => (
   <Alert

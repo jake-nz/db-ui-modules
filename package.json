@@ -27,8 +27,10 @@
     "pg": "^8.13.1",
     "react": "^18",
     "react-dom": "^18",
+    "resend": "^4.1.2",
     "snaks": "^0.0.9",
-    "swr": "^2.2.5"
+    "swr": "^2.2.5",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "^4.4.0",

@@ -36,8 +36,6 @@ export const useAbility = () => {
 
   if (!session) return null
 
-  console.log({ session })
-
   const roles = session.user?.roles
 
   if (roles === undefined) return null

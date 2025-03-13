@@ -28,34 +28,6 @@ export type Timestamp = ColumnType<Date, Date | string, Date | string>
 
 export type UserRole = 'Admin' | 'Operator' | 'Staff'
 
-export interface CPDOutplantingMastersheet {
-  CNPTraitMorph: string | null
-  'Cumulative outplants': number | null
-  Date: string | null
-  Day: number | null
-  Deployment: string | null
-  Genus: string | null
-  Month: string | null
-  notes1: string | null
-  notes2: string | null
-  notes3: string | null
-  notes4: string | null
-  notes5: string | null
-  Operator: string | null
-  'Operator Morph': string | null
-  Origin: string | null
-  'Other details /comments': string | null
-  Outplants: number | null
-  Reef: string | null
-  Site: string | null
-  Species: string | null
-  TraitValuePC1: number | null
-  TraitValuePC2: number | null
-  TraitValuePC3: number | null
-  TraitValuePC32: string | null
-  Year: number | null
-}
-
 export interface Operators {
   id: string
   name: string
@@ -119,37 +91,12 @@ export interface Users {
   name: string | null
   operatorId: string | null
   password: string
-  role: UserRole
-}
-
-export interface WSOutplantingMastersheet {
-  CNPTraitMorph: string | null
-  'Cumulative outplants': number | null
-  Date: number | null
-  DateOg: string | null
-  Deployment: number | null
-  Genus: string | null
-  Month: string | null
-  notes1: string | null
-  notes2: string | null
-  notes3: string | null
-  Operator: string | null
-  'Operator Morph': string | null
-  Origin: string | null
-  'Other details /comments': string | null
-  Outplants: number | null
-  Reef: string | null
-  Site: string | null
-  Species: string | null
-  'Species/genus': string | null
-  TraitValuePC1: string | null
-  TraitValuePC2: string | null
-  TraitValuePC3: string | null
-  Year: number | null
+  resetToken: string | null
+  resetTokenExpiresAt: Timestamp | null
+  role: Generated<UserRole>
 }
 
 export interface DB {
-  CPDOutplantingMastersheet: CPDOutplantingMastersheet
   operators: Operators
   operatorsSites: OperatorsSites
   outplantDays: OutplantDays
@@ -159,5 +106,4 @@ export interface DB {
   sites: Sites
   species: Species
   users: Users
-  WSOutplantingMastersheet: WSOutplantingMastersheet
 }

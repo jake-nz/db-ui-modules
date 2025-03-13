@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 import { AuthCard } from './AuthCard'
 import { emailRules, passwordRules } from './formRules'
-import { signinWithCredentials } from './signinWithCredentials'
+import { signinWithCredentials } from '../actions/signinWithCredentials'
 
 export const Signin = () => {
   const [loading, setLoading] = useState(false)

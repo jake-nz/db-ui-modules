@@ -3,7 +3,7 @@ import { Roles } from 'castellate'
 import NextAuth, { type DefaultSession } from 'next-auth'
 import { JWT } from 'next-auth/jwt'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import { authorize } from './authorize'
+import { authorize } from './actions/authorize'
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [CredentialsProvider({ authorize })],

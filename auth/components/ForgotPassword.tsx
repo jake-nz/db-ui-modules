@@ -3,6 +3,7 @@ import { Alert, Button, Form, Input, Space } from 'antd'
 import { useState } from 'react'
 import { AuthCard } from './AuthCard'
 import { emailRules } from './formRules'
+import { forgotPassword } from '../actions/forgotPassword'
 
 const getURL = () => {
   let url =
@@ -25,22 +26,10 @@ export const ForgotPassword = () => {
     setSent(false)
     setLoading(true)
     try {
-      const response = await fetch('/api/auth/forgot-password', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          email: credentials.email,
-          redirectTo: getURL() + 'auth/reset-password'
-        })
+      await forgotPassword({
+        email: credentials.email,
+        redirectTo: getURL() + 'auth/reset-password'
       })
-
-      if (!response.ok) {
-        const data = await response.json()
-        throw new Error(data.error || 'Failed to send reset email')
-      }
-
       setSent(true)
     } catch (err: any) {
       setError(err.message)
