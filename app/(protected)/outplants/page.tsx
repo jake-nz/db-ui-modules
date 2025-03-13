@@ -1,5 +1,5 @@
 'use client'
-import { useAssertAbility } from '@/auth/ability'
+import { useAssertAbility } from '@/services/auth/ability'
 import { Datetime } from '@/components/Datetime'
 import { OriginTag } from '@/components/OriginTag'
 import { Button, Space, TableColumnsType, Tag, Typography } from 'antd'

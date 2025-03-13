@@ -3,26 +3,38 @@
 import { Alert, Button, Form, Input, Space } from 'antd'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { loginWithCredentials } from './loginWithCredentials'
+import { signinWithCredentials } from '../../auth/components/signinWithCredentials'
 
 export const LoginForm = ({ onLogin }: { onLogin: () => void }) => {
   const [loading, setLoading] = useState(false)
 
+  const [form] = Form.useForm()
+
   const login = async (credentials: { email: string; password: string }) => {
     setLoading(true)
-    const response = await loginWithCredentials(
+    const response = await signinWithCredentials(
       credentials.email,
       credentials.password
     )
     console.log(response)
+    if (response.error) {
+      console.error(response.error)
+      form.setFields([{ name: 'password', errors: [response.error] }])
+    } else {
+      onLogin()
+    }
     setLoading(false)
-    onLogin()
   }
 
   return (
     <Space direction="vertical" size="large" style={{ width: '100%' }}>
       {/* {error && <Alert message={error} type="error" />} */}
-      <Form labelCol={{ span: 6 }} wrapperCol={{ span: 18 }} onFinish={login}>
+      <Form
+        form={form}
+        labelCol={{ span: 6 }}
+        wrapperCol={{ span: 18 }}
+        onFinish={login}
+      >
         <Form.Item
           label="Email"
           name="email"

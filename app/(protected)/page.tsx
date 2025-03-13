@@ -20,7 +20,7 @@ export default function Home() {
       <Space direction="vertical" size="middle" style={{ width: 500 }}>
         <Row gutter={16}>
           <Col span={12}>
-            <Card bordered={false}>
+            <Card variant="borderless">
               <Statistic
                 title="Outplants this month"
                 value={2145}
@@ -29,7 +29,7 @@ export default function Home() {
             </Card>
           </Col>
           <Col span={12}>
-            <Card bordered={false}>
+            <Card variant="borderless">
               <Statistic
                 title="Outplants this year"
                 value={105392}
@@ -40,12 +40,12 @@ export default function Home() {
         </Row>
         <Row gutter={16}>
           <Col span={12}>
-            <Card bordered={false}>
+            <Card variant="borderless">
               <Statistic title="Number of species" value={71} precision={0} />
             </Card>
           </Col>
           <Col span={12}>
-            <Card bordered={false}>
+            <Card variant="borderless">
               <Statistic title="Planting hours" value={1840} precision={0} />
             </Card>
           </Col>

@@ -1,7 +1,3 @@
-'use client'
+import { Signin } from '@/auth/components/Signin'
 
-import { LoginForm } from '@/components/auth/LoginForm'
-
-export default function SignUp() {
-  return <LoginForm onLogin={() => {}} />
-}
+export default Signin

@@ -1,23 +1,13 @@
-import { Space } from 'antd'
+import { AuthLayout } from '@/auth/components/AuthLayout'
 import Image from 'next/image'
 
-export default async function AuthLayout({
+export default async function AuthLayoutWithLogo({
   children
 }: {
   children: React.ReactNode
 }) {
   return (
-    <Space
-      direction="vertical"
-      size="large"
-      style={{
-        width: '100%',
-        // Less than full height to ballance content towards top
-        minHeight: '70vh',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}
-    >
+    <AuthLayout>
       <Image
         src="/images/logo-dark.png"
         width={1609 / 7}
@@ -26,6 +16,6 @@ export default async function AuthLayout({
         priority
       />
       {children}
-    </Space>
+    </AuthLayout>
   )
 }

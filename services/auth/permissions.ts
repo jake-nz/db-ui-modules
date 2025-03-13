@@ -1,6 +1,4 @@
-import { CastellateBase, Roles, Permissions } from 'castellate'
-import { type DefaultSession } from 'next-auth'
-import { JWT } from 'next-auth/jwt'
+import { CastellateBase, Permissions } from 'castellate'
 
 export type Role = 'Admin' | 'Staff' | 'Operator'
 
@@ -28,24 +26,5 @@ export const permissions: Permissions<PermissionsTypes> = {
   Operator({ can: allow, cannot: forbid }, { tenantId }) {
     allow('manage', 'Operator', { id: tenantId })
     // TODO - more permissions as needed
-  }
-}
-
-// We need to import JWT, even though we don't directly use it. This line helps it not look like an unused import
-type KeepImport = JWT
-
-declare module 'next-auth' {
-  interface User {
-    roles: Roles<PermissionsTypes>
-  }
-  interface Session {
-    user: {
-      roles: Roles<PermissionsTypes>
-    } & DefaultSession['user']
-  }
-}
-declare module 'next-auth/jwt' {
-  interface JWT {
-    roles: Roles<PermissionsTypes>
   }
 }

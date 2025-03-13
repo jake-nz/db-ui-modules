@@ -1,5 +1,5 @@
 'use client'
-import { useAssertAbility } from '@/auth/ability'
+import { useAssertAbility } from '@/services/auth/ability'
 import { TableColumnsType, Tag } from 'antd'
 import { AdminTable } from 'snaks/client'
 import { sitesFetcher } from './sitesFetcher'

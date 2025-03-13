@@ -1,6 +1,6 @@
 'use client' // Error components must be Client Components
 
-import { LoginPrompt } from '@/components/auth/LoginPrompt'
+import { useSigninRedirect } from '@/auth/components/useSigninRedirect'
 import { Button, Card, Result } from 'antd'
 import { useEffect } from 'react'
 
@@ -14,7 +14,9 @@ export default function Error({
   // Log it to the console
   useEffect(() => console.error({ error }), [error])
 
-  if (error.name === 'AuthRequiredError') return <LoginPrompt />
+  const signinRedirect = useSigninRedirect()
+
+  if (error.name === 'AuthRequiredError') return signinRedirect()
 
   if (error.name === 'ForbiddenError')
     return (

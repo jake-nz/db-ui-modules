@@ -4,8 +4,9 @@ import { Alert, Layout as AntLayout, Button } from 'antd'
 import { signOut } from 'next-auth/react'
 import { WarningOutlined } from '@ant-design/icons'
 import { useEffect, useState } from 'react'
-import { useAbility } from '@/auth/ability'
-import { LoginPrompt } from '@/components/auth/LoginPrompt'
+import { useAbility } from '@/services/auth/ability'
+import { redirect, usePathname } from 'next/navigation'
+import { useSigninRedirect } from '@/auth/components/useSigninRedirect'
 
 const { Header, Content, Footer } = AntLayout
 
@@ -26,12 +27,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     )
   }, [])
   const ability = useAbility() // Any ability, just enforcing login
+  const signinRedirect = useSigninRedirect()
+  if (!ability) return signinRedirect()
 
-  // const pathname = usePathname()
   // const print = pathname?.endsWith('/print')
-
-  if (!ability) return <LoginPrompt />
-
   // if (print) return children
 
   return (
