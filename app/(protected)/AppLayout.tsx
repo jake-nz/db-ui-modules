@@ -2,11 +2,10 @@
 import { Nav } from '@/components/Nav'
 import { Alert, Layout as AntLayout, Button } from 'antd'
 import { signOut } from 'next-auth/react'
-import { usePathname } from 'next/navigation'
 import { WarningOutlined } from '@ant-design/icons'
 import { useEffect, useState } from 'react'
 import { useAbility } from '@/auth/ability'
-import { LoginPrompt } from '@/auth/LoginPrompt'
+import { LoginPrompt } from '@/components/auth/LoginPrompt'
 
 const { Header, Content, Footer } = AntLayout
 
@@ -28,12 +27,12 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   }, [])
   const ability = useAbility() // Any ability, just enforcing login
 
-  const pathname = usePathname()
-  const print = pathname?.endsWith('/print') || pathname?.endsWith('/report')
+  // const pathname = usePathname()
+  // const print = pathname?.endsWith('/print')
 
   if (!ability) return <LoginPrompt />
 
-  if (print) return children
+  // if (print) return children
 
   return (
     <AntLayout className="layout" style={{ minHeight: '100vh' }}>

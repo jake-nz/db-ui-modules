@@ -2,7 +2,7 @@ import { CastellateBase, Roles, Permissions } from 'castellate'
 import { type DefaultSession } from 'next-auth'
 import { JWT } from 'next-auth/jwt'
 
-export type Role = 'Public' | 'Admin' | 'Staff' | 'Operator'
+export type Role = 'Admin' | 'Staff' | 'Operator'
 
 export type PermissionsTypes = {
   UserId: number
@@ -13,9 +13,6 @@ export type PermissionsTypes = {
 } & CastellateBase
 
 export const permissions: Permissions<PermissionsTypes> = {
-  Public({ can: allow, cannot: forbid }) {
-    // No permissions
-  },
   Admin({ can: allow, cannot: forbid }) {
     allow('manage', 'all')
   },

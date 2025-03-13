@@ -8,7 +8,7 @@ export const LoginPrompt = () => (
       status="warning"
       title="Please log in to continue"
       extra={[
-        <Link href="/api/auth/signin" key="login">
+        <Link href="/auth/signin" key="login">
           <Button type="primary">Log in</Button>
         </Link>
       ]}

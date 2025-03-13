@@ -4,7 +4,11 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 import { Role } from './permissions'
 import { database } from '@/services/database/database'
 
-export const { handlers, auth, signIn } = NextAuth({
+export const { handlers, auth, signIn, signOut } = NextAuth({
+  debug: true,
+  pages: {
+    signIn: '/auth/signin'
+  },
   providers: [
     CredentialsProvider({
       name: 'email',

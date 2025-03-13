@@ -1,6 +1,6 @@
 'use client' // Error components must be Client Components
 
-import { LoginPrompt } from '@/auth/LoginPrompt'
+import { LoginPrompt } from '@/components/auth/LoginPrompt'
 import { Button, Card, Result } from 'antd'
 import { useEffect } from 'react'
 

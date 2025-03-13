@@ -1,6 +1,6 @@
 'use client'
 
-import { speciesFetcher } from '@/app/species/speciesFetcher'
+import { speciesFetcher } from '@/app/(protected)/species/speciesFetcher'
 import { Select, Typography } from 'antd'
 import { ComponentProps, PropsWithRef } from 'react'
 import useSWR from 'swr'

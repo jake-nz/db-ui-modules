@@ -1,6 +1,6 @@
 'use client'
 
-import { operatorsFetcher } from '@/app/operators/operatorsFetcher'
+import { operatorsFetcher } from '@/app/(protected)/operators/operatorsFetcher'
 import { Select, Typography } from 'antd'
 import { ComponentProps } from 'react'
 import useSWR from 'swr'

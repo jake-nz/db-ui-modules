@@ -1,7 +1,6 @@
 import './globals.css'
 import { AntdRegistry } from '@ant-design/nextjs-registry'
 import { SessionProvider } from 'next-auth/react'
-import AppLayout from './AppLayout'
 import { auth } from '@/auth/auth'
 
 export default async function RootLayout({
@@ -15,9 +14,7 @@ export default async function RootLayout({
     <html lang="en">
       <body>
         <AntdRegistry>
-          <SessionProvider session={session}>
-            <AppLayout>{children}</AppLayout>
-          </SessionProvider>
+          <SessionProvider session={session}>{children}</SessionProvider>
         </AntdRegistry>
       </body>
     </html>
