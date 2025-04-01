@@ -29,7 +29,6 @@ export const outplantsFetcher = async ({
         .whereRef('outplants.day', '=', 'outplantDays.id')
         .as('outplantCount')
     ])
-    .where('date', '>', new Date('2024-01-01'))
 
   if (filters.operator)
     query = query.where('operators.id', 'in', filters.operator as string[])
