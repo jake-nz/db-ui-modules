@@ -2,7 +2,7 @@
 
 import { useSigninRedirect } from '@/auth/components/useSigninRedirect'
 import { Button, Card, Result } from 'antd'
-import { useEffect } from 'react'
+import { ReactNode, useEffect } from 'react'
 
 export default function Error({
   error,
@@ -20,13 +20,20 @@ export default function Error({
 
   if (error.name === 'ForbiddenError')
     return (
-      <Card>
+      <Layout>
         <Result status="error" title="Access Denied" subTitle={error.message} />
-      </Card>
+      </Layout>
+    )
+
+  if (error.message === 'no result')
+    return (
+      <Layout>
+        <Result status="warning" title="Not Found" />
+      </Layout>
     )
 
   return (
-    <Card>
+    <Layout>
       <Result
         status="error"
         title="Something went wrong"
@@ -37,6 +44,10 @@ export default function Error({
           </Button>
         ]}
       />
-    </Card>
+    </Layout>
   )
 }
+
+const Layout = ({ children }: { children: ReactNode }) => (
+  <Card style={{ margin: '40px auto', maxWidth: 400 }}>{children}</Card>
+)

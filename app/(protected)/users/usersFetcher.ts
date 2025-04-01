@@ -7,6 +7,7 @@ export const usersFetcher = async ({ page, filters, sorter }: ListQuery) => {
     .selectFrom('users')
     .leftJoin('operators', 'users.operatorId', 'operators.id')
     .select([
+      'users.id',
       'users.name',
       'users.email',
       'users.role',

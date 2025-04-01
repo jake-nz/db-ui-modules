@@ -32,6 +32,7 @@ export const OperatorSelect = (props: ComponentProps<typeof Select>) => {
     <Select
       loading={isLoading}
       options={options}
+      notFoundContent={isLoading ? null : undefined}
       filterOption
       showSearch
       {...props}

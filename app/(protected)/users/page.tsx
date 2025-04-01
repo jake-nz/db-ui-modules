@@ -6,8 +6,9 @@ import { usersFetcher } from './usersFetcher'
 import { RoleTag } from './RoleTag'
 import { Role } from '@/services/auth/permissions'
 import Link from 'next/link'
-import { UserAddOutlined } from '@ant-design/icons'
+import { UserAddOutlined, UserOutlined } from '@ant-design/icons'
 import { OperatorFilter } from '@/components/OperatorFilter'
+import { Breadcrumbs } from '@/components/Breadcrumbs'
 
 type Row = Awaited<ReturnType<typeof usersFetcher>>[number]
 
@@ -15,7 +16,7 @@ const columns: TableColumnsType<Row> = [
   {
     title: 'Name',
     key: 'name',
-    dataIndex: 'name'
+    render: ({ id, name }) => <Link href={`/users/${id}`}>{name}</Link>
   },
   {
     title: 'Email',
@@ -41,11 +42,27 @@ const columns: TableColumnsType<Row> = [
 export default function Users() {
   useAssertAbility({ read: 'User' })
   return (
-    <Space direction="vertical" size="large" align="end">
-      <Link href="/users/create">
-        <Button icon={<UserAddOutlined />}>Add User</Button>
-      </Link>
+    <>
+      <Breadcrumbs
+        items={[
+          {
+            title: (
+              <Space>
+                <UserOutlined />
+                <span>Users</span>
+              </Space>
+            )
+          }
+        ]}
+        extra={
+          <Link href="/users/create">
+            <Button size="small" icon={<UserAddOutlined />}>
+              New User
+            </Button>
+          </Link>
+        }
+      />
       <AdminTable fetcher={usersFetcher} swrKey="users" columns={columns} />
-    </Space>
+    </>
   )
 }

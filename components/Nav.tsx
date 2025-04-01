@@ -70,7 +70,9 @@ const getMenuItems: (ability: Abilty) => ItemType[] = ({ can }) => {
     }
   ]
 
-  return items.filter(item => item?.show !== false)
+  return items
+    .filter(item => item?.show !== false)
+    .map(({ show, ...item }) => item)
 }
 
 const getSelectedKeys = (menuItems: ItemType[], pathname: string) => {
