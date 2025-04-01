@@ -1,44 +1,26 @@
-import { useSession } from 'next-auth/react'
-import { useSearchParams } from 'next/navigation'
+import { auth } from '@/auth/auth'
+import { PermissionsTypes, permissions } from '@/services/auth/permissions'
 import {
   AbilityRequirements,
   assertAbilityRequirements,
   defineAbilityForRoles,
   destructurableAbility
 } from 'castellate'
-import { PermissionsTypes, permissions } from './permissions'
+import { Session } from 'next-auth'
 
-class AuthRequiredError extends Error {
+export class AuthRequiredError extends Error {
   name = 'AuthRequiredError'
 }
 
-export const useAssertAbility = (
-  required?: AbilityRequirements<PermissionsTypes>
-) => {
-  const ability = useAbility()
-  if (!ability) throw new AuthRequiredError()
+export const emptyAbility = defineAbilityForRoles<PermissionsTypes>(
+  permissions,
+  []
+)
 
-  assertAbilityRequirements(ability, required)
-
-  return ability
-}
-
-export const useAbility = () => {
-  const { data: session, status } = useSession()
-
-  // Trigger suspense
-  // We need to useSearchParams to stop Next trying to static render this
-  // page at build time. It will try to wait forever for this promise
-  useSearchParams()
-  if (status === 'loading') throw new Promise(() => {})
-
-  if (status === 'unauthenticated') return null
-
-  if (!session) return null
+export const abilityFromSession = (session: Session | null) => {
+  if (!session) return emptyAbility
 
   const roles = session.user?.roles
-
-  if (roles === undefined) return null
 
   const userAbility = defineAbilityForRoles<PermissionsTypes>(
     permissions,
@@ -46,4 +28,16 @@ export const useAbility = () => {
   )
 
   return destructurableAbility(userAbility)
+}
+
+export const assertUserAbility = async (
+  required?: AbilityRequirements<PermissionsTypes>
+) => {
+  const session = await auth()
+  const ability = abilityFromSession(session)
+  if (!ability) throw new AuthRequiredError()
+
+  assertAbilityRequirements(ability, required)
+
+  return session
 }

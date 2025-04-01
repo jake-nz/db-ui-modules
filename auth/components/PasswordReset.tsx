@@ -27,7 +27,7 @@ export const PasswordReset = () => {
     }
 
     // Validate the token
-    const XvalidateToken = async () => {
+    const tryValidateToken = async () => {
       try {
         const valid = await validateToken(token)
         if (!valid) setError('Invalid or expired token')
@@ -37,7 +37,7 @@ export const PasswordReset = () => {
       setStatus(null)
     }
 
-    XvalidateToken()
+    tryValidateToken()
   }, [token])
 
   const setPassword = async (credentials: { password: string }) => {
@@ -48,7 +48,7 @@ export const PasswordReset = () => {
         password: credentials.password
       })
 
-      if (!response.error)
+      if (response.error)
         throw new Error(response.error || 'Failed to reset password')
 
       setStatus('success')

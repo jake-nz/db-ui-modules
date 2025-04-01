@@ -1,7 +1,7 @@
 'use client'
 import { Datetime } from '@/components/Datetime'
 import { OperatorFilter } from '@/components/OperatorFilter'
-import { useAssertAbility } from '@/services/auth/ability'
+import { useAssertAbility } from '@/services/auth/useAbility'
 import { Button, Space, TableColumnsType, Tag } from 'antd'
 import Link from 'next/link'
 import { AdminTable } from 'snaks/client'

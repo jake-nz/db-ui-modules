@@ -1,3 +1,4 @@
+import { subject } from '@casl/ability'
 import ColonyIcon from '@/components/icons/coral.svg'
 import MapPin from '@/components/icons/map-pin-line.svg'
 import Boat from '@/components/icons/sailboat-line.svg'
@@ -11,7 +12,7 @@ import Icon, {
 import { Menu } from 'antd'
 import { ItemType } from 'antd/es/menu/interface'
 import { usePathname, useRouter } from 'next/navigation'
-import { useAbility } from '@/services/auth/ability'
+import { useAbility } from '@/services/auth/useAbility'
 import { Abilty } from '@/services/auth/permissions'
 
 type MenuItem = ItemType & { show?: boolean }

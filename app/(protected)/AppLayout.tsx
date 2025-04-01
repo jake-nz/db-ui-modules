@@ -4,8 +4,7 @@ import { Alert, Layout as AntLayout, Button } from 'antd'
 import { signOut } from 'next-auth/react'
 import { WarningOutlined } from '@ant-design/icons'
 import { useEffect, useState } from 'react'
-import { useAbility } from '@/services/auth/ability'
-import { redirect, usePathname } from 'next/navigation'
+import { useAbility } from '@/services/auth/useAbility'
 import { useSigninRedirect } from '@/auth/components/useSigninRedirect'
 
 const { Header, Content, Footer } = AntLayout

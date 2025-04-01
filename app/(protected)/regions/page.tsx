@@ -1,5 +1,5 @@
 'use client'
-import { useAssertAbility } from '@/services/auth/ability'
+import { useAssertAbility } from '@/services/auth/useAbility'
 import { TableColumnsType, Tag } from 'antd'
 import { AdminTable } from 'snaks/client'
 import { regionsFetcher } from './regionsFetcher'

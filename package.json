@@ -16,6 +16,7 @@
   "dependencies": {
     "@ant-design/icons": "^5.5.1",
     "@ant-design/nextjs-registry": "^1.0.1",
+    "@casl/ability": "^6.7.3",
     "@svgr/webpack": "^8.1.0",
     "antd": "^5.21.6",
     "bcrypt": "^5.1.1",

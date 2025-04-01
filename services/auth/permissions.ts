@@ -27,9 +27,6 @@ export const permissions: Permissions<PermissionsTypes> = {
     allow('manage', 'all')
     // Except manage users
     forbid('manage', 'User')
-    // But can edit self
-    allow('read', 'User', { id: userId })
-    allow('edit', 'User', { id: userId })
   },
   Operator({ can: allow, cannot: forbid }, { tenantId }) {
     allow('manage', 'Operator', { id: tenantId })

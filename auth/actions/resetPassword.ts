@@ -16,7 +16,7 @@ export const resetPassword = async ({
     .select('id')
     .where('resetToken', '=', token)
     .where('resetTokenExpiresAt', 'is not', null)
-    .where('resetTokenExpiresAt', '<', sql<Date>`now()`)
+    .where('resetTokenExpiresAt', '>', sql<Date>`now()`)
     .executeTakeFirst()
 
   if (!user) return { error: 'Invalid or expired token' }

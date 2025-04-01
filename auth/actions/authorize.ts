@@ -15,7 +15,7 @@ export const authorize = async (credentials: {
 
   const user = await database
     .selectFrom('users')
-    .select(['id', 'name', 'password'])
+    .select(['id', 'name', 'password', 'role', 'operatorId'])
     .where('email', '=', email)
     .executeTakeFirst()
 
@@ -28,7 +28,6 @@ export const authorize = async (credentials: {
     id: user.id,
     name: user.name,
     email: email,
-    // TODO Roles
-    roles: [{ tenantId: null, role: 'Admin' as Role }]
+    roles: [{ tenantId: user.operatorId, role: user.role }]
   } as User
 }

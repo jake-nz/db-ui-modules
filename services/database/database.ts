@@ -1,4 +1,4 @@
-import { config } from '@/config'
+import { config } from '../../config'
 import { DB } from './database.types'
 import { CamelCasePlugin, Kysely, PostgresDialect } from 'kysely'
 import { Pool } from 'pg'
