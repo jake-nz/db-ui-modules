@@ -8,59 +8,71 @@ import Icon, {
   UserOutlined,
   NodeExpandOutlined
 } from '@ant-design/icons'
-import { Menu, MenuProps } from 'antd'
+import { Menu } from 'antd'
 import { ItemType } from 'antd/es/menu/interface'
 import { usePathname, useRouter } from 'next/navigation'
+import { useAbility } from '@/services/auth/ability'
+import { Abilty } from '@/services/auth/permissions'
 
-const menuItems: ItemType[] = [
-  {
-    key: '/',
-    icon: <HomeOutlined />,
-    label: 'Home'
-  },
-  {
-    key: '/outplants',
-    icon: <Icon component={ColonyIcon} />,
-    label: 'Outplants'
-  },
-  {
-    key: '/regions',
-    icon: <Icon component={Globe} />,
-    label: 'Regions'
-  },
+type MenuItem = ItemType & { show?: boolean }
 
-  {
-    key: '/reefs',
-    icon: <Icon component={ReefIcon} />,
-    label: 'Reefs',
-    disabled: true
-  },
-  {
-    key: '/sites',
-    icon: <Icon component={MapPin} />,
-    label: 'Sites'
-    // disabled: true
-  },
+const getMenuItems: (ability: Abilty) => ItemType[] = ({ can }) => {
+  const items: MenuItem[] = [
+    {
+      key: '/',
+      icon: <HomeOutlined />,
+      label: 'Home'
+    },
+    {
+      key: '/outplants',
+      icon: <Icon component={ColonyIcon} />,
+      label: 'Outplants',
+      show: can('read', 'Outplant')
+    },
+    {
+      key: '/regions',
+      icon: <Icon component={Globe} />,
+      label: 'Regions',
+      show: can('read', 'Region')
+    },
 
-  {
-    key: '/operators',
-    icon: <Icon component={Boat} />,
-    label: 'Operators'
-  },
-  {
-    key: '/species',
-    icon: <NodeExpandOutlined />,
-    label: 'Species'
-  },
-  {
-    key: '/users',
-    icon: <UserOutlined />,
-    label: 'Users',
-    disabled: true
-  }
-]
+    {
+      key: '/reefs',
+      icon: <Icon component={ReefIcon} />,
+      label: 'Reefs',
+      show: can('read', 'Reef'),
+      disabled: true
+    },
+    {
+      key: '/sites',
+      icon: <Icon component={MapPin} />,
+      label: 'Sites',
+      show: can('read', 'Site')
+    },
+    {
+      key: '/operators',
+      icon: <Icon component={Boat} />,
+      label: 'Operators',
+      show: can('read', 'Operator')
+    },
+    {
+      key: '/species',
+      icon: <NodeExpandOutlined />,
+      label: 'Species',
+      show: can('read', 'Species')
+    },
+    {
+      key: '/users',
+      icon: <UserOutlined />,
+      label: 'Users',
+      show: can('read', 'User')
+    }
+  ]
 
-const getSelectedKeys = (pathname: string) => {
+  return items.filter(item => item?.show !== false)
+}
+
+const getSelectedKeys = (menuItems: ItemType[], pathname: string) => {
   if (pathname === '/') return ['/']
   const current = menuItems.find(
     item =>
@@ -72,14 +84,16 @@ const getSelectedKeys = (pathname: string) => {
 export const Nav = () => {
   const router = useRouter()
   const pathname = usePathname()
-  const go: MenuProps['onClick'] = ({ key }) => router.push(key)
+  const ability = useAbility()
+
+  const menuItems = ability ? getMenuItems(ability) : []
 
   return (
     <Menu
       theme="dark"
       mode="horizontal"
-      onClick={go}
-      selectedKeys={getSelectedKeys(pathname || '/')}
+      onClick={({ key }) => router.push(key)}
+      selectedKeys={getSelectedKeys(menuItems, pathname || '/')}
       items={menuItems}
     />
   )

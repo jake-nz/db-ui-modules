@@ -1,4 +1,4 @@
-import { CastellateBase, Permissions } from 'castellate'
+import { CastellateBase, destructurableAbility, Permissions } from 'castellate'
 
 export type Role = 'Admin' | 'Staff' | 'Operator'
 
@@ -6,7 +6,15 @@ export type PermissionsTypes = {
   UserId: number
   Tenant: string | null // Users may belong to an operator and operator IDs are strings
   Role: Role
-  Subject: 'User' | 'Operator' | 'all'
+  Subject:
+    | 'User'
+    | 'Operator'
+    | 'Species'
+    | 'Outplant'
+    | 'Region'
+    | 'Reef'
+    | 'Site'
+    | 'all'
   Action: CastellateBase['Action'] // defaults
 } & CastellateBase
 
@@ -28,3 +36,6 @@ export const permissions: Permissions<PermissionsTypes> = {
     // TODO - more permissions as needed
   }
 }
+
+// Hack, have castellate export AppAbility, which is: ReturnType<typeof destructurableAbility<PermissionsTypes>>
+export type Abilty = ReturnType<typeof destructurableAbility<PermissionsTypes>>
