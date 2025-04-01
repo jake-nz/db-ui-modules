@@ -1,10 +1,11 @@
 'use client'
 import { useAssertAbility } from '@/services/auth/useAbility'
-import { TableColumnsType, Space } from 'antd'
+import { TableColumnsType, Space, Button } from 'antd'
 import { AdminTable } from 'snaks/client'
 import { speciesFetcher } from './speciesFetcher'
 import { Breadcrumbs } from '@/components/Breadcrumbs'
-import { NodeExpandOutlined } from '@ant-design/icons'
+import { NodeExpandOutlined, PlusOutlined } from '@ant-design/icons'
+import Link from 'next/link'
 
 type Row = Awaited<ReturnType<typeof speciesFetcher>>[number]
 
@@ -12,12 +13,12 @@ const columns: TableColumnsType<Row> = [
   {
     title: 'Genus',
     key: 'genus',
-    dataIndex: 'genus'
+    render: ({ id, genus }) => <Link href={`/species/${id}`}>{genus}</Link>
   },
   {
     title: 'Species',
     key: 'species',
-    dataIndex: 'species'
+    render: ({ id, species }) => <Link href={`/species/${id}`}>{species}</Link>
   },
   {
     title: 'Outplants',
@@ -27,7 +28,7 @@ const columns: TableColumnsType<Row> = [
 ]
 
 export default function Species() {
-  useAssertAbility({ read: 'Species' })
+  const { can } = useAssertAbility({ read: 'Species' })
   return (
     <>
       <Breadcrumbs
@@ -41,6 +42,15 @@ export default function Species() {
             )
           }
         ]}
+        extra={
+          can('create', 'Species') && (
+            <Link href="/species/create">
+              <Button size="small" icon={<PlusOutlined />}>
+                New Species
+              </Button>
+            </Link>
+          )
+        }
       />
       <AdminTable fetcher={speciesFetcher} swrKey="species" columns={columns} />
     </>
