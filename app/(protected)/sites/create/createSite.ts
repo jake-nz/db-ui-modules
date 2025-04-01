@@ -3,20 +3,20 @@ import { assertUserAbility } from '@/services/auth/ability'
 import { database } from '@/services/database/database'
 import { slugify } from '@/utils/slugify'
 
-export type NewReefFields = {
+export type NewSiteFields = {
   name: string
-  regionId: string
+  reefId: string
 }
 
-export const createReef = async (values: NewReefFields) => {
-  await assertUserAbility({ create: 'Reef' })
+export const createSite = async (values: NewSiteFields) => {
+  await assertUserAbility({ create: 'Site' })
 
   const { id } = await database
-    .insertInto('reefs')
+    .insertInto('sites')
     .values({
       id: slugify(values.name),
       name: values.name,
-      region: values.regionId
+      reef: values.reefId
     })
     .returning('id')
     .executeTakeFirstOrThrow()

@@ -50,6 +50,7 @@ export const SiteSelect = ({
         </Text>
       </>
     ),
+    searchValue: site.name,
     value: site.id
   }))
 
@@ -61,6 +62,7 @@ export const SiteSelect = ({
       onChange={onChange}
       value={value}
       filterOption
+      optionFilterProp="searchValue"
       showSearch
     />
   )

@@ -1,11 +1,12 @@
 'use client'
 import { useAssertAbility } from '@/services/auth/useAbility'
-import { TableColumnsType, Tag, Space } from 'antd'
+import { TableColumnsType, Space, Button } from 'antd'
 import { AdminTable } from 'snaks/client'
 import { sitesFetcher } from './sitesFetcher'
 import { Breadcrumbs } from '@/components/Breadcrumbs'
 import MapPin from '@/components/icons/map-pin-line.svg'
-import Icon from '@ant-design/icons'
+import Icon, { PlusOutlined } from '@ant-design/icons'
+import Link from 'next/link'
 
 type Row = Awaited<ReturnType<typeof sitesFetcher>>[number]
 
@@ -13,7 +14,7 @@ const columns: TableColumnsType<Row> = [
   {
     title: 'Name',
     key: 'name',
-    render: ({ color, name }) => <Tag color={color}>{name}</Tag>
+    render: ({ id, name }) => <Link href={`/sites/${id}`}>{name}</Link>
   },
   {
     title: 'Outplants',
@@ -23,7 +24,7 @@ const columns: TableColumnsType<Row> = [
 ]
 
 export default function Sites() {
-  useAssertAbility({ read: 'Operator' })
+  const { can } = useAssertAbility({ read: 'Operator' })
   return (
     <>
       <Breadcrumbs
@@ -37,6 +38,15 @@ export default function Sites() {
             )
           }
         ]}
+        extra={
+          can('create', 'Site') && (
+            <Link href="/sites/create">
+              <Button size="small" icon={<PlusOutlined />}>
+                New Site
+              </Button>
+            </Link>
+          )
+        }
       />
       <AdminTable fetcher={sitesFetcher} swrKey="sites" columns={columns} />
     </>

@@ -5,17 +5,17 @@ import { TeamOutlined } from '@ant-design/icons'
 import { Card, notification, Skeleton, Space } from 'antd'
 import { useParams, useRouter } from 'next/navigation'
 import useSWR from 'swr'
-import { ReefForm } from '../../ReefForm'
-import { reefFetcher } from '../reefFetcher'
-import { editReef, ReefFields } from './editReef'
+import { SiteForm } from '../../SiteForm'
+import { siteFetcher } from '../siteFetcher'
+import { editSite, SiteFields } from './editSite'
 
-export default function EditReef() {
-  const { reefId } = useParams()
-  if (Array.isArray(reefId)) throw new Error('Multiple reefIds')
+export default function EditSite() {
+  const { siteId } = useParams()
+  if (Array.isArray(siteId)) throw new Error('Multiple siteIds')
 
-  useAssertAbility({ edit: { Reef: { id: reefId } } })
+  useAssertAbility({ edit: { Site: { id: siteId } } })
 
-  const { data, error, isLoading } = useSWR(reefId, reefFetcher)
+  const { data, error, isLoading } = useSWR(siteId, siteFetcher)
 
   const [notifications, notificationContext] = notification.useNotification()
   const { push } = useRouter()
@@ -28,21 +28,21 @@ export default function EditReef() {
       </Card>
     )
 
-  const save = async (values: ReefFields) => {
+  const save = async (values: SiteFields) => {
     notifications.info({
       message: `Saving ${values.name}`,
-      key: 'save-reef',
+      key: 'save-site',
       closable: false
     })
 
     try {
-      await editReef(reefId, values)
+      await editSite(siteId, values)
       notifications.success({
         message: `Saved ${values.name}`,
-        key: 'save-reef'
+        key: 'save-site'
       })
 
-      push(`/reefs/${reefId}`)
+      push(`/sites/${siteId}`)
     } catch (err) {
       console.error(err)
       const getMessage = (err: any) => {
@@ -58,7 +58,7 @@ export default function EditReef() {
       notifications.error({
         message: `Error saving ${values.name}`,
         description: getMessage(err),
-        key: 'save-reef',
+        key: 'save-site',
         duration: 0
       })
     }
@@ -69,16 +69,16 @@ export default function EditReef() {
       <Breadcrumbs
         items={[
           {
-            href: '/reefs',
+            href: '/sites',
             title: (
               <Space>
                 <TeamOutlined />
-                <span>Reefs</span>
+                <span>Sites</span>
               </Space>
             )
           },
           {
-            href: `/reefs/${reefId}`,
+            href: `/sites/${siteId}`,
             title: data.name
           },
           { title: 'Edit' }
@@ -92,13 +92,13 @@ export default function EditReef() {
         }
         variant="borderless"
       >
-        <ReefForm<ReefFields>
+        <SiteForm<SiteFields>
           onFinish={save}
           initialValues={{
             name: data.name,
-            regionId: data.regionId
+            reefId: data.reefId
           }}
-          buttonText="Save Reef"
+          buttonText="Save Site"
         />
       </Card>
       {notificationContext}

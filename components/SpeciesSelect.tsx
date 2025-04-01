@@ -24,6 +24,7 @@ export const SpeciesSelect = (props: ComponentProps<typeof Select>) => {
         {species.genus} {species.species}
       </Text>
     ),
+    searchValue: species.genus + ' ' + species.species,
     value: species.id
   }))
 
@@ -33,6 +34,7 @@ export const SpeciesSelect = (props: ComponentProps<typeof Select>) => {
       options={options}
       {...props}
       filterOption
+      optionFilterProp="searchValue"
       showSearch
       popupMatchSelectWidth={false}
     />

@@ -3,14 +3,15 @@ import { useAssertAbility } from '@/services/auth/useAbility'
 import { TableColumnsType, Tag } from 'antd'
 import { AdminTable } from 'snaks/client'
 import { reefsFetcher } from './reefsFetcher'
+import Link from 'next/link'
 
 type Row = Awaited<ReturnType<typeof reefsFetcher>>[number]
 
 const columns: TableColumnsType<Row> = [
   {
     title: 'Name',
-    dataIndex: 'name',
-    key: 'name'
+    key: 'name',
+    render: ({ id, name }) => <Link href={`/reefs/${id}`}>{name}</Link>
   },
   {
     title: 'Region',
@@ -26,11 +27,5 @@ const columns: TableColumnsType<Row> = [
 
 export const ReefList = () => {
   useAssertAbility({ read: 'Reef' })
-  return (
-    <AdminTable
-      fetcher={reefsFetcher}
-      swrKey="reefs"
-      columns={columns}
-    />
-  )
+  return <AdminTable fetcher={reefsFetcher} swrKey="reefs" columns={columns} />
 }

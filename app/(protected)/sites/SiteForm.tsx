@@ -1,8 +1,8 @@
 'use client'
 import { Button, Form, FormProps, Input } from 'antd'
-import { RegionSelect } from '@/components/RegionSelect'
+import { ReefSelect } from '@/components/ReefSelect'
 
-export const ReefForm = function <Values = any>({
+export const SiteForm = function <Values = any>({
   buttonText,
   ...props
 }: FormProps<Values> & { buttonText: string }) {
@@ -22,11 +22,11 @@ export const ReefForm = function <Values = any>({
         <Input />
       </Form.Item>
       <Form.Item
-        label="Region"
-        name="regionId"
-        rules={[{ required: true, message: 'Please select a region' }]}
+        label="Reef"
+        name="reefId"
+        rules={[{ required: true, message: 'Please select a reef' }]}
       >
-        <RegionSelect />
+        <ReefSelect />
       </Form.Item>
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
         <Button type="primary" htmlType="submit">

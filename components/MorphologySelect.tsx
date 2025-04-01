@@ -17,6 +17,7 @@ export const MorphologySelect = (props: ComponentProps<typeof Select>) => (
     options={options.map(option => ({ value: option, label: option }))}
     {...props}
     filterOption
+    optionFilterProp="label"
     showSearch
   />
 )

@@ -25,6 +25,7 @@ export const OperatorSelect = (props: ComponentProps<typeof Select>) => {
         <Text type="secondary"> &mdash; {operator.region}</Text>
       </Text>
     ),
+    searchValue: operator.name,
     value: operator.id
   }))
 
@@ -34,6 +35,7 @@ export const OperatorSelect = (props: ComponentProps<typeof Select>) => {
       options={options}
       notFoundContent={isLoading ? null : undefined}
       filterOption
+      optionFilterProp="searchValue"
       showSearch
       {...props}
     />

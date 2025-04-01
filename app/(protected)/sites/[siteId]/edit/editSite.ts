@@ -2,19 +2,19 @@
 import { assertUserAbility } from '@/services/auth/ability'
 import { database } from '@/services/database/database'
 
-export type ReefFields = {
+export type SiteFields = {
   name: string
-  regionId: string
+  reefId: string
 }
 
-export const editReef = async (id: string, values: ReefFields) => {
-  await assertUserAbility({ edit: 'Reef' })
+export const editSite = async (id: string, values: SiteFields) => {
+  await assertUserAbility({ edit: 'Site' })
 
   await database
-    .updateTable('reefs')
+    .updateTable('sites')
     .set({
       name: values.name,
-      region: values.regionId
+      reef: values.reefId
     })
     .where('id', '=', id)
     .executeTakeFirstOrThrow()
