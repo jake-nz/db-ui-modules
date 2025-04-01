@@ -3,14 +3,15 @@ import { useAssertAbility } from '@/services/auth/useAbility'
 import { TableColumnsType, Tag } from 'antd'
 import { AdminTable } from 'snaks/client'
 import { operatorsFetcher } from './operatorsFetcher'
+import Link from 'next/link'
 
 type Row = Awaited<ReturnType<typeof operatorsFetcher>>[number]
 
 const columns: TableColumnsType<Row> = [
   {
     title: 'Name',
-    dataIndex: 'name',
-    key: 'name'
+    key: 'name',
+    render: ({ id, name }) => <Link href={`/operators/${id}`}>{name}</Link>
   },
   {
     title: 'Region',
