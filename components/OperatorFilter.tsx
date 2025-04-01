@@ -11,7 +11,7 @@ export const OperatorFilter = ({
     <OperatorSelect
       value={selectedKeys}
       placeholder="Filter by Operator"
-      //   mode="multiple"
+      popupMatchSelectWidth={false}
       allowClear
       onClear={() => clearFilters && clearFilters()}
       onChange={v => {

@@ -22,6 +22,6 @@ const columns: TableColumnsType<Row> = [
 export default function Operators() {
   useAssertAbility({ read: 'Operator' })
   return (
-    <AdminTable fetcher={sitesFetcher} swrKey="regions" columns={columns} />
+    <AdminTable fetcher={sitesFetcher} swrKey="operators" columns={columns} />
   )
 }

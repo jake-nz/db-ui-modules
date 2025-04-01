@@ -1,6 +1,6 @@
 'use client'
 import { useAssertAbility } from '@/services/auth/ability'
-import { TableColumnsType, Tag } from 'antd'
+import { TableColumnsType } from 'antd'
 import { AdminTable } from 'snaks/client'
 import { speciesFetcher } from './speciesFetcher'
 
@@ -24,9 +24,9 @@ const columns: TableColumnsType<Row> = [
   }
 ]
 
-export default function Operators() {
-  useAssertAbility({ read: 'Operator' })
+export default function Species() {
+  useAssertAbility({ read: 'Species' })
   return (
-    <AdminTable fetcher={speciesFetcher} swrKey="regions" columns={columns} />
+    <AdminTable fetcher={speciesFetcher} swrKey="species" columns={columns} />
   )
 }
