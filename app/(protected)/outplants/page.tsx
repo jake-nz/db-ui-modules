@@ -1,6 +1,6 @@
 'use client'
 import { Breadcrumbs } from '@/components/Breadcrumbs'
-import { Datetime } from '@/components/Datetime'
+import { dateFormat, Datetime } from '@/components/Datetime'
 import CoralIcon from '@/components/icons/coral.svg'
 import { OperatorFilter } from '@/components/OperatorFilter'
 import { useAssertAbility } from '@/services/auth/useAbility'
@@ -8,17 +8,18 @@ import Icon, { PlusOutlined } from '@ant-design/icons'
 import { Button, Space, TableColumnsType, Tag } from 'antd'
 import Link from 'next/link'
 import { AdminTable } from 'snaks/client'
-import { outplantsFetcher } from './outplantsFetcher'
+import { outplantDaysFetcher } from './outplantDaysFetcher'
 
-type Row = Awaited<ReturnType<typeof outplantsFetcher>>[number]
+type Row = Awaited<ReturnType<typeof outplantDaysFetcher>>[number]
 
 const columns: TableColumnsType<Row> = [
   // Phase
   {
     title: 'Date',
-    dataIndex: 'date',
     key: 'date',
-    render: date => <Datetime>{date}</Datetime>,
+    render: ({ date, id }) => (
+      <Link href={`/outplants/${id}`}>{dateFormat(date)}</Link>
+    ),
     sorter: true
   },
   {
@@ -66,8 +67,8 @@ export default function Outplants() {
         }
       />
       <AdminTable
-        fetcher={outplantsFetcher}
-        swrKey="outplants"
+        fetcher={outplantDaysFetcher}
+        swrKey="outplantDays"
         columns={columns}
         defaultSorter={[{ columnKey: 'date', order: 'descend' }]}
       />

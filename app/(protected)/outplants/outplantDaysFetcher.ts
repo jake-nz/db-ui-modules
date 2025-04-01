@@ -1,9 +1,8 @@
 'use server'
 import { database } from '@/services/database/database'
-// import { InsertObject, UpdateObject } from 'kysely'
 import { iterateSorter, ListQuery, paginate } from 'snaks'
 
-export const outplantsFetcher = async ({
+export const outplantDaysFetcher = async ({
   page,
   filters,
   sorter
@@ -42,35 +41,3 @@ export const outplantsFetcher = async ({
 
   return paginate(query, page, 100).execute()
 }
-
-// export const eventFetcher = async (id: string) => {
-//   const event = database
-//     .selectFrom('events')
-//     .selectAll()
-//     .where('id', '=', id)
-//     .executeTakeFirstOrThrow()
-//   const cash = database
-//     .selectFrom('cash')
-//     .selectAll()
-//     .where('eventId', '=', id)
-//     .execute()
-//   return { event: await event, cash: await cash }
-// }
-
-// export const eventCreate = async (data: InsertObject<DB, 'events'>) =>
-//   await database
-//     .insertInto('events')
-//     .values(data)
-//     .returningAll()
-//     .executeTakeFirstOrThrow()
-
-// export const eventUpdate = async (
-//   id: string,
-//   data: UpdateObject<DB, 'events'>
-// ) => {
-//   await database
-//     .updateTable('events')
-//     .set(data)
-//     .where('id', '=', id)
-//     .executeTakeFirstOrThrow()
-// }
