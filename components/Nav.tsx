@@ -41,8 +41,7 @@ const getMenuItems: (ability: Abilty) => ItemType[] = ({ can }) => {
       key: '/reefs',
       icon: <Icon component={ReefIcon} />,
       label: 'Reefs',
-      show: can('read', 'Reef'),
-      disabled: true
+      show: can('read', 'Reef')
     },
     {
       key: '/sites',
