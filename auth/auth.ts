@@ -5,7 +5,7 @@ import { JWT } from 'next-auth/jwt'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import { authorize } from './actions/authorize'
 
-export const { handlers, auth, signIn, signOut } = NextAuth({
+export const { handlers, auth, signIn } = NextAuth({
   providers: [CredentialsProvider({ authorize })],
   callbacks: {
     jwt: async ({ token, user }) => {

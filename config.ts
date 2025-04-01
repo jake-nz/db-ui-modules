@@ -6,6 +6,6 @@ export const configSchema = z.object({
   RESEND_API_KEY: z.string()
 })
 
-export type Config = z.infer<typeof configSchema>
+// export type Config = z.infer<typeof configSchema>
 
 export const config = configSchema.parse(process.env)
