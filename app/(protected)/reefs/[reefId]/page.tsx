@@ -2,23 +2,21 @@
 import { Breadcrumbs } from '@/components/Breadcrumbs'
 import { Details } from '@/components/Details'
 import { Id } from '@/components/Id'
-import Globe from '@/components/icons/globe.svg'
 import { useAssertAbility } from '@/services/auth/useAbility'
-import { FormOutlined } from '@ant-design/icons'
-import Icon from '@ant-design/icons'
+import { FormOutlined, TeamOutlined } from '@ant-design/icons'
 import { Button, Card, Skeleton, Space, Tag } from 'antd'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import useSWR from 'swr'
-import { regionFetcher } from './regionFetcher'
+import { reefFetcher } from './reefFetcher'
 
-export default function Region() {
-  const { regionId } = useParams()
-  if (Array.isArray(regionId)) throw new Error('Multiple regionIds')
+export default function Reef() {
+  const { reefId } = useParams()
+  if (Array.isArray(reefId)) throw new Error('Multiple reefIds')
 
-  const { can } = useAssertAbility({ read: 'Region' })
+  const { can } = useAssertAbility({ read: { Reef: { id: reefId } } })
 
-  const { data, error, isLoading } = useSWR(regionId, regionFetcher)
+  const { data, error, isLoading } = useSWR(reefId, reefFetcher)
 
   if (error) throw error
   if (isLoading || !data)
@@ -33,11 +31,11 @@ export default function Region() {
       <Breadcrumbs
         items={[
           {
-            href: '/regions',
+            href: '/reefs',
             title: (
               <Space>
-                <Icon component={Globe} />
-                <span>Regions</span>
+                <TeamOutlined />
+                <span>Reefs</span>
               </Space>
             )
           },
@@ -49,15 +47,27 @@ export default function Region() {
       <Card
         title={
           <>
-            <Icon component={Globe} /> {data.name}
+            <TeamOutlined /> {data.name}
           </>
         }
         variant="borderless"
+        extra={
+          can('edit', 'Reef') && (
+            <Space>
+              <Link href={`/reefs/${data.id}/edit`}>
+                <Button size="small" icon={<FormOutlined />}>
+                  Edit
+                </Button>
+              </Link>
+            </Space>
+          )
+        }
       >
         <Details
           details={{
             ID: <Id>{data.id}</Id>,
-            Name: <Tag color={data.color}>{data.name}</Tag>,
+            Name: data.name,
+            Region: <Tag color={data.regionColor}>{data.region}</Tag>,
             'Total Outplants': data.totalOutplants || 0
           }}
         />

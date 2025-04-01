@@ -1,13 +1,14 @@
 'use client'
 import { ReefList } from './ReefList'
 import { Breadcrumbs } from '@/components/Breadcrumbs'
-import { Space } from 'antd'
+import { Button, Space } from 'antd'
 import { useAssertAbility } from '@/services/auth/useAbility'
 import ReefIcon from '@/components/icons/reef.svg'
-import Icon from '@ant-design/icons'
+import Icon, { PlusOutlined } from '@ant-design/icons'
+import Link from 'next/link'
 
 export default function Reefs() {
-  useAssertAbility({ read: 'Reef' })
+  const { can } = useAssertAbility({ read: 'Reef' })
 
   return (
     <>
@@ -22,6 +23,15 @@ export default function Reefs() {
             )
           }
         ]}
+        extra={
+          can('create', 'Reef') && (
+            <Link href="/reefs/create">
+              <Button size="small" icon={<PlusOutlined />}>
+                New Reef
+              </Button>
+            </Link>
+          )
+        }
       />
       <ReefList />
     </>
