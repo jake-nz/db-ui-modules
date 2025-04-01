@@ -1,5 +1,4 @@
-import { subject } from '@casl/ability'
-import ColonyIcon from '@/components/icons/coral.svg'
+import Coral from '@/components/icons/coral.svg'
 import MapPin from '@/components/icons/map-pin-line.svg'
 import Boat from '@/components/icons/sailboat-line.svg'
 import ReefIcon from '@/components/icons/reef.svg'
@@ -26,7 +25,7 @@ const getMenuItems: (ability: Abilty) => ItemType[] = ({ can }) => {
     },
     {
       key: '/outplants',
-      icon: <Icon component={ColonyIcon} />,
+      icon: <Icon component={Coral} />,
       label: 'Outplants',
       show: can('read', 'Outplant')
     },

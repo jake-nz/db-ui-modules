@@ -1,6 +1,9 @@
 'use client'
+import { Breadcrumbs } from '@/components/Breadcrumbs'
+import Globe from '@/components/icons/globe.svg'
 import { useAssertAbility } from '@/services/auth/useAbility'
-import { TableColumnsType, Tag } from 'antd'
+import Icon from '@ant-design/icons'
+import { Space, TableColumnsType, Tag } from 'antd'
 import { AdminTable } from 'snaks/client'
 import { regionsFetcher } from './regionsFetcher'
 
@@ -19,9 +22,23 @@ const columns: TableColumnsType<Row> = [
   }
 ]
 
-export default function Operators() {
+export default function Regions() {
   useAssertAbility({ read: 'Operator' })
   return (
-    <AdminTable fetcher={regionsFetcher} swrKey="regions" columns={columns} />
+    <>
+      <Breadcrumbs
+        items={[
+          {
+            title: (
+              <Space>
+                <Icon component={Globe} />
+                <span>Regions</span>
+              </Space>
+            )
+          }
+        ]}
+      />
+      <AdminTable fetcher={regionsFetcher} swrKey="regions" columns={columns} />
+    </>
   )
 }

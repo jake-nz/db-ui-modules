@@ -1,8 +1,10 @@
 'use client'
 import { useAssertAbility } from '@/services/auth/useAbility'
-import { TableColumnsType } from 'antd'
+import { TableColumnsType, Space } from 'antd'
 import { AdminTable } from 'snaks/client'
 import { speciesFetcher } from './speciesFetcher'
+import { Breadcrumbs } from '@/components/Breadcrumbs'
+import { NodeExpandOutlined } from '@ant-design/icons'
 
 type Row = Awaited<ReturnType<typeof speciesFetcher>>[number]
 
@@ -27,6 +29,20 @@ const columns: TableColumnsType<Row> = [
 export default function Species() {
   useAssertAbility({ read: 'Species' })
   return (
-    <AdminTable fetcher={speciesFetcher} swrKey="species" columns={columns} />
+    <>
+      <Breadcrumbs
+        items={[
+          {
+            title: (
+              <Space>
+                <NodeExpandOutlined />
+                <span>Species</span>
+              </Space>
+            )
+          }
+        ]}
+      />
+      <AdminTable fetcher={speciesFetcher} swrKey="species" columns={columns} />
+    </>
   )
 }

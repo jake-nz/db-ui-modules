@@ -1,7 +1,10 @@
 'use client'
+import { Breadcrumbs } from '@/components/Breadcrumbs'
 import { Datetime } from '@/components/Datetime'
+import CoralIcon from '@/components/icons/coral.svg'
 import { OperatorFilter } from '@/components/OperatorFilter'
 import { useAssertAbility } from '@/services/auth/useAbility'
+import Icon, { PlusOutlined } from '@ant-design/icons'
 import { Button, Space, TableColumnsType, Tag } from 'antd'
 import Link from 'next/link'
 import { AdminTable } from 'snaks/client'
@@ -42,16 +45,32 @@ const columns: TableColumnsType<Row> = [
 export default function Outplants() {
   useAssertAbility({ read: 'Operator' })
   return (
-    <Space direction="vertical" size="large">
-      <Link href="/outplants/create">
-        <Button type="primary">Enter Outplants</Button>
-      </Link>
+    <>
+      <Breadcrumbs
+        items={[
+          {
+            title: (
+              <Space>
+                <Icon component={CoralIcon} />
+                <span>Outplants</span>
+              </Space>
+            )
+          }
+        ]}
+        extra={
+          <Link href="/outplants/create">
+            <Button type="primary" icon={<Icon component={CoralIcon} />}>
+              Enter Outplants
+            </Button>
+          </Link>
+        }
+      />
       <AdminTable
         fetcher={outplantsFetcher}
         swrKey="outplants"
         columns={columns}
         defaultSorter={[{ columnKey: 'date', order: 'descend' }]}
       />
-    </Space>
+    </>
   )
 }
