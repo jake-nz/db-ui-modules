@@ -4,6 +4,7 @@ import Globe from '@/components/icons/globe.svg'
 import { useAssertAbility } from '@/services/auth/useAbility'
 import Icon from '@ant-design/icons'
 import { Space, TableColumnsType, Tag } from 'antd'
+import Link from 'next/link'
 import { AdminTable } from 'snaks/client'
 import { regionsFetcher } from './regionsFetcher'
 
@@ -13,7 +14,11 @@ const columns: TableColumnsType<Row> = [
   {
     title: 'Name',
     key: 'name',
-    render: ({ color, name }) => <Tag color={color}>{name}</Tag>
+    render: ({ id, color, name }) => (
+      <Link href={`/regions/${id}`}>
+        <Tag color={color}>{name}</Tag>
+      </Link>
+    )
   },
   {
     title: 'Outplants',
