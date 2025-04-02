@@ -3,7 +3,7 @@ import { assertUserAbility } from '@/services/auth/ability'
 import { database } from '@/services/database/database'
 import { slugify } from '@/utils/slugify'
 
-export type NewSiteFields = {
+type NewSiteFields = {
   name: string
   reefId: string
 }

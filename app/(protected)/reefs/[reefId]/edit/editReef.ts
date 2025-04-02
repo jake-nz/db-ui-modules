@@ -2,7 +2,7 @@
 import { assertUserAbility } from '@/services/auth/ability'
 import { database } from '@/services/database/database'
 
-export type ReefFields = {
+type ReefFields = {
   name: string
   regionId: string
 }

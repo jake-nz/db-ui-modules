@@ -4,7 +4,7 @@ import { OperatorSelect } from '@/components/OperatorSelect'
 import { OriginSelect } from '@/components/OriginSelect'
 import { SiteSelect } from '@/components/SiteSelect'
 import { SpeciesSelect } from '@/components/SpeciesSelect'
-import { useAssertAbility } from '@/services/auth/useAbility'
+import { Origin } from '@/services/database/database.types'
 import { MinusCircleOutlined } from '@ant-design/icons'
 import {
   Button,
@@ -21,13 +21,29 @@ import {
   TableColumnsType,
   Tooltip
 } from 'antd'
-import dayjs from 'dayjs'
+import dayjs, { Dayjs } from 'dayjs'
+import { nanoid } from 'nanoid'
 import { useEffect } from 'react'
 
-export const OutplantForm = function <Values = any>({
+export type OutplantFields = {
+  date: Dayjs
+  operator: string
+  site: string
+  crew: number
+  funding: string
+  outplants: Array<{
+    species: string
+    morphology: string
+    count: number
+    origin: Origin
+    key: number
+  }>
+}
+
+export const OutplantForm = function ({
   buttonText,
   ...props
-}: FormProps<Values> & { buttonText: string }) {
+}: FormProps<OutplantFields> & { buttonText: string }) {
   const [form] = Form.useForm()
 
   const operator = Form.useWatch('operator', form)
@@ -38,14 +54,14 @@ export const OutplantForm = function <Values = any>({
   useEffect(() => {
     if (!outplants?.length) return // Exit if no outplants exist
     const last = outplants[outplants.length - 1] // Get the last outplant entry
-    if (last.origin)
-      // If the last entry has an origin set
-      // Add a new empty outplant with an incremented key
-      form.setFieldsValue({ outplants: [...outplants, { key: last.key + 1 }] })
+    if (!last.origin) return // Exit if the last outplant has no origin yet (that entry is not complete)
+    // Add a new empty outplant with an incremented key
+    const key = nanoid()
+    form.setFieldsValue({ outplants: [...outplants, { key }] })
   }, [outplants, form])
 
   return (
-    <Form<Values>
+    <Form<OutplantFields>
       layout="vertical"
       form={form}
       labelCol={{ span: 8 }}
@@ -156,6 +172,10 @@ export const OutplantForm = function <Values = any>({
                     <Table.Summary.Cell index={1} colSpan={1}>
                       Total: {total}
                     </Table.Summary.Cell>
+                    <Table.Summary.Cell
+                      index={2}
+                      colSpan={2}
+                    ></Table.Summary.Cell>
                   </Table.Summary.Row>
                 </>
               )
@@ -163,7 +183,7 @@ export const OutplantForm = function <Values = any>({
           />
         )}
       </Form.List>
-      <Flex justify="flex-end">
+      <Flex justify="flex-end" style={{ marginTop: 20 }}>
         <Button type="primary" htmlType="submit">
           {buttonText}
         </Button>

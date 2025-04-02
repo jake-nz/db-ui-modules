@@ -3,7 +3,7 @@ import { assertUserAbility } from '@/services/auth/ability'
 import { Role } from '@/services/auth/permissions'
 import { database } from '@/services/database/database'
 
-export type UserFields = {
+type UserFields = {
   name: string
   email: string
   role: Role

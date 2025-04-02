@@ -3,7 +3,7 @@ import { assertUserAbility } from '@/services/auth/ability'
 import { database } from '@/services/database/database'
 import { Origin } from '@/services/database/database.types'
 
-export type NewOutplantsFields = {
+type NewOutplantsFields = {
   date: Date
   operator: string
   site: string

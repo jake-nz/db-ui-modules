@@ -1,13 +1,13 @@
 'use client'
 import { Breadcrumbs } from '@/components/Breadcrumbs'
 import { useAssertAbility } from '@/services/auth/useAbility'
+import { useTryNotify } from '@/utils/useTryNotify.ts'
 import { PlusOutlined, TeamOutlined } from '@ant-design/icons'
-import { Button, Card, notification, Space } from 'antd'
+import { Button, Card, Space } from 'antd'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { SpeciesForm } from '../SpeciesForm'
-import { createSpecies, NewSpeciesFields } from './createSpecies'
-import { useTryNotify } from '@/utils/useTryNotify.ts'
+import { SpeciesFields, SpeciesForm } from '../SpeciesForm'
+import { createSpecies } from './createSpecies'
 
 export default function CreateSpecies() {
   useAssertAbility({ create: 'Species' })
@@ -15,7 +15,7 @@ export default function CreateSpecies() {
   const { push } = useRouter()
 
   const [create, notificationContext] = useTryNotify({
-    action: async (values: NewSpeciesFields) => {
+    action: async (values: SpeciesFields) => {
       const id = await createSpecies(values)
       push(`/species/${id}`)
     },
@@ -55,10 +55,7 @@ export default function CreateSpecies() {
         }
         variant="borderless"
       >
-        <SpeciesForm<NewSpeciesFields>
-          onFinish={create}
-          buttonText="Create Species"
-        />
+        <SpeciesForm onFinish={create} buttonText="Create Species" />
       </Card>
       {notificationContext}
     </>

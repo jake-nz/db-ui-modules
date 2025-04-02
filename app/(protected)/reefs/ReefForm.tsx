@@ -2,12 +2,17 @@
 import { Button, Form, FormProps, Input } from 'antd'
 import { RegionSelect } from '@/components/RegionSelect'
 
-export const ReefForm = function <Values = any>({
+export type ReefFields = {
+  name: string
+  regionId: string
+}
+
+export const ReefForm = function ({
   buttonText,
   ...props
-}: FormProps<Values> & { buttonText: string }) {
+}: FormProps<ReefFields> & { buttonText: string }) {
   return (
-    <Form<Values>
+    <Form<ReefFields>
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 16 }}
       autoComplete="off"

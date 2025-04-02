@@ -1,7 +1,7 @@
 'use client'
 
 import { sitesFetcher } from '@/app/(protected)/sites/sitesFetcher'
-import { Form, Select, Tag, Typography } from 'antd'
+import { Form, Select, Typography } from 'antd'
 import { useEffect } from 'react'
 import useSWR from 'swr'
 
@@ -31,7 +31,7 @@ export const SiteSelect = ({
   const form = Form.useFormInstance()
 
   useEffect(() => {
-    if (data && value) {
+    if (data && data.length && value) {
       if (!data.find(site => site.id === value)) {
         form.resetFields(['site'])
       }

@@ -6,8 +6,8 @@ import { PlusOutlined, TeamOutlined } from '@ant-design/icons'
 import { Button, Card, Space } from 'antd'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { ReefForm } from '../ReefForm'
-import { createReef, NewReefFields } from './createReef'
+import { ReefFields, ReefForm } from '../ReefForm'
+import { createReef } from './createReef'
 
 export default function CreateReef() {
   useAssertAbility({ create: 'Reef' })
@@ -15,7 +15,7 @@ export default function CreateReef() {
   const { push } = useRouter()
 
   const [create, notificationContext] = useTryNotify({
-    action: async (values: NewReefFields) => {
+    action: async (values: ReefFields) => {
       const id = await createReef(values)
       push(`/reefs/${id}`)
     },
@@ -55,7 +55,7 @@ export default function CreateReef() {
         }
         variant="borderless"
       >
-        <ReefForm<NewReefFields> onFinish={create} buttonText="Create Reef" />
+        <ReefForm onFinish={create} buttonText="Create Reef" />
       </Card>
       {notificationContext}
     </>

@@ -2,7 +2,7 @@
 import { assertUserAbility } from '@/services/auth/ability'
 import { database } from '@/services/database/database'
 
-export type SpeciesFields = {
+type SpeciesFields = {
   genus: string
   species: string
 }

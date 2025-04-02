@@ -1,14 +1,14 @@
 'use client'
 import { Breadcrumbs } from '@/components/Breadcrumbs'
 import { useAssertAbility } from '@/services/auth/useAbility'
+import { useTryNotify } from '@/utils/useTryNotify.ts'
 import { NodeExpandOutlined } from '@ant-design/icons'
-import { Card, notification, Skeleton, Space } from 'antd'
+import { Card, Skeleton, Space } from 'antd'
 import { useParams, useRouter } from 'next/navigation'
 import useSWR from 'swr'
-import { SpeciesForm } from '../../SpeciesForm'
+import { SpeciesFields, SpeciesForm } from '../../SpeciesForm'
 import { speciesFetcher } from '../speciesFetcher'
-import { editSpecies, SpeciesFields } from './editSpecies'
-import { useTryNotify } from '@/utils/useTryNotify.ts'
+import { editSpecies } from './editSpecies'
 
 export default function EditSpecies() {
   const { speciesId } = useParams()
@@ -66,7 +66,7 @@ export default function EditSpecies() {
         }
         variant="borderless"
       >
-        <SpeciesForm<SpeciesFields>
+        <SpeciesForm
           onFinish={save}
           initialValues={{
             genus: data.genus,

@@ -6,9 +6,9 @@ import { TeamOutlined } from '@ant-design/icons'
 import { Card, Skeleton, Space } from 'antd'
 import { useParams, useRouter } from 'next/navigation'
 import useSWR from 'swr'
-import { ReefForm } from '../../ReefForm'
+import { ReefFields, ReefForm } from '../../ReefForm'
 import { reefFetcher } from '../reefFetcher'
-import { editReef, ReefFields } from './editReef'
+import { editReef } from './editReef'
 
 export default function EditReef() {
   const { reefId } = useParams()
@@ -66,7 +66,7 @@ export default function EditReef() {
         }
         variant="borderless"
       >
-        <ReefForm<ReefFields>
+        <ReefForm
           onFinish={save}
           initialValues={{
             name: data.name,

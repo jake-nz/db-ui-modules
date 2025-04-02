@@ -3,13 +3,12 @@ import { Breadcrumbs } from '@/components/Breadcrumbs'
 import { useAssertAbility } from '@/services/auth/useAbility'
 import { useTryNotify } from '@/utils/useTryNotify.ts'
 import { UserOutlined } from '@ant-design/icons'
-import { Button, Card, Skeleton, Space } from 'antd'
-import Link from 'next/link'
+import { Card, Skeleton, Space } from 'antd'
 import { useParams, useRouter } from 'next/navigation'
 import useSWR from 'swr'
-import { UserForm } from '../../UserForm'
+import { UserFields, UserForm } from '../../UserForm'
 import { userFetcher } from '../userFetcher'
-import { editUser, UserFields } from './editUser'
+import { editUser } from './editUser'
 
 export default function EditUser() {
   const { userId } = useParams()
@@ -67,11 +66,7 @@ export default function EditUser() {
         }
         variant="borderless"
       >
-        <UserForm<UserFields>
-          onFinish={save}
-          initialValues={data}
-          buttonText="Save User"
-        />
+        <UserForm onFinish={save} initialValues={data} buttonText="Save User" />
       </Card>
       {notificationContext}
     </>

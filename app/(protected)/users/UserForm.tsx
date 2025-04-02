@@ -3,18 +3,26 @@ import { OperatorSelect } from '@/components/OperatorSelect'
 import { useAssertAbility } from '@/services/auth/useAbility'
 import { Button, Form, FormProps, Input, Select } from 'antd'
 import { RoleTag } from './RoleTag'
+import { Role } from '@/services/auth/permissions'
 
-export const UserForm = function <Values = any>({
+export type UserFields = {
+  name: string
+  email: string
+  role: Role
+  operatorId?: string
+}
+
+export const UserForm = function ({
   buttonText,
   ...props
-}: FormProps<Values> & { buttonText: string }) {
+}: FormProps<UserFields> & { buttonText: string }) {
   useAssertAbility({ create: 'User' })
 
   const [form] = Form.useForm()
   const role = Form.useWatch('role', form)
 
   return (
-    <Form<Values>
+    <Form<UserFields>
       form={form}
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 16 }}

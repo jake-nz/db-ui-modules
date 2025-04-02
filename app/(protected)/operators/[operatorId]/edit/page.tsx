@@ -6,9 +6,9 @@ import { TeamOutlined } from '@ant-design/icons'
 import { Card, Skeleton, Space } from 'antd'
 import { useParams, useRouter } from 'next/navigation'
 import useSWR from 'swr'
-import { OperatorForm } from '../../OperatorForm'
+import { OperatorFields, OperatorForm } from '../../OperatorForm'
 import { operatorFetcher } from '../operatorFetcher'
-import { editOperator, OperatorFields } from './editOperator'
+import { editOperator } from './editOperator'
 
 export default function EditOperator() {
   const { operatorId } = useParams()
@@ -65,7 +65,7 @@ export default function EditOperator() {
         }
         variant="borderless"
       >
-        <OperatorForm<OperatorFields>
+        <OperatorForm
           onFinish={save}
           initialValues={{
             name: data.name,

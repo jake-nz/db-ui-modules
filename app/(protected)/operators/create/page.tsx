@@ -6,8 +6,8 @@ import { PlusOutlined, TeamOutlined } from '@ant-design/icons'
 import { Button, Card, Space } from 'antd'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { OperatorForm } from '../OperatorForm'
-import { createOperator, NewOperatorFields } from './createOperator'
+import { OperatorFields, OperatorForm } from '../OperatorForm'
+import { createOperator } from './createOperator'
 
 export default function CreateOperator() {
   useAssertAbility({ create: 'Operator' })
@@ -15,7 +15,7 @@ export default function CreateOperator() {
   const { push } = useRouter()
 
   const [create, notificationContext] = useTryNotify({
-    action: async (values: NewOperatorFields) => {
+    action: async (values: OperatorFields) => {
       const id = await createOperator(values)
       push(`/operators/${id}`)
     },
@@ -55,10 +55,7 @@ export default function CreateOperator() {
         }
         variant="borderless"
       >
-        <OperatorForm<NewOperatorFields>
-          onFinish={create}
-          buttonText="Create Operator"
-        />
+        <OperatorForm onFinish={create} buttonText="Create Operator" />
       </Card>
       {notificationContext}
     </>

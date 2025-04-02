@@ -2,12 +2,17 @@
 import { Button, Form, FormProps, Input } from 'antd'
 import { RegionSelect } from '@/components/RegionSelect'
 
-export const OperatorForm = function <Values = any>({
+export type OperatorFields = {
+  name: string
+  region: string
+}
+
+export const OperatorForm = function ({
   buttonText,
   ...props
-}: FormProps<Values> & { buttonText: string }) {
+}: FormProps<OperatorFields> & { buttonText: string }) {
   return (
-    <Form<Values>
+    <Form<OperatorFields>
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 16 }}
       autoComplete="off"

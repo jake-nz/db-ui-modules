@@ -4,8 +4,8 @@ import Coral from '@/components/icons/coral.svg'
 import { useAssertAbility } from '@/services/auth/useAbility'
 import Icon, { PlusOutlined } from '@ant-design/icons'
 import { Button, Card, Space } from 'antd'
-import { OutplantForm } from '../OutplantForm'
-import { createOutplants, NewOutplantsFields } from './createOutplants'
+import { OutplantFields, OutplantForm } from '../OutplantForm'
+import { createOutplants } from './createOutplants'
 import { useRouter } from 'next/navigation'
 import { useTryNotify } from '@/utils/useTryNotify.ts'
 import Link from 'next/link'
@@ -16,8 +16,11 @@ export default function CreateOutplantDay() {
   const { push } = useRouter()
 
   const [create, notificationContext] = useTryNotify({
-    action: async (values: NewOutplantsFields) => {
-      const id = await createOutplants(values)
+    action: async (values: OutplantFields) => {
+      const id = await createOutplants({
+        ...values,
+        date: values.date.toDate()
+      })
       push(`/outplants/${id}`)
     },
     start: { message: 'Creating outplants' },
@@ -56,10 +59,7 @@ export default function CreateOutplantDay() {
         }
         variant="borderless"
       >
-        <OutplantForm<NewOutplantsFields>
-          onFinish={create}
-          buttonText="Save Outplants"
-        />
+        <OutplantForm onFinish={create} buttonText="Save Outplants" />
       </Card>
       {notificationContext}
     </>

@@ -6,9 +6,9 @@ import { TeamOutlined } from '@ant-design/icons'
 import { Card, Skeleton, Space } from 'antd'
 import { useParams, useRouter } from 'next/navigation'
 import useSWR from 'swr'
-import { SiteForm } from '../../SiteForm'
+import { SiteFields, SiteForm } from '../../SiteForm'
 import { siteFetcher } from '../siteFetcher'
-import { editSite, SiteFields } from './editSite'
+import { editSite } from './editSite'
 
 export default function EditSite() {
   const { siteId } = useParams()
@@ -66,7 +66,7 @@ export default function EditSite() {
         }
         variant="borderless"
       >
-        <SiteForm<SiteFields>
+        <SiteForm
           onFinish={save}
           initialValues={{
             name: data.name,

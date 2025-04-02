@@ -6,8 +6,8 @@ import { UserAddOutlined, UserOutlined } from '@ant-design/icons'
 import { Button, Card, Space } from 'antd'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { UserForm } from '../UserForm'
-import { createUser, NewUserFields } from './createUser'
+import { UserFields, UserForm } from '../UserForm'
+import { createUser } from './createUser'
 import { useTryNotify } from '@/utils/useTryNotify.ts'
 
 export default function CreateUser() {
@@ -16,7 +16,7 @@ export default function CreateUser() {
   const { push } = useRouter()
 
   const [create, notificationContext] = useTryNotify({
-    action: async (values: NewUserFields) => {
+    action: async (values: UserFields) => {
       const baseUrl = getURL()
       const id = await createUser(values, baseUrl)
       push(`/users/${id}`)
@@ -57,7 +57,7 @@ export default function CreateUser() {
         }
         variant="borderless"
       >
-        <UserForm<NewUserFields> onFinish={create} buttonText="Create User" />
+        <UserForm onFinish={create} buttonText="Create User" />
       </Card>
       {notificationContext}
     </>

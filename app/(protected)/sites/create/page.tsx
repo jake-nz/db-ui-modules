@@ -6,8 +6,8 @@ import { PlusOutlined, TeamOutlined } from '@ant-design/icons'
 import { Button, Card, Space } from 'antd'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { SiteForm } from '../SiteForm'
-import { createSite, NewSiteFields } from './createSite'
+import { SiteFields, SiteForm } from '../SiteForm'
+import { createSite } from './createSite'
 
 export default function CreateSite() {
   useAssertAbility({ create: 'Site' })
@@ -15,7 +15,7 @@ export default function CreateSite() {
   const { push } = useRouter()
 
   const [create, notificationContext] = useTryNotify({
-    action: async (values: NewSiteFields) => {
+    action: async (values: SiteFields) => {
       const id = await createSite(values)
       push(`/sites/${id}`)
     },
@@ -55,7 +55,7 @@ export default function CreateSite() {
         }
         variant="borderless"
       >
-        <SiteForm<NewSiteFields> onFinish={create} buttonText="Create Site" />
+        <SiteForm onFinish={create} buttonText="Create Site" />
       </Card>
       {notificationContext}
     </>

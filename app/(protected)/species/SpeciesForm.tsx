@@ -1,13 +1,17 @@
 'use client'
 import { Button, Form, FormProps, Input } from 'antd'
-import { RegionSelect } from '@/components/RegionSelect'
 
-export const SpeciesForm = function <Values = any>({
+export type SpeciesFields = {
+  genus: string
+  species: string
+}
+
+export const SpeciesForm = function ({
   buttonText,
   ...props
-}: FormProps<Values> & { buttonText: string }) {
+}: FormProps<SpeciesFields> & { buttonText: string }) {
   return (
-    <Form<Values>
+    <Form<SpeciesFields>
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 16 }}
       autoComplete="off"

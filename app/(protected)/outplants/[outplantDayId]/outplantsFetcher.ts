@@ -18,6 +18,7 @@ export const outplantsFetcher = async ({
       'species.species',
       'outplants.count',
       'outplants.origin',
+      'outplants.morph',
       'outplants.notes',
       'outplants.createdAt',
       'outplants.originalData'

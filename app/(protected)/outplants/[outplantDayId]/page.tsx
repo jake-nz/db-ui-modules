@@ -4,7 +4,7 @@ import { Details } from '@/components/Details'
 import { Id } from '@/components/Id'
 import Coral from '@/components/icons/coral.svg'
 import { useAssertAbility } from '@/services/auth/useAbility'
-import Icon, { FormOutlined, TeamOutlined } from '@ant-design/icons'
+import Icon, { FormOutlined } from '@ant-design/icons'
 import {
   Button,
   Card,
@@ -124,14 +124,20 @@ export default function OutplantDay() {
               )
             },
             {
-              title: 'Origin',
-              key: 'origin',
-              dataIndex: 'origin'
+              title: 'Morphology',
+              key: 'morph',
+              dataIndex: 'morph'
             },
             {
               title: 'Count',
               key: 'count',
-              dataIndex: 'count'
+              dataIndex: 'count',
+              width: 80
+            },
+            {
+              title: 'Origin',
+              key: 'origin',
+              dataIndex: 'origin'
             },
             {
               title: 'Notes',
@@ -153,6 +159,10 @@ export default function OutplantDay() {
                   <Table.Summary.Cell index={1} colSpan={1}>
                     Total: {total}
                   </Table.Summary.Cell>
+                  <Table.Summary.Cell
+                    index={2}
+                    colSpan={2}
+                  ></Table.Summary.Cell>
                 </Table.Summary.Row>
               </>
             )

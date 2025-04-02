@@ -8,7 +8,7 @@ import { Resend } from 'resend'
 
 const resend = new Resend(config.RESEND_API_KEY)
 
-export type NewUserFields = {
+type NewUserFields = {
   name: string
   email: string
   role: Role
