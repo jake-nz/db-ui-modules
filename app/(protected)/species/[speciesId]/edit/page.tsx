@@ -8,6 +8,7 @@ import useSWR from 'swr'
 import { SpeciesForm } from '../../SpeciesForm'
 import { speciesFetcher } from '../speciesFetcher'
 import { editSpecies, SpeciesFields } from './editSpecies'
+import { useTryNotify } from '@/utils/useTryNotify.ts'
 
 export default function EditSpecies() {
   const { speciesId } = useParams()
@@ -17,8 +18,17 @@ export default function EditSpecies() {
 
   const { data, error, isLoading } = useSWR(speciesId, speciesFetcher)
 
-  const [notifications, notificationContext] = notification.useNotification()
   const { push } = useRouter()
+
+  const [save, notificationContext] = useTryNotify({
+    action: async (values: SpeciesFields) => {
+      await editSpecies(speciesId, values)
+      push(`/species/${speciesId}`)
+    },
+    start: { message: 'Saving species' },
+    success: { message: 'Saved species' },
+    error: { message: 'Error saving species' }
+  })
 
   if (error) throw error
   if (isLoading || !data)
@@ -27,42 +37,6 @@ export default function EditSpecies() {
         <Skeleton active />
       </Card>
     )
-
-  const save = async (values: SpeciesFields) => {
-    notifications.info({
-      message: `Saving ${values.genus} ${values.species}`,
-      key: 'save-species',
-      closable: false
-    })
-
-    try {
-      await editSpecies(speciesId, values)
-      notifications.success({
-        message: `Saved ${values.genus} ${values.species}`,
-        key: 'save-species'
-      })
-
-      push(`/species/${speciesId}`)
-    } catch (err) {
-      console.error(err)
-      const getMessage = (err: any) => {
-        if (err instanceof Error) {
-          return err.message
-        }
-        if (typeof err === 'string') {
-          return err
-        }
-        return 'Unknown error'
-      }
-
-      notifications.error({
-        message: `Error saving ${values.genus} ${values.species}`,
-        description: getMessage(err),
-        key: 'save-species',
-        duration: 0
-      })
-    }
-  }
 
   return (
     <>

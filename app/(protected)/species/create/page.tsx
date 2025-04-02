@@ -7,53 +7,29 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { SpeciesForm } from '../SpeciesForm'
 import { createSpecies, NewSpeciesFields } from './createSpecies'
+import { useTryNotify } from '@/utils/useTryNotify.ts'
 
 export default function CreateSpecies() {
   useAssertAbility({ create: 'Species' })
 
-  const [notifications, notificationContext] = notification.useNotification()
   const { push } = useRouter()
 
-  const create = async (values: NewSpeciesFields) => {
-    notifications.info({
-      message: `Creating ${values.genus} ${values.species}`,
-      key: 'create-species',
-      closable: false
-    })
-
-    try {
+  const [create, notificationContext] = useTryNotify({
+    action: async (values: NewSpeciesFields) => {
       const id = await createSpecies(values)
-      notifications.success({
-        message: `Created ${values.genus} ${values.species}`,
-        actions: (
-          <Link href={`/species/${id}`}>
-            <Button type="primary">View</Button>
-          </Link>
-        ),
-        key: 'create-species'
-      })
-
       push(`/species/${id}`)
-    } catch (err) {
-      console.error(err)
-      const getMessage = (err: any) => {
-        if (err instanceof Error) {
-          return err.message
-        }
-        if (typeof err === 'string') {
-          return err
-        }
-        return 'Unknown error'
-      }
-
-      notifications.error({
-        message: `Error creating ${values.genus} ${values.species}`,
-        description: getMessage(err),
-        key: 'create-species',
-        duration: 0
-      })
-    }
-  }
+    },
+    start: { message: 'Creating species' },
+    success: id => ({
+      message: 'Created species',
+      actions: (
+        <Link href={`/species/${id}`}>
+          <Button type="primary">View</Button>
+        </Link>
+      )
+    }),
+    error: { message: 'Error creating species' }
+  })
 
   return (
     <>

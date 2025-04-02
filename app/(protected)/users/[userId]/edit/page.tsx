@@ -1,9 +1,9 @@
 'use client'
 import { Breadcrumbs } from '@/components/Breadcrumbs'
-import { getURL } from '@/services/auth/getURL'
 import { useAssertAbility } from '@/services/auth/useAbility'
+import { useTryNotify } from '@/utils/useTryNotify.ts'
 import { UserOutlined } from '@ant-design/icons'
-import { Button, Card, Modal, notification, Skeleton, Space } from 'antd'
+import { Button, Card, Skeleton, Space } from 'antd'
 import Link from 'next/link'
 import { useParams, useRouter } from 'next/navigation'
 import useSWR from 'swr'
@@ -19,8 +19,17 @@ export default function EditUser() {
 
   const { data, error, isLoading } = useSWR(userId, userFetcher)
 
-  const [notifications, notificationContext] = notification.useNotification()
   const { push } = useRouter()
+
+  const [save, notificationContext] = useTryNotify({
+    action: async (values: UserFields) => {
+      await editUser(userId, values)
+      push(`/users/${userId}`)
+    },
+    start: { message: 'Saving user' },
+    success: { message: 'Saved user' },
+    error: { message: 'Error saving user' }
+  })
 
   if (error) throw error
   if (isLoading || !data)
@@ -29,44 +38,6 @@ export default function EditUser() {
         <Skeleton active />
       </Card>
     )
-
-  const save = async (values: UserFields) => {
-    notifications.info({
-      message: `Saving ${values.name}`,
-      key: 'save-user',
-      closable: false
-    })
-
-    try {
-      await editUser(userId, values)
-      notifications.success({
-        message: `Saved ${values.name}`,
-        key: 'save-user'
-      })
-
-      push(`/users/${userId}`)
-    } catch (err) {
-      console.error(err)
-      const getMessage = (err: any) => {
-        if (err instanceof Error) {
-          if (err.message.includes('users_email_key'))
-            return 'A user with this email already exists'
-          return err.message
-        }
-        if (typeof err === 'string') {
-          return err
-        }
-        return 'Unknown error'
-      }
-
-      notifications.error({
-        message: `Error saving ${values.name}`,
-        description: getMessage(err),
-        key: 'save-user',
-        duration: 0
-      })
-    }
-  }
 
   return (
     <>

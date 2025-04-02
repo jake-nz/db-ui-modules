@@ -1,8 +1,9 @@
 'use client'
 import { Breadcrumbs } from '@/components/Breadcrumbs'
 import { useAssertAbility } from '@/services/auth/useAbility'
+import { useTryNotify } from '@/utils/useTryNotify.ts'
 import { PlusOutlined, TeamOutlined } from '@ant-design/icons'
-import { Button, Card, notification, Space } from 'antd'
+import { Button, Card, Space } from 'antd'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { SiteForm } from '../SiteForm'
@@ -11,49 +12,24 @@ import { createSite, NewSiteFields } from './createSite'
 export default function CreateSite() {
   useAssertAbility({ create: 'Site' })
 
-  const [notifications, notificationContext] = notification.useNotification()
   const { push } = useRouter()
 
-  const create = async (values: NewSiteFields) => {
-    notifications.info({
-      message: `Creating ${values.name}`,
-      key: 'create-site',
-      closable: false
-    })
-
-    try {
+  const [create, notificationContext] = useTryNotify({
+    action: async (values: NewSiteFields) => {
       const id = await createSite(values)
-      notifications.success({
-        message: `Created ${values.name}`,
-        actions: (
-          <Link href={`/sites/${id}`}>
-            <Button type="primary">View</Button>
-          </Link>
-        ),
-        key: 'create-site'
-      })
-
       push(`/sites/${id}`)
-    } catch (err) {
-      console.error(err)
-      const getMessage = (err: any) => {
-        if (err instanceof Error) {
-          return err.message
-        }
-        if (typeof err === 'string') {
-          return err
-        }
-        return 'Unknown error'
-      }
-
-      notifications.error({
-        message: `Error creating ${values.name}`,
-        description: getMessage(err),
-        key: 'create-site',
-        duration: 0
-      })
-    }
-  }
+    },
+    start: { message: 'Creating site' },
+    success: id => ({
+      message: 'Created site',
+      actions: (
+        <Link href={`/sites/${id}`}>
+          <Button type="primary">View</Button>
+        </Link>
+      )
+    }),
+    error: { message: 'Error creating site' }
+  })
 
   return (
     <>

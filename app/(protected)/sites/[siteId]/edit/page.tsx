@@ -1,8 +1,9 @@
 'use client'
 import { Breadcrumbs } from '@/components/Breadcrumbs'
 import { useAssertAbility } from '@/services/auth/useAbility'
+import { useTryNotify } from '@/utils/useTryNotify.ts'
 import { TeamOutlined } from '@ant-design/icons'
-import { Card, notification, Skeleton, Space } from 'antd'
+import { Card, Skeleton, Space } from 'antd'
 import { useParams, useRouter } from 'next/navigation'
 import useSWR from 'swr'
 import { SiteForm } from '../../SiteForm'
@@ -17,8 +18,17 @@ export default function EditSite() {
 
   const { data, error, isLoading } = useSWR(siteId, siteFetcher)
 
-  const [notifications, notificationContext] = notification.useNotification()
   const { push } = useRouter()
+
+  const [save, notificationContext] = useTryNotify({
+    action: async (values: SiteFields) => {
+      await editSite(siteId, values)
+      push(`/sites/${siteId}`)
+    },
+    start: { message: 'Saving site' },
+    success: { message: 'Saved site' },
+    error: { message: 'Error saving site' }
+  })
 
   if (error) throw error
   if (isLoading || !data)
@@ -27,42 +37,6 @@ export default function EditSite() {
         <Skeleton active />
       </Card>
     )
-
-  const save = async (values: SiteFields) => {
-    notifications.info({
-      message: `Saving ${values.name}`,
-      key: 'save-site',
-      closable: false
-    })
-
-    try {
-      await editSite(siteId, values)
-      notifications.success({
-        message: `Saved ${values.name}`,
-        key: 'save-site'
-      })
-
-      push(`/sites/${siteId}`)
-    } catch (err) {
-      console.error(err)
-      const getMessage = (err: any) => {
-        if (err instanceof Error) {
-          return err.message
-        }
-        if (typeof err === 'string') {
-          return err
-        }
-        return 'Unknown error'
-      }
-
-      notifications.error({
-        message: `Error saving ${values.name}`,
-        description: getMessage(err),
-        key: 'save-site',
-        duration: 0
-      })
-    }
-  }
 
   return (
     <>
