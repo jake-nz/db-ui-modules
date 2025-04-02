@@ -58,11 +58,11 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         <Button type="link" onClick={() => signOut()}>
           Log out
         </Button>
-        {env === 'production' && (
+        {/* {env === 'production' && (
           <a href="https://coral-nurture-git-previous-jake-crosbys-projects.vercel.app">
             <Button type="link">Use previous version</Button>
           </a>
-        )}
+        )} */}
       </Footer>
     </AntLayout>
   )

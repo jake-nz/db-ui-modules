@@ -22,5 +22,8 @@ export const operatorsFetcher = async ({
     .groupBy(['operators.id', 'operators.name', 'regions.name', 'color'])
     .orderBy('name asc')
 
+  if (filters.region)
+    query = query.where('regions.id', 'in', filters.region as string[])
+
   return paginate(query, page, 100).execute()
 }

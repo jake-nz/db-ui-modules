@@ -15,5 +15,8 @@ export const speciesFetcher = async ({ page, filters, sorter }: ListQuery) => {
     .groupBy(['species.id', 'species.species', 'species.genus'])
     .orderBy(['genus asc', 'species asc'])
 
+  if (filters.genus)
+    query = query.where('species.genus', 'in', filters.genus as string[])
+
   return paginate(query, page, 100).execute()
 }

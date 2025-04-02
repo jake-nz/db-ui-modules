@@ -19,5 +19,8 @@ export const reefsFetcher = async ({ page, filters, sorter }: ListQuery) => {
     .groupBy(['reefs.id', 'reefs.name', 'regions.name', 'color'])
     .orderBy('name asc')
 
+  if (filters.region)
+    query = query.where('regions.id', 'in', filters.region as string[])
+
   return paginate(query, page, 100).execute()
 }

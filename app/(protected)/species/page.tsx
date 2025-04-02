@@ -7,6 +7,8 @@ import { Breadcrumbs } from '@/components/Breadcrumbs'
 import { NodeExpandOutlined, PlusOutlined } from '@ant-design/icons'
 import Link from 'next/link'
 import { useTitle } from '@/utils/useTitle'
+import { selectFilter } from '@/components/selectFilter'
+import { GenusSelect } from '@/components/GenusSelect'
 
 type Row = Awaited<ReturnType<typeof speciesFetcher>>[number]
 
@@ -14,7 +16,8 @@ const columns: TableColumnsType<Row> = [
   {
     title: 'Genus',
     key: 'genus',
-    render: ({ id, genus }) => <Link href={`/species/${id}`}>{genus}</Link>
+    render: ({ id, genus }) => <Link href={`/species/${id}`}>{genus}</Link>,
+    filterDropdown: selectFilter(GenusSelect)
   },
   {
     title: 'Species',

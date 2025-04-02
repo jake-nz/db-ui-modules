@@ -20,6 +20,9 @@ export const sitesFetcher = async ({ page, filters, sorter }: ListQuery) => {
     .groupBy(['sites.id', 'sites.name', 'reefs.name'])
     .orderBy('name asc')
 
+  if (filters.reef)
+    query = query.where('reefs.id', 'in', filters.reef as string[])
+
   if (filters.operator) {
     query = query.where('operators.id', 'in', filters.operator as string[])
   }

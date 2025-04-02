@@ -1,30 +1,30 @@
 'use client'
 
-import { regionsFetcher } from '@/app/(protected)/regions/regionsFetcher'
+import { generaFetcher } from '@/app/(protected)/species/generaFetcher'
 import { Select, Tag } from 'antd'
 import { ComponentProps } from 'react'
 import useSWR from 'swr'
 
-export type RegionOption = {
+export type GenusOption = {
   id: string
   name: string
   color: string
 }
 
-export const RegionSelect = (props: ComponentProps<typeof Select>) => {
+export const GenusSelect = (props: ComponentProps<typeof Select>) => {
   const { data, isLoading } = useSWR(
     {
       page: 1,
       filters: {},
       sorter: [],
-      swrKey: 'regions'
+      swrKey: 'genera'
     },
-    regionsFetcher
+    generaFetcher
   )
 
-  const options = data?.map(region => ({
-    label: <Tag color={region.color}>{region.name}</Tag>,
-    value: region.id
+  const options = data?.map(species => ({
+    label: species.genus,
+    value: species.genus
   }))
 
   return (

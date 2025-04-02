@@ -22,6 +22,7 @@ export default function Home() {
         priority
       />
       <Space direction="vertical" size="middle" style={{ width: 500 }}>
+        Note: These are not real numbers. What metrics do we want here?
         <Row gutter={16}>
           <Col span={12}>
             <Card variant="borderless">

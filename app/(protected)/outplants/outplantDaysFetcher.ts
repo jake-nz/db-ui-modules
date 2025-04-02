@@ -32,6 +32,12 @@ export const outplantDaysFetcher = async ({
   if (filters.operator)
     query = query.where('operators.id', 'in', filters.operator as string[])
 
+  if (filters.region)
+    query = query.where('regions.id', 'in', filters.region as string[])
+
+  if (filters.reef)
+    query = query.where('reefs.id', 'in', filters.reef as string[])
+
   for (const [column, direction] of iterateSorter(sorter)) {
     switch (column) {
       case 'date':

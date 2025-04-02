@@ -4,6 +4,8 @@ import { TableColumnsType, Tag } from 'antd'
 import { AdminTable } from 'snaks/client'
 import { operatorsFetcher } from './operatorsFetcher'
 import Link from 'next/link'
+import { selectFilter } from '@/components/selectFilter'
+import { RegionSelect } from '@/components/RegionSelect'
 
 type Row = Awaited<ReturnType<typeof operatorsFetcher>>[number]
 
@@ -16,7 +18,10 @@ const columns: TableColumnsType<Row> = [
   {
     title: 'Region',
     key: 'region',
-    render: ({ color, region }) => <Tag color={color}>{region}</Tag>
+    render: ({ regionColor, region }) => (
+      <Tag color={regionColor}>{region}</Tag>
+    ),
+    filterDropdown: selectFilter(RegionSelect)
   },
   {
     title: 'Outplants',

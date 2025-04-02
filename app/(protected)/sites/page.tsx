@@ -8,6 +8,8 @@ import MapPin from '@/components/icons/map-pin-line.svg'
 import Icon, { PlusOutlined } from '@ant-design/icons'
 import Link from 'next/link'
 import { useTitle } from '@/utils/useTitle'
+import { selectFilter } from '@/components/selectFilter'
+import { ReefSelect } from '@/components/ReefSelect'
 
 type Row = Awaited<ReturnType<typeof sitesFetcher>>[number]
 
@@ -16,6 +18,12 @@ const columns: TableColumnsType<Row> = [
     title: 'Name',
     key: 'name',
     render: ({ id, name }) => <Link href={`/sites/${id}`}>{name}</Link>
+  },
+  {
+    title: 'Reef',
+    dataIndex: 'reef',
+    key: 'reef',
+    filterDropdown: selectFilter(ReefSelect)
   },
   {
     title: 'Outplants',

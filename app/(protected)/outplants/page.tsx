@@ -1,15 +1,18 @@
 'use client'
 import { Breadcrumbs } from '@/components/Breadcrumbs'
-import { dateFormat, Datetime } from '@/components/Datetime'
+import { dateFormat } from '@/components/Datetime'
 import CoralIcon from '@/components/icons/coral.svg'
-import { OperatorFilter } from '@/components/OperatorFilter'
+import { OperatorSelect } from '@/components/OperatorSelect'
+import { ReefSelect } from '@/components/ReefSelect'
+import { RegionSelect } from '@/components/RegionSelect'
+import { selectFilter } from '@/components/selectFilter'
 import { useAssertAbility } from '@/services/auth/useAbility'
-import Icon, { PlusOutlined } from '@ant-design/icons'
+import { useTitle } from '@/utils/useTitle'
+import Icon from '@ant-design/icons'
 import { Button, Space, TableColumnsType, Tag } from 'antd'
 import Link from 'next/link'
 import { AdminTable } from 'snaks/client'
 import { outplantDaysFetcher } from './outplantDaysFetcher'
-import { useTitle } from '@/utils/useTitle'
 
 type Row = Awaited<ReturnType<typeof outplantDaysFetcher>>[number]
 
@@ -26,16 +29,28 @@ const columns: TableColumnsType<Row> = [
   {
     title: 'Region',
     key: 'region',
-    render: ({ regionColor, region }) => <Tag color={regionColor}>{region}</Tag>
+    render: ({ regionColor, region }) => (
+      <Tag color={regionColor}>{region}</Tag>
+    ),
+    filterDropdown: selectFilter(RegionSelect)
   },
   {
     title: 'Operator',
     dataIndex: 'operator',
     key: 'operator',
-    filterDropdown: OperatorFilter
+    filterDropdown: selectFilter(OperatorSelect)
   },
-  { title: 'Reef', dataIndex: 'reef', key: 'reef' },
-  { title: 'Site', dataIndex: 'site', key: 'site' },
+  {
+    title: 'Reef',
+    dataIndex: 'reef',
+    key: 'reef',
+    filterDropdown: selectFilter(ReefSelect)
+  },
+  {
+    title: 'Site',
+    dataIndex: 'site',
+    key: 'site'
+  },
   {
     title: 'Outplants',
     dataIndex: 'outplantCount',
