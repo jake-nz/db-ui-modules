@@ -42,10 +42,12 @@ export interface OperatorsSites {
 
 export interface OutplantDays {
   createdAt: Generated<Timestamp>
+  crew: number | null
   date: Timestamp
+  funding: string | null
   id: Generated<number>
   operator: string
-  originalData: Json
+  originalData: Json | null
   site: string
 }
 
@@ -57,7 +59,7 @@ export interface Outplants {
   morph: string
   notes: string | null
   origin: Origin
-  originalData: Json
+  originalData: Json | null
   species: string
 }
 
@@ -93,7 +95,7 @@ export interface Users {
   password: string
   resetToken: string | null
   resetTokenExpiresAt: Timestamp | null
-  role: Generated<UserRole>
+  role: UserRole
 }
 
 export interface DB {

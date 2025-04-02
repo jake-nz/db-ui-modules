@@ -19,7 +19,9 @@ export const outplantDayFetcher = async (id: number) => {
       'sites.name as site',
       'reefs.id as reefId',
       'reefs.name as reef',
-      'date'
+      'date',
+      'crew',
+      'funding'
     ])
     .where('outplantDays.id', '=', id)
 

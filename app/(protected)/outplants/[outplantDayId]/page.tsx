@@ -21,7 +21,6 @@ import useSWR from 'swr'
 import { outplantDayFetcher } from './outplantDayFetcher'
 import { Datetime } from '@/components/Datetime'
 import { AdminTable } from 'snaks/client'
-import { outplantDaysFetcher } from '../outplantDaysFetcher'
 import { outplantsFetcher } from './outplantsFetcher'
 
 const { Text } = Typography
@@ -102,7 +101,9 @@ export default function OutplantDay() {
               <Link href={`/operators/${data.operatorId}`}>
                 {data.operator}
               </Link>
-            )
+            ),
+            'Number of crew': data.crew,
+            'Funding Source': data.funding
           }}
         />
         <Divider orientation="left" orientationMargin={0}>
