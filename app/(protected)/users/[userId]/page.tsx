@@ -10,6 +10,7 @@ import { useParams } from 'next/navigation'
 import useSWR from 'swr'
 import { RoleTag } from '../RoleTag'
 import { userFetcher } from './userFetcher'
+import { useTitle } from '@/utils/useTitle'
 
 export default function User() {
   const { userId } = useParams()
@@ -17,7 +18,9 @@ export default function User() {
 
   const { can } = useAssertAbility({ read: { User: { id: userId } } })
 
-  const { data, error, isLoading, mutate } = useSWR(userId, userFetcher)
+  const { data, error, isLoading } = useSWR(userId, userFetcher)
+
+  useTitle(data?.name || 'User')
 
   if (error) throw error
   if (isLoading || !data)

@@ -4,21 +4,22 @@ import { Details } from '@/components/Details'
 import { Id } from '@/components/Id'
 import Globe from '@/components/icons/globe.svg'
 import { useAssertAbility } from '@/services/auth/useAbility'
-import { FormOutlined } from '@ant-design/icons'
+import { useTitle } from '@/utils/useTitle'
 import Icon from '@ant-design/icons'
-import { Button, Card, Skeleton, Space, Tag } from 'antd'
-import Link from 'next/link'
+import { Card, Skeleton, Space, Tag } from 'antd'
 import { useParams } from 'next/navigation'
 import useSWR from 'swr'
 import { regionFetcher } from './regionFetcher'
 
 export default function Region() {
+  useAssertAbility({ read: 'Region' })
+
   const { regionId } = useParams()
   if (Array.isArray(regionId)) throw new Error('Multiple regionIds')
 
-  const { can } = useAssertAbility({ read: 'Region' })
-
   const { data, error, isLoading } = useSWR(regionId, regionFetcher)
+
+  useTitle(`${data?.name || ''} Region`)
 
   if (error) throw error
   if (isLoading || !data)

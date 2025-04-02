@@ -7,11 +7,13 @@ import { AuthCard } from './AuthCard'
 import { confirmPasswordRules, passwordRules } from './formRules'
 import { validateToken } from '../actions/validateToken'
 import { resetPassword } from '../actions/resetPassword'
+import { useTitle } from '@/utils/useTitle'
 const { Text } = Typography
 
 type Status = 'validating' | 'loading' | 'success' | null
 
 export const PasswordReset = () => {
+  useTitle('Set Password')
   const [status, setStatus] = useState<Status>('validating')
   const [error, setError] = useState<string | null>(null)
   const searchParams = useSearchParams()

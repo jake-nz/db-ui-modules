@@ -9,6 +9,7 @@ import useSWR from 'swr'
 import { SpeciesFields, SpeciesForm } from '../../SpeciesForm'
 import { speciesFetcher } from '../speciesFetcher'
 import { editSpecies } from './editSpecies'
+import { useTitle } from '@/utils/useTitle'
 
 export default function EditSpecies() {
   const { speciesId } = useParams()
@@ -17,6 +18,8 @@ export default function EditSpecies() {
   useAssertAbility({ edit: { Species: { id: speciesId } } })
 
   const { data, error, isLoading } = useSWR(speciesId, speciesFetcher)
+
+  useTitle(`Edit ${data?.genus || 'Species'} ${data?.species || ''}`)
 
   const { push } = useRouter()
 

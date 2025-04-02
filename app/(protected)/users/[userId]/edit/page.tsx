@@ -9,6 +9,7 @@ import useSWR from 'swr'
 import { UserFields, UserForm } from '../../UserForm'
 import { userFetcher } from '../userFetcher'
 import { editUser } from './editUser'
+import { useTitle } from '@/utils/useTitle'
 
 export default function EditUser() {
   const { userId } = useParams()
@@ -17,6 +18,8 @@ export default function EditUser() {
   useAssertAbility({ edit: { User: { id: userId } } })
 
   const { data, error, isLoading } = useSWR(userId, userFetcher)
+
+  useTitle(`Edit ${data?.name || 'User'}`)
 
   const { push } = useRouter()
 

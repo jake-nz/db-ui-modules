@@ -9,6 +9,7 @@ import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import useSWR from 'swr'
 import { siteFetcher } from './siteFetcher'
+import { useTitle } from '@/utils/useTitle'
 
 export default function Site() {
   const { siteId } = useParams()
@@ -17,6 +18,8 @@ export default function Site() {
   const { can } = useAssertAbility({ read: { Site: { id: siteId } } })
 
   const { data, error, isLoading } = useSWR(siteId, siteFetcher)
+
+  useTitle(`Site ${data?.name || ''}`)
 
   if (error) throw error
   if (isLoading || !data)

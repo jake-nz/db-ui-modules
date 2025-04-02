@@ -13,6 +13,7 @@ import Coral from '@/components/icons/coral.svg'
 import { outplantsFetcher } from '../outplantsFetcher'
 import { Datetime } from '@/components/Datetime'
 import Dayjs from 'dayjs'
+import { useTitle } from '@/utils/useTitle'
 
 const { Text } = Typography
 
@@ -27,6 +28,8 @@ export default function EditReef() {
     { filters: { dayId: [outplantDayId] } },
     outplantsFetcher
   )
+
+  useTitle(`Edit Outplant Day ${outplantDay.data?.site || ''}`)
 
   const { push } = useRouter()
 

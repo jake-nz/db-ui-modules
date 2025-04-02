@@ -9,6 +9,7 @@ import useSWR from 'swr'
 import { ReefFields, ReefForm } from '../../ReefForm'
 import { reefFetcher } from '../reefFetcher'
 import { editReef } from './editReef'
+import { useTitle } from '@/utils/useTitle'
 
 export default function EditReef() {
   const { reefId } = useParams()
@@ -17,6 +18,8 @@ export default function EditReef() {
   useAssertAbility({ edit: { Reef: { id: reefId } } })
 
   const { data, error, isLoading } = useSWR(reefId, reefFetcher)
+
+  useTitle(`Edit Reef ${data?.name || ''}`)
 
   const { push } = useRouter()
 

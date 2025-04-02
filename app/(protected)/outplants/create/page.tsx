@@ -9,8 +9,10 @@ import { createOutplants } from './createOutplants'
 import { useRouter } from 'next/navigation'
 import { useTryNotify } from '@/utils/useTryNotify.ts'
 import Link from 'next/link'
+import { useTitle } from '@/utils/useTitle'
 
 export default function CreateOutplantDay() {
+  useTitle('Enter Outplants')
   useAssertAbility({ create: 'Outplant' })
 
   const { push } = useRouter()

@@ -9,6 +9,7 @@ import { Button, Space, TableColumnsType, Tag } from 'antd'
 import Link from 'next/link'
 import { AdminTable } from 'snaks/client'
 import { outplantDaysFetcher } from './outplantDaysFetcher'
+import { useTitle } from '@/utils/useTitle'
 
 type Row = Awaited<ReturnType<typeof outplantDaysFetcher>>[number]
 
@@ -44,6 +45,7 @@ const columns: TableColumnsType<Row> = [
 ]
 
 export default function Outplants() {
+  useTitle('Outplants')
   useAssertAbility({ read: 'Operator' })
   return (
     <>

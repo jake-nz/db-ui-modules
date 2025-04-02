@@ -3,6 +3,10 @@ import { Button, Card, Col, Row, Space, Statistic } from 'antd'
 import Image from 'next/image'
 import Link from 'next/link'
 
+export const metadata = {
+  title: 'Coral Nurture Program Database'
+}
+
 export default function Home() {
   return (
     <Space

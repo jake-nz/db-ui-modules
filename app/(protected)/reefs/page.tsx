@@ -6,8 +6,10 @@ import { useAssertAbility } from '@/services/auth/useAbility'
 import ReefIcon from '@/components/icons/reef.svg'
 import Icon, { PlusOutlined } from '@ant-design/icons'
 import Link from 'next/link'
+import { useTitle } from '@/utils/useTitle'
 
 export default function Reefs() {
+  useTitle('Reefs')
   const { can } = useAssertAbility({ read: 'Reef' })
 
   return (

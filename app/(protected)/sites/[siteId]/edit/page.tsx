@@ -9,6 +9,7 @@ import useSWR from 'swr'
 import { SiteFields, SiteForm } from '../../SiteForm'
 import { siteFetcher } from '../siteFetcher'
 import { editSite } from './editSite'
+import { useTitle } from '@/utils/useTitle'
 
 export default function EditSite() {
   const { siteId } = useParams()
@@ -17,6 +18,8 @@ export default function EditSite() {
   useAssertAbility({ edit: { Site: { id: siteId } } })
 
   const { data, error, isLoading } = useSWR(siteId, siteFetcher)
+
+  useTitle(`Edit Site ${data?.name || ''}`)
 
   const { push } = useRouter()
 

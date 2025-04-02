@@ -9,6 +9,7 @@ import useSWR from 'swr'
 import { OperatorFields, OperatorForm } from '../../OperatorForm'
 import { operatorFetcher } from '../operatorFetcher'
 import { editOperator } from './editOperator'
+import { useTitle } from '@/utils/useTitle'
 
 export default function EditOperator() {
   const { operatorId } = useParams()
@@ -17,6 +18,8 @@ export default function EditOperator() {
   useAssertAbility({ edit: { Operator: { id: operatorId } } })
 
   const { data, error, isLoading } = useSWR(operatorId, operatorFetcher)
+
+  useTitle(`Edit ${data?.name || 'Operator'}`)
 
   const { push } = useRouter()
   const [save, notificationContext] = useTryNotify({

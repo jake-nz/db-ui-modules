@@ -6,6 +6,7 @@ import { speciesFetcher } from './speciesFetcher'
 import { Breadcrumbs } from '@/components/Breadcrumbs'
 import { NodeExpandOutlined, PlusOutlined } from '@ant-design/icons'
 import Link from 'next/link'
+import { useTitle } from '@/utils/useTitle'
 
 type Row = Awaited<ReturnType<typeof speciesFetcher>>[number]
 
@@ -28,6 +29,7 @@ const columns: TableColumnsType<Row> = [
 ]
 
 export default function Species() {
+  useTitle('Species')
   const { can } = useAssertAbility({ read: 'Species' })
   return (
     <>

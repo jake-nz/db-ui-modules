@@ -7,6 +7,7 @@ import { Breadcrumbs } from '@/components/Breadcrumbs'
 import MapPin from '@/components/icons/map-pin-line.svg'
 import Icon, { PlusOutlined } from '@ant-design/icons'
 import Link from 'next/link'
+import { useTitle } from '@/utils/useTitle'
 
 type Row = Awaited<ReturnType<typeof sitesFetcher>>[number]
 
@@ -24,6 +25,7 @@ const columns: TableColumnsType<Row> = [
 ]
 
 export default function Sites() {
+  useTitle('Sites')
   const { can } = useAssertAbility({ read: 'Operator' })
   return (
     <>

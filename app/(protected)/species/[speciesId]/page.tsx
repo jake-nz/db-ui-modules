@@ -9,6 +9,7 @@ import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import useSWR from 'swr'
 import { speciesFetcher } from './speciesFetcher'
+import { useTitle } from '@/utils/useTitle'
 
 export default function Species() {
   const { speciesId } = useParams()
@@ -17,6 +18,8 @@ export default function Species() {
   const { can } = useAssertAbility({ read: { Species: { id: speciesId } } })
 
   const { data, error, isLoading } = useSWR(speciesId, speciesFetcher)
+
+  useTitle(`${data?.genus || 'Species'} ${data?.species || ''}`)
 
   if (error) throw error
   if (isLoading || !data)

@@ -22,6 +22,7 @@ import { outplantDayFetcher } from './outplantDayFetcher'
 import { Datetime } from '@/components/Datetime'
 import { AdminTable } from 'snaks/client'
 import { outplantsFetcher } from './outplantsFetcher'
+import { useTitle } from '@/utils/useTitle'
 
 const { Text } = Typography
 
@@ -34,6 +35,8 @@ export default function OutplantDay() {
   })
 
   const { data, error, isLoading } = useSWR(outplantDayId, outplantDayFetcher)
+
+  useTitle(`Outplant Day ${data?.site || ''}`)
 
   if (error) throw error
   if (isLoading || !data)

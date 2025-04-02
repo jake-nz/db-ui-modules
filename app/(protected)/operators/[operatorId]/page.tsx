@@ -9,6 +9,7 @@ import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import useSWR from 'swr'
 import { operatorFetcher } from './operatorFetcher'
+import { useTitle } from '@/utils/useTitle'
 
 export default function Operator() {
   const { operatorId } = useParams()
@@ -17,6 +18,8 @@ export default function Operator() {
   const { can } = useAssertAbility({ read: { Operator: { id: operatorId } } })
 
   const { data, error, isLoading } = useSWR(operatorId, operatorFetcher)
+
+  useTitle(data?.name || 'Operator')
 
   if (error) throw error
   if (isLoading || !data)

@@ -9,6 +9,7 @@ import Link from 'next/link'
 import { UserAddOutlined, UserOutlined } from '@ant-design/icons'
 import { OperatorFilter } from '@/components/OperatorFilter'
 import { Breadcrumbs } from '@/components/Breadcrumbs'
+import { useTitle } from '@/utils/useTitle'
 
 type Row = Awaited<ReturnType<typeof usersFetcher>>[number]
 
@@ -40,6 +41,7 @@ const columns: TableColumnsType<Row> = [
 ]
 
 export default function Users() {
+  useTitle('Users')
   useAssertAbility({ read: 'User' })
   return (
     <>

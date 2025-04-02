@@ -8,8 +8,10 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { SpeciesFields, SpeciesForm } from '../SpeciesForm'
 import { createSpecies } from './createSpecies'
+import { useTitle } from '@/utils/useTitle'
 
 export default function CreateSpecies() {
+  useTitle('Add New Species')
   useAssertAbility({ create: 'Species' })
 
   const { push } = useRouter()

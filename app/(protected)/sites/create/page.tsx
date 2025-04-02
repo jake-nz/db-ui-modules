@@ -8,8 +8,10 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { SiteFields, SiteForm } from '../SiteForm'
 import { createSite } from './createSite'
+import { useTitle } from '@/utils/useTitle'
 
 export default function CreateSite() {
+  useTitle('Add New Site')
   useAssertAbility({ create: 'Site' })
 
   const { push } = useRouter()

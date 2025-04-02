@@ -9,8 +9,10 @@ import { useRouter } from 'next/navigation'
 import { UserFields, UserForm } from '../UserForm'
 import { createUser } from './createUser'
 import { useTryNotify } from '@/utils/useTryNotify.ts'
+import { useTitle } from '@/utils/useTitle'
 
 export default function CreateUser() {
+  useTitle('Add New User')
   useAssertAbility({ create: 'User' })
 
   const { push } = useRouter()

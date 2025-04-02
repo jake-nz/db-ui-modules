@@ -7,6 +7,7 @@ import { Space, TableColumnsType, Tag } from 'antd'
 import Link from 'next/link'
 import { AdminTable } from 'snaks/client'
 import { regionsFetcher } from './regionsFetcher'
+import { useTitle } from '@/utils/useTitle'
 
 type Row = Awaited<ReturnType<typeof regionsFetcher>>[number]
 
@@ -28,6 +29,7 @@ const columns: TableColumnsType<Row> = [
 ]
 
 export default function Regions() {
+  useTitle('Regions')
   useAssertAbility({ read: 'Operator' })
   return (
     <>

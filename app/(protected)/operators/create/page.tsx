@@ -8,8 +8,10 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { OperatorFields, OperatorForm } from '../OperatorForm'
 import { createOperator } from './createOperator'
+import { useTitle } from '@/utils/useTitle'
 
 export default function CreateOperator() {
+  useTitle('Add New Operator')
   useAssertAbility({ create: 'Operator' })
 
   const { push } = useRouter()

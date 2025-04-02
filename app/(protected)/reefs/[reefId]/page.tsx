@@ -9,6 +9,7 @@ import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import useSWR from 'swr'
 import { reefFetcher } from './reefFetcher'
+import { useTitle } from '@/utils/useTitle'
 
 export default function Reef() {
   const { reefId } = useParams()
@@ -17,6 +18,8 @@ export default function Reef() {
   const { can } = useAssertAbility({ read: { Reef: { id: reefId } } })
 
   const { data, error, isLoading } = useSWR(reefId, reefFetcher)
+
+  useTitle(data?.name || 'Reef')
 
   if (error) throw error
   if (isLoading || !data)

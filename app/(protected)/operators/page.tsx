@@ -6,8 +6,10 @@ import Icon, { PlusOutlined } from '@ant-design/icons'
 import { Button, Space } from 'antd'
 import Link from 'next/link'
 import { OperatorList } from './OperatorList'
+import { useTitle } from '@/utils/useTitle'
 
 export default function Operators() {
+  useTitle('Operators')
   const { can } = useAssertAbility({ read: 'Operator' })
 
   return (

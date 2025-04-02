@@ -8,8 +8,10 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { ReefFields, ReefForm } from '../ReefForm'
 import { createReef } from './createReef'
+import { useTitle } from '@/utils/useTitle'
 
 export default function CreateReef() {
+  useTitle('Add New Reef')
   useAssertAbility({ create: 'Reef' })
 
   const { push } = useRouter()
