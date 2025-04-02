@@ -17,7 +17,7 @@ export default function EditSpecies() {
 
   useAssertAbility({ edit: { Species: { id: speciesId } } })
 
-  const { data, error, isLoading } = useSWR(speciesId, speciesFetcher)
+  const { data, error, isLoading } = useSWR({ speciesId }, speciesFetcher)
 
   useTitle(`Edit ${data?.genus || 'Species'} ${data?.species || ''}`)
 

@@ -17,7 +17,7 @@ export default function Site() {
 
   const { can } = useAssertAbility({ read: { Site: { id: siteId } } })
 
-  const { data, error, isLoading } = useSWR(siteId, siteFetcher)
+  const { data, error, isLoading } = useSWR({ siteId }, siteFetcher)
 
   useTitle(`Site ${data?.name || ''}`)
 

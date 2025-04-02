@@ -23,7 +23,7 @@ export default function EditReef() {
 
   useAssertAbility({ edit: { Outplant: { id: outplantDayId } } })
 
-  const outplantDay = useSWR(outplantDayId, outplantDayFetcher)
+  const outplantDay = useSWR({ outplantDayId }, outplantDayFetcher)
   const outplants = useSWR(
     { filters: { dayId: [outplantDayId] } },
     outplantsFetcher

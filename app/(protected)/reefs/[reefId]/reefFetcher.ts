@@ -1,7 +1,7 @@
 'use server'
 import { database } from '@/services/database/database'
 
-export const reefFetcher = async (id: string) => {
+export const reefFetcher = async ({ reefId }: { reefId: string }) => {
   const reef = await database
     .selectFrom('reefs')
     .innerJoin('regions', 'reefs.region', 'regions.id')
@@ -16,7 +16,7 @@ export const reefFetcher = async (id: string) => {
       'regions.color as regionColor',
       sb.fn.sum('count').as('totalOutplants')
     ])
-    .where('reefs.id', '=', id)
+    .where('reefs.id', '=', reefId)
     .groupBy([
       'reefs.id',
       'reefs.name',
@@ -26,7 +26,7 @@ export const reefFetcher = async (id: string) => {
     ])
     .executeTakeFirst()
 
-  if (!reef) throw new Error(`Reef ${id} not found`)
+  if (!reef) throw new Error(`Reef ${reefId} not found`)
 
   return reef
 }

@@ -17,7 +17,7 @@ export default function Reef() {
 
   const { can } = useAssertAbility({ read: { Reef: { id: reefId } } })
 
-  const { data, error, isLoading } = useSWR(reefId, reefFetcher)
+  const { data, error, isLoading } = useSWR({ reefId }, reefFetcher)
 
   useTitle(data?.name || 'Reef')
 

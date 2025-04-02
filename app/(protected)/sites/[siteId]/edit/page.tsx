@@ -17,7 +17,7 @@ export default function EditSite() {
 
   useAssertAbility({ edit: { Site: { id: siteId } } })
 
-  const { data, error, isLoading } = useSWR(siteId, siteFetcher)
+  const { data, error, isLoading } = useSWR({ siteId }, siteFetcher)
 
   useTitle(`Edit Site ${data?.name || ''}`)
 

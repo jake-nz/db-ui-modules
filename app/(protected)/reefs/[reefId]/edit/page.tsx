@@ -17,7 +17,7 @@ export default function EditReef() {
 
   useAssertAbility({ edit: { Reef: { id: reefId } } })
 
-  const { data, error, isLoading } = useSWR(reefId, reefFetcher)
+  const { data, error, isLoading } = useSWR({ reefId }, reefFetcher)
 
   useTitle(`Edit Reef ${data?.name || ''}`)
 

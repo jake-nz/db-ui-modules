@@ -18,7 +18,7 @@ export default function User() {
 
   const { can } = useAssertAbility({ read: { User: { id: userId } } })
 
-  const { data, error, isLoading } = useSWR(userId, userFetcher)
+  const { data, error, isLoading } = useSWR({ userId }, userFetcher)
 
   useTitle(data?.name || 'User')
 

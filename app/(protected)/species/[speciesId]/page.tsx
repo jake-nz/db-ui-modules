@@ -17,7 +17,7 @@ export default function Species() {
 
   const { can } = useAssertAbility({ read: { Species: { id: speciesId } } })
 
-  const { data, error, isLoading } = useSWR(speciesId, speciesFetcher)
+  const { data, error, isLoading } = useSWR({ speciesId }, speciesFetcher)
 
   useTitle(`${data?.genus || 'Species'} ${data?.species || ''}`)
 

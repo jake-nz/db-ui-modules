@@ -17,7 +17,7 @@ export default function Region() {
   const { regionId } = useParams()
   if (Array.isArray(regionId)) throw new Error('Multiple regionIds')
 
-  const { data, error, isLoading } = useSWR(regionId, regionFetcher)
+  const { data, error, isLoading } = useSWR({ regionId }, regionFetcher)
 
   useTitle(`${data?.name || ''} Region`)
 

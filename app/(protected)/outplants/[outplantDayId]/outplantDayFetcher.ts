@@ -1,7 +1,11 @@
 'use server'
 import { database } from '@/services/database/database'
 
-export const outplantDayFetcher = async (id: number) => {
+export const outplantDayFetcher = async ({
+  outplantDayId
+}: {
+  outplantDayId: number
+}) => {
   const outplantDay = await database
     .selectFrom('outplantDays')
     .innerJoin('operators', 'operators.id', 'outplantDays.operator')
@@ -23,11 +27,11 @@ export const outplantDayFetcher = async (id: number) => {
       'crew',
       'funding'
     ])
-    .where('outplantDays.id', '=', id)
+    .where('outplantDays.id', '=', outplantDayId)
 
     .executeTakeFirst()
 
-  if (!outplantDay) throw new Error(`Outplant Day ${id} not found`)
+  if (!outplantDay) throw new Error(`Outplant Day ${outplantDayId} not found`)
 
   return outplantDay
 }

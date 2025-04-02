@@ -1,7 +1,7 @@
 'use server'
 import { database } from '@/services/database/database'
 
-export const userFetcher = async (userId: string) =>
+export const userFetcher = async ({ userId }: { userId: string }) =>
   database
     .selectFrom('users')
     .leftJoin('operators', 'users.operatorId', 'operators.id')

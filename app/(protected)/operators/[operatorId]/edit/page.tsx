@@ -17,7 +17,7 @@ export default function EditOperator() {
 
   useAssertAbility({ edit: { Operator: { id: operatorId } } })
 
-  const { data, error, isLoading } = useSWR(operatorId, operatorFetcher)
+  const { data, error, isLoading } = useSWR({ operatorId }, operatorFetcher)
 
   useTitle(`Edit ${data?.name || 'Operator'}`)
 

@@ -1,7 +1,11 @@
 'use server'
 import { database } from '@/services/database/database'
 
-export const operatorFetcher = async (id: string) => {
+export const operatorFetcher = async ({
+  operatorId
+}: {
+  operatorId: string
+}) => {
   const operator = await database
     .selectFrom('operators')
     .innerJoin('regions', 'operators.region', 'regions.id')
@@ -15,7 +19,7 @@ export const operatorFetcher = async (id: string) => {
       'regions.color as regionColor',
       sb.fn.sum('count').as('totalOutplants')
     ])
-    .where('operators.id', '=', id)
+    .where('operators.id', '=', operatorId)
     .groupBy([
       'operators.id',
       'operators.name',
@@ -25,7 +29,7 @@ export const operatorFetcher = async (id: string) => {
     ])
     .executeTakeFirst()
 
-  if (!operator) throw new Error(`Operator ${id} not found`)
+  if (!operator) throw new Error(`Operator ${operatorId} not found`)
 
   return operator
 }

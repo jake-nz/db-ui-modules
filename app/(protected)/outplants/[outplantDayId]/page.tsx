@@ -34,7 +34,10 @@ export default function OutplantDay() {
     read: { Outplant: { id: outplantDayId } }
   })
 
-  const { data, error, isLoading } = useSWR(outplantDayId, outplantDayFetcher)
+  const { data, error, isLoading } = useSWR(
+    { outplantDayId },
+    outplantDayFetcher
+  )
 
   useTitle(`Outplant Day ${data?.site || ''}`)
 

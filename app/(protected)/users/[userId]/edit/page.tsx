@@ -17,7 +17,7 @@ export default function EditUser() {
 
   useAssertAbility({ edit: { User: { id: userId } } })
 
-  const { data, error, isLoading } = useSWR(userId, userFetcher)
+  const { data, error, isLoading } = useSWR({ userId }, userFetcher)
 
   useTitle(`Edit ${data?.name || 'User'}`)
 
