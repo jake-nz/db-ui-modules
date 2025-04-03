@@ -13,5 +13,5 @@ export const generaFetcher = async ({ page, filters, sorter }: ListQuery) => {
     .groupBy('species.genus')
     .orderBy('genus asc')
 
-  return paginate(query, page, 100).execute()
+  return paginate(query, page).execute()
 }

@@ -11,6 +11,7 @@ export const SpeciesSelect = (props: ComponentProps<typeof Select>) => {
   const { data, isLoading } = useSWR(
     {
       page: 1,
+      pageSize: 1000,
       filters: {},
       sorter: [],
       swrKey: 'species'

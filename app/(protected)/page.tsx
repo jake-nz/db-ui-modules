@@ -1,5 +1,6 @@
+import { Stats } from '@/components/Stats/Stats'
 import { PlusOutlined } from '@ant-design/icons'
-import { Button, Card, Col, Row, Space, Statistic } from 'antd'
+import { Button, Space } from 'antd'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -21,41 +22,7 @@ export default function Home() {
         alt="logo"
         priority
       />
-      <Space direction="vertical" size="middle" style={{ width: 500 }}>
-        Note: These are not real numbers. What metrics do we want here?
-        <Row gutter={16}>
-          <Col span={12}>
-            <Card variant="borderless">
-              <Statistic
-                title="Outplants this month"
-                value={2145}
-                precision={0}
-              />
-            </Card>
-          </Col>
-          <Col span={12}>
-            <Card variant="borderless">
-              <Statistic
-                title="Outplants this year"
-                value={105392}
-                precision={0}
-              />
-            </Card>
-          </Col>
-        </Row>
-        <Row gutter={16}>
-          <Col span={12}>
-            <Card variant="borderless">
-              <Statistic title="Number of species" value={71} precision={0} />
-            </Card>
-          </Col>
-          <Col span={12}>
-            <Card variant="borderless">
-              <Statistic title="Planting hours" value={1840} precision={0} />
-            </Card>
-          </Col>
-        </Row>
-      </Space>
+      <Stats />
       <Link href="/outplants/create">
         <Button type="primary" icon={<PlusOutlined />}>
           Enter Outplants

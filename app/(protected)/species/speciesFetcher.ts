@@ -2,7 +2,12 @@
 import { database } from '@/services/database/database'
 import { ListQuery, paginate } from 'snaks'
 
-export const speciesFetcher = async ({ page, filters, sorter }: ListQuery) => {
+export const speciesFetcher = async ({
+  page,
+  filters,
+  sorter,
+  pageSize
+}: ListQuery & { pageSize?: number }) => {
   let query = database
     .selectFrom('species')
     .leftJoin('outplants', 'species.id', 'outplants.species')
@@ -18,5 +23,5 @@ export const speciesFetcher = async ({ page, filters, sorter }: ListQuery) => {
   if (filters.genus)
     query = query.where('species.genus', 'in', filters.genus as string[])
 
-  return paginate(query, page, 100).execute()
+  return paginate(query, page, pageSize).execute()
 }

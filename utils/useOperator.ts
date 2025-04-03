@@ -8,5 +8,5 @@ export const useOperator = () => {
   if (!session) return false
 
   const roles = session.user?.roles
-  return 'wavelength' //roles[0].tenantId
+  return roles[0].tenantId
 }

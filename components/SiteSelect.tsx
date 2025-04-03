@@ -20,6 +20,7 @@ export const SiteSelect = ({
     operator
       ? {
           page: 1,
+          pageSize: 100,
           filters: { operator: [operator] },
           sorter: [],
           swrKey: 'sites'

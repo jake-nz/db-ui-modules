@@ -3,7 +3,12 @@ import { database } from '@/services/database/database'
 // import { InsertObject, UpdateObject } from 'kysely'
 import { ListQuery, paginate } from 'snaks'
 
-export const sitesFetcher = async ({ page, filters, sorter }: ListQuery) => {
+export const sitesFetcher = async ({
+  page,
+  filters,
+  sorter,
+  pageSize
+}: ListQuery & { pageSize?: number }) => {
   let query = database
     .selectFrom('sites')
     .innerJoin('reefs', 'sites.reef', 'reefs.id')
@@ -27,5 +32,5 @@ export const sitesFetcher = async ({ page, filters, sorter }: ListQuery) => {
     query = query.where('operators.id', 'in', filters.operator as string[])
   }
 
-  return paginate(query, page, 100).execute()
+  return paginate(query, page, pageSize).execute()
 }

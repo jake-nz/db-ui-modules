@@ -5,8 +5,9 @@ import { ListQuery, paginate } from 'snaks'
 export const operatorsFetcher = async ({
   page,
   filters,
-  sorter
-}: ListQuery) => {
+  sorter,
+  pageSize
+}: ListQuery & { pageSize?: number }) => {
   let query = database
     .selectFrom('operators')
     .innerJoin('regions', 'operators.region', 'regions.id')
@@ -25,5 +26,5 @@ export const operatorsFetcher = async ({
   if (filters.region)
     query = query.where('regions.id', 'in', filters.region as string[])
 
-  return paginate(query, page, 100).execute()
+  return paginate(query, page, pageSize).execute()
 }

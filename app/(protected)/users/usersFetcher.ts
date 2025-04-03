@@ -23,5 +23,5 @@ export const usersFetcher = async ({ page, filters, sorter }: ListQuery) => {
       filters.operatorName as string[]
     )
 
-  return paginate(query, page, 100).execute()
+  return paginate(query, page).execute()
 }

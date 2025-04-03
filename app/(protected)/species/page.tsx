@@ -57,12 +57,7 @@ export default function Species() {
           )
         }
       />
-      <AdminTable
-        fetcher={speciesFetcher}
-        swrKey="species"
-        columns={columns}
-        pagination={{ pageSize: 100 }}
-      />
+      <AdminTable fetcher={speciesFetcher} swrKey="species" columns={columns} />
     </>
   )
 }

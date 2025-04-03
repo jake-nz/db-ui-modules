@@ -11,6 +11,7 @@ export const OperatorSelect = (props: ComponentProps<typeof Select>) => {
   const { data, isLoading } = useSWR(
     {
       page: 1,
+      pageSize: 100,
       filters: {},
       sorter: [],
       swrKey: 'operators'

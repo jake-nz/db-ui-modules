@@ -2,7 +2,12 @@
 import { database } from '@/services/database/database'
 import { ListQuery, paginate } from 'snaks'
 
-export const regionsFetcher = async ({ page, filters, sorter }: ListQuery) => {
+export const regionsFetcher = async ({
+  page,
+  filters,
+  sorter,
+  pageSize
+}: ListQuery & { pageSize?: number }) => {
   let query = database
     .selectFrom('regions')
     .innerJoin('operators', 'operators.region', 'regions.id')
@@ -17,5 +22,5 @@ export const regionsFetcher = async ({ page, filters, sorter }: ListQuery) => {
     .groupBy(['regions.id', 'regions.name', 'color'])
     .orderBy('name asc')
 
-  return paginate(query, page, 100).execute()
+  return paginate(query, page, pageSize).execute()
 }
