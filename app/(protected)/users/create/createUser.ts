@@ -37,7 +37,7 @@ export const createUser = async (values: NewUserFields, baseUrl: string) => {
     .executeTakeFirstOrThrow()
 
   // Create the reset URL
-  const resetUrl = `${baseUrl}?token=${resetToken}`
+  const resetUrl = `${baseUrl}auth/reset-password?token=${resetToken}`
 
   // Send the email
   await resend.emails.send({
