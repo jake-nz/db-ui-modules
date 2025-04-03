@@ -23,6 +23,7 @@ import { Datetime } from '@/components/Datetime'
 import { AdminTable } from 'snaks/client'
 import { outplantsFetcher } from './outplantsFetcher'
 import { useTitle } from '@/utils/useTitle'
+import { useOperator } from '@/utils/useOperator'
 
 const { Text } = Typography
 
@@ -30,12 +31,14 @@ export default function OutplantDay() {
   const { outplantDayId } = useParams()
   if (Array.isArray(outplantDayId)) throw new Error('Multiple outplantDayIds')
 
+  const operatorId = useOperator()
+
   const { can } = useAssertAbility({
-    read: { Outplant: { id: outplantDayId } }
+    read: { Outplant: { operatorId } }
   })
 
   const { data, error, isLoading } = useSWR(
-    { outplantDayId },
+    { outplantDayId, operatorId },
     outplantDayFetcher
   )
 

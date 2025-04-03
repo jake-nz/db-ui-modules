@@ -29,7 +29,10 @@ export const permissions: Permissions<PermissionsTypes> = {
     forbid('manage', 'User')
   },
   Operator({ can: allow, cannot: forbid }, { tenantId }) {
-    allow('manage', 'Operator', { id: tenantId })
+    tenantId = 'wavelength'
+    allow('read', 'Operator', { id: tenantId })
+    allow('create', 'Outplant', { operatorId: tenantId })
+    allow('read', 'Outplant', { operatorId: tenantId })
     // TODO - more permissions as needed
   }
 }

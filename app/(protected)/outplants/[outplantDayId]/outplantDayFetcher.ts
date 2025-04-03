@@ -2,9 +2,11 @@
 import { database } from '@/services/database/database'
 
 export const outplantDayFetcher = async ({
-  outplantDayId
+  outplantDayId,
+  operatorId
 }: {
   outplantDayId: number
+  operatorId?: string
 }) => {
   const outplantDay = await database
     .selectFrom('outplantDays')

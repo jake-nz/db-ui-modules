@@ -5,6 +5,7 @@ import { OriginSelect } from '@/components/OriginSelect'
 import { SiteSelect } from '@/components/SiteSelect'
 import { SpeciesSelect } from '@/components/SpeciesSelect'
 import { Origin } from '@/services/database/database.types'
+import { useOperator } from '@/utils/useOperator'
 import { MinusCircleOutlined } from '@ant-design/icons'
 import {
   Button,
@@ -46,7 +47,9 @@ export const OutplantForm = function ({
 }: FormProps<OutplantFields> & { buttonText: string }) {
   const [form] = Form.useForm()
 
-  const operator = Form.useWatch('operator', form)
+  const userOperator = useOperator()
+  const selectedOperator = Form.useWatch('operator', form)
+  const operator = userOperator || selectedOperator
 
   // Watches the 'outplants' field in the form and automatically adds a new empty outplant
   // entry when the last outplant's origin is set
@@ -77,13 +80,22 @@ export const OutplantForm = function ({
         >
           <DatePicker autoFocus maxDate={dayjs()} allowClear={false} />
         </Form.Item>
-        <Form.Item
-          label="Operator"
-          name="operator"
-          rules={[{ required: true, message: 'Please select an operator' }]}
-        >
-          <OperatorSelect />
-        </Form.Item>
+        {/* Operator is null - all operators can be selected */}
+        {userOperator === null && (
+          <Form.Item
+            label="Operator"
+            name="operator"
+            rules={[{ required: true, message: 'Please select an operator' }]}
+          >
+            <OperatorSelect />
+          </Form.Item>
+        )}
+        {/* Operator is not null - only the user's operator can be selected */}
+        {userOperator && (
+          <Form.Item noStyle name="operator" initialValue={userOperator}>
+            <Input disabled type="hidden" />
+          </Form.Item>
+        )}
         <Form.Item
           label="Site"
           name="site"

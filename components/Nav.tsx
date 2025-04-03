@@ -13,6 +13,7 @@ import { ItemType } from 'antd/es/menu/interface'
 import { usePathname, useRouter } from 'next/navigation'
 import { useAbility } from '@/services/auth/useAbility'
 import { Abilty } from '@/services/auth/permissions'
+import { subject } from '@casl/ability'
 
 type MenuItem = ItemType & { show?: boolean }
 
@@ -52,7 +53,7 @@ const getMenuItems: (ability: Abilty) => ItemType[] = ({ can }) => {
       key: '/operators',
       icon: <Icon component={Boat} />,
       label: 'Operators',
-      show: can('read', 'Operator')
+      show: can('read', subject('Operator', { id: '*' }))
     },
     {
       key: '/species',
