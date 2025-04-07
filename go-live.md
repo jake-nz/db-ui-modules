@@ -1,4 +1,0 @@
-- Set env vars correctly
-  - NEXT_PUBLIC_SITE_URL (currently users coral-nurture.vercel.app)
-  - RESEND_API_KEY (currently uses GBRL)
-  - EMAIL_FROM (currently uses GBRL)
