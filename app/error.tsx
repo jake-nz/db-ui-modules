@@ -1,6 +1,6 @@
 'use client' // Error components must be Client Components
 
-import { useSigninRedirect } from '@/auth/components/useSigninRedirect'
+import { useSigninRedirect } from '@/modules/auth/components/useSigninRedirect'
 import { Button, Card, Result } from 'antd'
 import { ReactNode, useEffect } from 'react'
 

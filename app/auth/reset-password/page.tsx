@@ -1,3 +1,3 @@
-import { PasswordReset } from '@/auth/components/PasswordReset'
+import { PasswordReset } from '@/modules/auth/components/PasswordReset'
 
 export default PasswordReset

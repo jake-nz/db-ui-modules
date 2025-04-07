@@ -1,3 +1,3 @@
-import { ForgotPassword } from '@/auth/components/ForgotPassword'
+import { ForgotPassword } from '@/modules/auth/components/ForgotPassword'
 
 export default ForgotPassword

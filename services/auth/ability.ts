@@ -1,4 +1,4 @@
-import { auth } from '@/auth/auth'
+import { auth } from '@/modules/auth/auth'
 import { PermissionsTypes, permissions } from '@/services/auth/permissions'
 import {
   AbilityRequirements,

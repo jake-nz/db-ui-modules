@@ -1,4 +1,4 @@
-import { AuthLayout } from '@/auth/components/AuthLayout'
+import { AuthLayout } from '@/modules/auth/components/AuthLayout'
 import Image from 'next/image'
 
 export default async function AuthLayoutWithLogo({

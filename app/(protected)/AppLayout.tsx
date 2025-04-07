@@ -5,7 +5,7 @@ import { signOut } from 'next-auth/react'
 import { WarningOutlined } from '@ant-design/icons'
 import { useEffect, useState } from 'react'
 import { useAbility } from '@/services/auth/useAbility'
-import { useSigninRedirect } from '@/auth/components/useSigninRedirect'
+import { useSigninRedirect } from '@/modules/auth/components/useSigninRedirect'
 
 const { Header, Content, Footer } = AntLayout
 
