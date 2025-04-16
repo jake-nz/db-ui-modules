@@ -6,10 +6,8 @@ import { useState } from 'react'
 import { AuthCard } from './AuthCard'
 import { emailRules, passwordRules } from './formRules'
 import { signinWithCredentials } from '../actions/signinWithCredentials'
-import { useTitle } from '@/utils/useTitle'
 
 export const Signin = () => {
-  useTitle('Sign In')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [form] = Form.useForm()

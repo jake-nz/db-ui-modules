@@ -5,10 +5,8 @@ import { AuthCard } from './AuthCard'
 import { emailRules } from './formRules'
 import { forgotPassword } from '../actions/forgotPassword'
 import { getURL } from '@/services/auth/getURL'
-import { useTitle } from '@/utils/useTitle'
 
 export const ForgotPassword = () => {
-  useTitle('Forgot Password')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [sent, setSent] = useState(false)
