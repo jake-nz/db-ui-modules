@@ -10,13 +10,7 @@ const resend = new Resend(resendKey)
 const emailFrom = process.env.EMAIL_FROM
 if (!emailFrom) throw new Error('EMAIL_FROM not set')
 
-export const forgotPassword = async ({
-  email,
-  redirectTo
-}: {
-  email: string
-  redirectTo: string
-}) => {
+export const forgotPassword = async ({ email, redirectTo }: { email: string; redirectTo: string }) => {
   // Find the user
   const user = await database
     .selectFrom('users')

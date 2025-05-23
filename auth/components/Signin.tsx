@@ -18,10 +18,7 @@ export const Signin = () => {
     setLoading(true)
     setError(null)
     try {
-      const response = await signinWithCredentials(
-        credentials.email,
-        credentials.password
-      )
+      const response = await signinWithCredentials(credentials.email, credentials.password)
       if (!response.error) {
         // Success!
         window.location.href = redirectPath || '/'
@@ -40,12 +37,7 @@ export const Signin = () => {
     <AuthCard title="Sign In">
       <Space direction="vertical" size="large" style={{ width: '100%' }}>
         {error && <Alert message={error} type="error" />}
-        <Form
-          form={form}
-          labelCol={{ span: 6 }}
-          wrapperCol={{ span: 18 }}
-          onFinish={login}
-        >
+        <Form form={form} labelCol={{ span: 6 }} wrapperCol={{ span: 18 }} onFinish={login}>
           <Form.Item label="Email" name="email" rules={emailRules}>
             <Input type="email" />
           </Form.Item>

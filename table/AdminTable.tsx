@@ -3,18 +3,8 @@
 import type { TableProps } from 'antd'
 import { Flex, Result, Switch, Table, Typography } from 'antd'
 import type { AnyObject } from 'antd/es/_util/type'
-import type {
-  ColumnsType,
-  FilterValue,
-  SortOrder,
-  SorterResult
-} from 'antd/es/table/interface'
-import {
-  ReadonlyURLSearchParams,
-  usePathname,
-  useRouter,
-  useSearchParams
-} from 'next/navigation'
+import type { ColumnsType, FilterValue, SortOrder, SorterResult } from 'antd/es/table/interface'
+import { ReadonlyURLSearchParams, usePathname, useRouter, useSearchParams } from 'next/navigation'
 import React, { Suspense, useState } from 'react'
 import useSWR from 'swr'
 import type { Fetcher } from 'swr'
@@ -34,9 +24,7 @@ type AdminTableProps<RecordType extends AdminTableRecord = AdminTableRecord> = {
   queryPrefix?: string
 } & Omit<TableProps<RecordType>, 'data'>
 
-export const AdminTable = <
-  RecordType extends AdminTableRecord = AdminTableRecord
->(
+export const AdminTable = <RecordType extends AdminTableRecord = AdminTableRecord>(
   props: AdminTableProps<RecordType>
 ) => {
   return (
@@ -46,9 +34,7 @@ export const AdminTable = <
   )
 }
 
-export const AdminTableComponent = <
-  RecordType extends AdminTableRecord = AdminTableRecord
->({
+export const AdminTableComponent = <RecordType extends AdminTableRecord = AdminTableRecord>({
   fetcher,
   columns,
   loading,
@@ -73,13 +59,13 @@ export const AdminTableComponent = <
   const [autoRefetch, _setAutoRefetch] = useState(defaultAutoRefetch)
 
   // Get data
-  const { data, error, isLoading, isValidating, mutate } = useSWR<
-    RecordType[],
-    any,
-    FetcherQuery
-  >({ swrKey, ...query }, fetcher, {
-    refreshInterval: autoRefetch ? autoRefetch * 1000 : undefined
-  })
+  const { data, error, isLoading, isValidating, mutate } = useSWR<RecordType[], any, FetcherQuery>(
+    { swrKey, ...query },
+    fetcher,
+    {
+      refreshInterval: autoRefetch ? autoRefetch * 1000 : undefined
+    }
+  )
 
   const setAutoRefetch = (on: boolean) => {
     const defaultValue = defaultAutoRefetch || 30
@@ -96,14 +82,7 @@ export const AdminTableComponent = <
   // updates URL search query when table page, filters or sorter change
   const updateUrlQuery = useUpdateUrlQuery(queryPrefix)
 
-  if (error)
-    return (
-      <Result
-        status="error"
-        title="Error Loading Data"
-        subTitle={error.message}
-      />
-    )
+  if (error) return <Result status="error" title="Error Loading Data" subTitle={error.message} />
 
   const showAutoRefetch = defaultAutoRefetch !== undefined
   const showTitle = showAutoRefetch || props.title
@@ -150,10 +129,8 @@ const serializeQuery = (listQuery: ListQuery, queryPrefix: string = '') => {
   const urlQuery = new URLSearchParams()
 
   // Pagination
-  if (listQuery.page && listQuery.page > 1)
-    urlQuery.set(`${queryPrefix}page`, listQuery.page.toString())
-  if (listQuery.limit)
-    urlQuery.set(`${queryPrefix}limit`, listQuery.limit.toString())
+  if (listQuery.page && listQuery.page > 1) urlQuery.set(`${queryPrefix}page`, listQuery.page.toString())
+  if (listQuery.limit) urlQuery.set(`${queryPrefix}limit`, listQuery.limit.toString())
 
   // Filters
   for (const column in listQuery.filters) {
@@ -169,42 +146,28 @@ const serializeQuery = (listQuery: ListQuery, queryPrefix: string = '') => {
   if (!Array.isArray(listQuery.sorter)) listQuery.sorter = [listQuery.sorter]
   for (const sorter of listQuery.sorter) {
     if (sorter.columnKey)
-      urlQuery.append(
-        `${queryPrefix}sort`,
-        sorter.columnKey.toString() + '.' + (sorter.order || 'none')
-      )
+      urlQuery.append(`${queryPrefix}sort`, sorter.columnKey.toString() + '.' + (sorter.order || 'none'))
   }
 
   return urlQuery.toString()
 }
 
-const getPage = (
-  urlQuery: ReadonlyURLSearchParams | null,
-  queryPrefix: string = ''
-) => {
+const getPage = (urlQuery: ReadonlyURLSearchParams | null, queryPrefix: string = '') => {
   const page = urlQuery?.get(`${queryPrefix}page`) || '1'
   return parseInt(page)
 }
 
-const getLimit = (
-  urlQuery: ReadonlyURLSearchParams | null,
-  queryPrefix: string = ''
-) => {
+const getLimit = (urlQuery: ReadonlyURLSearchParams | null, queryPrefix: string = '') => {
   const limit = urlQuery?.get(`${queryPrefix}limit`)
   return limit ? parseInt(limit) : undefined
 }
 /**
  * Get current pagination page
  */
-const usePage = (queryPrefix?: string) =>
-  getPage(useSearchParams(), queryPrefix)
-const useLimit = (queryPrefix?: string) =>
-  getLimit(useSearchParams(), queryPrefix)
+const usePage = (queryPrefix?: string) => getPage(useSearchParams(), queryPrefix)
+const useLimit = (queryPrefix?: string) => getLimit(useSearchParams(), queryPrefix)
 
-const getFilters = (
-  urlQuery: ReadonlyURLSearchParams | null,
-  queryPrefix: string = ''
-) => {
+const getFilters = (urlQuery: ReadonlyURLSearchParams | null, queryPrefix: string = '') => {
   if (!urlQuery) return null
 
   const filters: Record<string, FilterValue | null> = {}
@@ -228,10 +191,7 @@ const getFilters = (
   return filters
 }
 
-const getSorter = (
-  urlQuery: ReadonlyURLSearchParams | null,
-  queryPrefix: string = ''
-) => {
+const getSorter = (urlQuery: ReadonlyURLSearchParams | null, queryPrefix: string = '') => {
   if (!urlQuery) return null
 
   const sorter: SorterResult<any>[] = []
@@ -260,10 +220,7 @@ const getSorter = (
 /**
  * Get filters, sorter and page for list view
  */
-export const useListQuery = (
-  defaults: Partial<ListQuery> = {},
-  queryPrefix?: string
-) => {
+export const useListQuery = (defaults: Partial<ListQuery> = {}, queryPrefix?: string) => {
   const urlQuery = useSearchParams()
   return {
     filters: { ...defaults.filters, ...getFilters(urlQuery, queryPrefix) }, // This now concats the default with the url filters
@@ -302,17 +259,11 @@ const updateColumn = <RecordType extends object = any>(
   return updatedColumn
 }
 
-const useUpdateUrlQuery = <RecordType extends AnyObject>(
-  queryPrefix?: string
-) => {
+const useUpdateUrlQuery = <RecordType extends AnyObject>(queryPrefix?: string) => {
   const pathname = usePathname()
   const router = useRouter()
 
-  const updateUrlQuery: TableProps<RecordType>['onChange'] = (
-    pagination,
-    filters,
-    sorter
-  ) => {
+  const updateUrlQuery: TableProps<RecordType>['onChange'] = (pagination, filters, sorter) => {
     const urlQuery = serializeQuery(
       {
         page: pagination.current,

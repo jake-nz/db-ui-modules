@@ -11,11 +11,5 @@ import type { Arguments } from 'swr'
  */
 export const mutateSwrKey = (key: string) => {
   // Mutate any SWR key that's an object with `swrKey === key`
-  mutate(
-    (opts: Arguments) =>
-      opts &&
-      typeof opts === 'object' &&
-      'swrKey' in opts &&
-      opts.swrKey === key
-  )
+  mutate((opts: Arguments) => opts && typeof opts === 'object' && 'swrKey' in opts && opts.swrKey === key)
 }

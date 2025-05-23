@@ -48,8 +48,7 @@ export const PasswordReset = () => {
         password: credentials.password
       })
 
-      if (response.error)
-        throw new Error(response.error || 'Failed to reset password')
+      if (response.error) throw new Error(response.error || 'Failed to reset password')
 
       setStatus('success')
       // Redirect to signin page after 3 seconds
@@ -69,30 +68,17 @@ export const PasswordReset = () => {
       ) : error ? (
         <ErrorMessage error={error} />
       ) : (
-        <Form
-          labelCol={{ span: 6 }}
-          wrapperCol={{ span: 18 }}
-          onFinish={setPassword}
-        >
+        <Form labelCol={{ span: 6 }} wrapperCol={{ span: 18 }} onFinish={setPassword}>
           <Form.Item label="New Password" name="password" rules={passwordRules}>
             <Input.Password />
           </Form.Item>
 
-          <Form.Item
-            label="Confirm"
-            name="confirmPassword"
-            dependencies={['password']}
-            rules={confirmPasswordRules}
-          >
+          <Form.Item label="Confirm" name="confirmPassword" dependencies={['password']} rules={confirmPasswordRules}>
             <Input.Password />
           </Form.Item>
 
           <Form.Item wrapperCol={{ offset: 6, span: 18 }}>
-            <Button
-              type="primary"
-              htmlType="submit"
-              loading={status === 'loading'}
-            >
+            <Button type="primary" htmlType="submit" loading={status === 'loading'}>
               Set Password
             </Button>
           </Form.Item>

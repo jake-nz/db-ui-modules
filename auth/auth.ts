@@ -3,14 +3,10 @@ import NextAuth, { AuthError } from 'next-auth'
 import { JWT } from 'next-auth/jwt'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
-export const authorize = async (credentials: {
-  username?: unknown
-  password?: unknown
-}) => {
+export const authorize = async (credentials: { username?: unknown; password?: unknown }) => {
   try {
     const { username, password } = credentials
-    if (typeof username !== 'string' || typeof password !== 'string')
-      throw new AuthError('Invalid credentials')
+    if (typeof username !== 'string' || typeof password !== 'string') throw new AuthError('Invalid credentials')
 
     return await getUser({ username, password })
   } catch (e) {

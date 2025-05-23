@@ -3,13 +3,7 @@ import bcrypt from 'bcrypt'
 import { sql } from 'kysely'
 import { database } from '@database'
 
-export const resetPassword = async ({
-  token,
-  password
-}: {
-  token: string
-  password: string
-}) => {
+export const resetPassword = async ({ token, password }: { token: string; password: string }) => {
   // Find the user with this token and check it's not expired
   const user = await database
     .selectFrom('users')

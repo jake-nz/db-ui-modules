@@ -31,14 +31,11 @@ export const paginate = <DB, TB extends keyof DB, O>(
  * Iterates over sorter (from AntDesign Table) yielding `[column, order]`
  * order will be "asc" or "desc"
  */
-export const iterateSorter = function* <DB, TB extends keyof DB>(
-  sorter: SorterResult<any>[]
-) {
+export const iterateSorter = function* <DB, TB extends keyof DB>(sorter: SorterResult<any>[]) {
   for (const sort of sorter) {
     if (!sort.columnKey) continue
     if (!sort.order) continue
-    const direction: OrderByDirectionExpression =
-      sort.order === 'descend' ? 'desc' : 'asc'
+    const direction: OrderByDirectionExpression = sort.order === 'descend' ? 'desc' : 'asc'
     yield [sort.columnKey as StringReference<DB, TB>, direction] as const
   }
 }
