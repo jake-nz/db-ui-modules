@@ -13,11 +13,7 @@ export const totalCount = sql<number>`count(*) OVER()`.as('totalCount')
  * @param itemsPerPage number of items per page
  * @returns Kysely Query with pagination applied
  */
-export const paginate = <DB, TB extends keyof DB, O>(
-  query: SelectQueryBuilder<DB, TB, O>,
-  page: number = 1,
-  itemsPerPage: number = 25
-) => {
+export const paginate = <DB, TB extends keyof DB, O>(query: SelectQueryBuilder<DB, TB, O>, page: number = 1, itemsPerPage: number = 25) => {
   // No limit
   if (page === 1 && itemsPerPage === Infinity) return query.select(totalCount)
 

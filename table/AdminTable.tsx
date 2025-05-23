@@ -24,9 +24,7 @@ type AdminTableProps<RecordType extends AdminTableRecord = AdminTableRecord> = {
   queryPrefix?: string
 } & Omit<TableProps<RecordType>, 'data'>
 
-export const AdminTable = <RecordType extends AdminTableRecord = AdminTableRecord>(
-  props: AdminTableProps<RecordType>
-) => {
+export const AdminTable = <RecordType extends AdminTableRecord = AdminTableRecord>(props: AdminTableProps<RecordType>) => {
   return (
     <Suspense fallback={<Table loading />}>
       <AdminTableComponent {...props} />
@@ -59,13 +57,9 @@ export const AdminTableComponent = <RecordType extends AdminTableRecord = AdminT
   const [autoRefetch, _setAutoRefetch] = useState(defaultAutoRefetch)
 
   // Get data
-  const { data, error, isLoading, isValidating, mutate } = useSWR<RecordType[], any, FetcherQuery>(
-    { swrKey, ...query },
-    fetcher,
-    {
-      refreshInterval: autoRefetch ? autoRefetch * 1000 : undefined
-    }
-  )
+  const { data, error, isLoading, isValidating, mutate } = useSWR<RecordType[], any, FetcherQuery>({ swrKey, ...query }, fetcher, {
+    refreshInterval: autoRefetch ? autoRefetch * 1000 : undefined
+  })
 
   const setAutoRefetch = (on: boolean) => {
     const defaultValue = defaultAutoRefetch || 30
@@ -105,12 +99,7 @@ export const AdminTableComponent = <RecordType extends AdminTableRecord = AdminT
                 <div style={{ flex: 1 }}>{props.title?.(currentPageData)}</div>
                 {showAutoRefetch && (
                   <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <Switch
-                      checked={Boolean(autoRefetch)}
-                      onChange={setAutoRefetch}
-                      loading={isValidating}
-                      style={{ marginRight: '0.5em' }}
-                    />
+                    <Switch checked={Boolean(autoRefetch)} onChange={setAutoRefetch} loading={isValidating} style={{ marginRight: '0.5em' }} />
                     <Text>Auto Refresh ({defaultAutoRefetch}s)</Text>
                   </div>
                 )}
@@ -145,8 +134,7 @@ const serializeQuery = (listQuery: ListQuery, queryPrefix: string = '') => {
   // Sorting
   if (!Array.isArray(listQuery.sorter)) listQuery.sorter = [listQuery.sorter]
   for (const sorter of listQuery.sorter) {
-    if (sorter.columnKey)
-      urlQuery.append(`${queryPrefix}sort`, sorter.columnKey.toString() + '.' + (sorter.order || 'none'))
+    if (sorter.columnKey) urlQuery.append(`${queryPrefix}sort`, sorter.columnKey.toString() + '.' + (sorter.order || 'none'))
   }
 
   return urlQuery.toString()
@@ -282,10 +270,7 @@ const useUpdateUrlQuery = <RecordType extends AnyObject>(queryPrefix?: string) =
   return updateUrlQuery
 }
 
-const usePagination = <RecordType extends AdminTableRecord = AdminTableRecord>(
-  data: RecordType[] | undefined,
-  queryPrefix?: string
-) => {
+const usePagination = <RecordType extends AdminTableRecord = AdminTableRecord>(data: RecordType[] | undefined, queryPrefix?: string) => {
   const page = usePage(queryPrefix)
   const limit = useLimit(queryPrefix)
 
