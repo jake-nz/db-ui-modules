@@ -1,3 +1,13 @@
+- Add: `git subtree add --prefix=modules modules main --squash`
+- Pull: `git subtree pull --prefix=modules modules main`
+- Push: `git subtree push --prefix=modules modules main`
+
+If the subtree remote is on main you can't push to it so check out the latest commit instead:
+
+```sh
+git checkout `git rev-parse main`
+```
+
 # Auth
 
 - Expects the project to export a Kysely DB instance at `@database`
