@@ -20,7 +20,7 @@ const getCurrnetRelease = () => {
     // Treat localhost as production to mirror prod and show no warning
     case 'localhost':
     case toHostname(production):
-      return 'development'
+      return 'production'
     case toHostname(previous):
       return 'previous'
     default:

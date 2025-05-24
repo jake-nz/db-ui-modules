@@ -10,7 +10,7 @@ export const PreviousVersionLink = () => {
   if (!previous || currentRelease !== 'production') return null
 
   return (
-    <Link href={previous}>
+    <Link href={`${previous}/${window.location.pathname}`}>
       <Button type="link">Use previous version</Button>
     </Link>
   )
