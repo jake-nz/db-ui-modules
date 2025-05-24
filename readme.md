@@ -1,4 +1,5 @@
-- Add: `git subtree add --prefix=modules modules main --squash`
+- Setup `git remote add modules ~/dev/modules`
+- Add: `git subtree add --prefix=modules modules main`
 - Pull: `git subtree pull --prefix=modules modules main`
 - Push: `git subtree push --prefix=modules modules main`
 
