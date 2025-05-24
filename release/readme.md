@@ -1,0 +1,4 @@
+Set env vars:
+
+- NEXT_PUBLIC_PROD_URL
+- NEXT_PUBLIC_PREV_URL
