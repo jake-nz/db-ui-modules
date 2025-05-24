@@ -1,11 +1,21 @@
-import { PermissionsTypes } from '@/services/auth/permissions'
-import { Roles } from 'castellate'
-import NextAuth, { type DefaultSession } from 'next-auth'
+import { getUser } from '@/services/auth/getUser'
+import NextAuth, { AuthError } from 'next-auth'
 import { JWT } from 'next-auth/jwt'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import { authorize } from './actions/authorize'
 
-export const { handlers, auth, signIn } = NextAuth({
+export const authorize = async (credentials: { username?: unknown; password?: unknown }) => {
+  try {
+    const { username, password } = credentials
+    if (typeof username !== 'string' || typeof password !== 'string') throw new AuthError('Invalid credentials')
+
+    return await getUser({ username, password })
+  } catch (e) {
+    if (e instanceof AuthError) return null
+    throw e
+  }
+}
+
+export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [CredentialsProvider({ authorize })],
   callbacks: {
     jwt: async ({ token, user }) => {
@@ -19,23 +29,5 @@ export const { handlers, auth, signIn } = NextAuth({
   }
 })
 
-// Auth.js Types
-
-declare module 'next-auth' {
-  interface User {
-    roles: Roles<PermissionsTypes>
-  }
-  interface Session {
-    user: {
-      roles: Roles<PermissionsTypes>
-    } & DefaultSession['user']
-  }
-}
-declare module 'next-auth/jwt' {
-  interface JWT {
-    roles: Roles<PermissionsTypes>
-  }
-}
-
-// We need to import JWT, even though we don't directly use it. This line helps it not look like an unused import
+// We need to import JWT so we can extend the interface, This line helps it not look like an unused import
 type KeepImport = JWT

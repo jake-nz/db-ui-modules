@@ -1,6 +1,6 @@
 'use server'
 import { sql } from 'kysely'
-import { database } from '@/services/database/database'
+import { database } from '@database'
 
 export const validateToken = async (token: string) => {
   const validToken = await database

@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { AuthCard } from './AuthCard'
 import { emailRules } from './formRules'
 import { forgotPassword } from '../actions/forgotPassword'
-import { getURL } from '@/services/auth/getURL'
+import { getURL } from '@/modules/utlis/getURL'
 
 export const ForgotPassword = () => {
   const [loading, setLoading] = useState(false)
@@ -42,12 +42,7 @@ export const ForgotPassword = () => {
             </Button>
           </Form.Item>
         </Form>
-        {sent && (
-          <Alert
-            message="Reset link sent. Please check your inbox"
-            type="success"
-          />
-        )}
+        {sent && <Alert message="Reset link sent. Please check your inbox" type="success" />}
       </Space>
     </AuthCard>
   )

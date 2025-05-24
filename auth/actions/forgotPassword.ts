@@ -1,24 +1,18 @@
 'use server'
-import { database } from '@/services/database/database'
 import { Resend } from 'resend'
 import crypto from 'crypto'
-import { config } from '@/config'
+import { database } from '@database'
 
-const resend = new Resend(config.RESEND_API_KEY)
+const resendKey = process.env.RESEND_API_KEY
+if (!resendKey) throw new Error('RESEND_API_KEY not set')
+const resend = new Resend(resendKey)
 
-export const forgotPassword = async ({
-  email,
-  redirectTo
-}: {
-  email: string
-  redirectTo: string
-}) => {
+const emailFrom = process.env.EMAIL_FROM
+if (!emailFrom) throw new Error('EMAIL_FROM not set')
+
+export const forgotPassword = async ({ email, redirectTo }: { email: string; redirectTo: string }) => {
   // Find the user
-  const user = await database
-    .selectFrom('users')
-    .select(['id', 'email', 'name'])
-    .where('email', '=', email)
-    .executeTakeFirst()
+  const user = await database.selectFrom('users').select(['id', 'email', 'name']).where('email', '=', email).executeTakeFirst()
 
   // Don't reveal if the email exists or not for security reasons
   if (!user) return { success: true }
@@ -42,7 +36,7 @@ export const forgotPassword = async ({
 
   // Send the email
   await resend.emails.send({
-    from: config.EMAIL_FROM,
+    from: emailFrom,
     to: `${user.name}<${user.email}>`,
     subject: 'Reset Your Password',
     html: `
