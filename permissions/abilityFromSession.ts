@@ -13,5 +13,7 @@ export const abilityFromSession = (session: Session | null) => {
 
   const roles = session.user?.roles
 
+  // const rolesOverride = [{ role: 'volunteer', tenantId: null }]
+
   return defineAbilityForRoles<PermissionsTypes>(permissions, roles)
 }
