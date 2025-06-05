@@ -13,7 +13,20 @@ export const abilityFromSession = (session: Session | null) => {
 
   const roles = session.user?.roles
 
-  // const rolesOverride = [{ role: 'volunteer', tenantId: null }]
+  // const rolesOverride = [
+  //   {
+  //     role: 'volunteer',
+  //     tenantId: 'VWuPP17nxyXpL4'
+  //   },
+  //   {
+  //     role: 'volunteer',
+  //     tenantId: 'yL13WxfRYUfCKE'
+  //   },
+  //   {
+  //     role: 'volunteer',
+  //     tenantId: '7XpuR3uxtdIHkJ'
+  //   }
+  // ]
 
   return defineAbilityForRoles<PermissionsTypes>(permissions, roles)
 }
