@@ -29,7 +29,9 @@ export const useMenuItems = (builder: MenuItemBuilder) => {
         return {
           ...mi,
           key: url,
-          label: (
+          label: children ? (
+            label
+          ) : (
             <Link href={url} style={{ color: 'inherit' }}>
               {label}
             </Link>
