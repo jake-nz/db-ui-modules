@@ -12,7 +12,11 @@ if (!emailFrom) throw new Error('EMAIL_FROM not set')
 
 export const forgotPassword = async ({ email, redirectTo }: { email: string; redirectTo: string }) => {
   // Find the user
-  const user = await database.selectFrom('users').select(['id', 'email', 'name']).where('email', '=', email).executeTakeFirst()
+  const user = await database
+    .selectFrom('users')
+    .select(['id', 'email', 'name'])
+    .where('email', '=', email)
+    .executeTakeFirst()
 
   // Don't reveal if the email exists or not for security reasons
   if (!user) return { success: true }

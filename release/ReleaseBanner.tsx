@@ -13,7 +13,8 @@ export const ReleaseBanner = () => {
       closable
       message={
         <>
-          You are using a {currentRelease} version. <a href={`${production}/${window.location.pathname}`}> Switch to the current live version</a>
+          You are using a {currentRelease} version.{' '}
+          <a href={`${production}/${window.location.pathname}`}> Switch to the current live version</a>
         </>
       }
       icon={<WarningOutlined />}
