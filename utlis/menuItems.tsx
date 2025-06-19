@@ -22,9 +22,8 @@ export const useMenuItems = (builder: MenuItemBuilder) => {
   const mapMenuItems = (items: MenuItem[]): ItemType[] =>
     items
       .filter(mi => !mi.hidden)
-      .map(({ url, label, hidden, children, ...mi }) => {
+      .map(({ url, label, children, ...mi }) => {
         if (typeof children === 'function') children = children(ability)
-        children
 
         return {
           ...mi,
