@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { AuthCard } from './AuthCard'
 import { emailRules } from './formRules'
 import { forgotPassword } from '../actions/forgotPassword'
-import { getURL } from '@/modules/utlis/getURL'
+import { getURL } from '@/modules/utils/getURL'
 
 export const ForgotPassword = () => {
   const [loading, setLoading] = useState(false)
