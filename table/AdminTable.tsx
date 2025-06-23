@@ -49,7 +49,7 @@ export const AdminTableComponent = <RecordType extends AdminTableRecord = AdminT
   const defaults = {
     filters: defaultFilters,
     sorter: defaultSorter,
-    limit: props?.pagination ? props.pagination.pageSize : undefined
+    limit: props?.pagination ? props.pagination.pageSize : DEFAULT_PAGE_SIZE
   }
   // Get page, filters and sorter from URL. Update columns to show filtering and sorting
   const query = useListQuery(defaults, queryPrefix)
