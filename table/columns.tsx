@@ -21,7 +21,10 @@ export const idColumn = (basePath: string) => ({
 
 type AnyObject = Record<PropertyKey, any>
 
-export function detailsLinkColumn<RecordType = AnyObject>(path: string | ((record: RecordType) => string), label: string = 'Details') {
+export function detailsLinkColumn<RecordType = AnyObject>(
+  path: string | ((record: RecordType) => string),
+  label: string = 'Details'
+) {
   return {
     dataIndex: 'id',
     key: 'id',

@@ -10,8 +10,6 @@ export const emptyAbility = extendAbility(new PureAbility() as AppAbility<Permis
 
 export const abilityFromSession = (session: Session | null) => {
   if (!session) return emptyAbility
-
   const roles = session.user?.roles
-
   return defineAbilityForRoles<PermissionsTypes>(permissions, roles)
 }

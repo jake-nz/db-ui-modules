@@ -1,9 +1,9 @@
-import { useAbility } from '@/modules/permissions/useAbility'
 import { ItemType } from 'antd/es/menu/interface'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { abilityFromSession } from '../permissions/abilityFromSession'
 
-type Ability = ReturnType<typeof useAbility>
+type Ability = ReturnType<typeof abilityFromSession>
 
 type MenuItem = {
   url: string
@@ -16,15 +16,12 @@ type MenuItem = {
 
 export type MenuItemBuilder = (ability: Ability) => MenuItem[]
 
-export const useMenuItems = (builder: MenuItemBuilder) => {
-  const ability = useAbility()
-
+export const useMenuItems = (builder: MenuItemBuilder, ability: Ability) => {
   const mapMenuItems = (items: MenuItem[]): ItemType[] =>
     items
       .filter(mi => !mi.hidden)
-      .map(({ url, label, hidden, children, ...mi }) => {
+      .map(({ url, label, children, ...mi }) => {
         if (typeof children === 'function') children = children(ability)
-        children
 
         return {
           ...mi,
