@@ -11,7 +11,7 @@ if (!previous) console.warn('NEXT_PUBLIC_PREV_URL not set')
 
 const toHostname = (url: string | undefined) => (url ? new URL(url).hostname : null)
 
-const getCurrnetRelease = () => {
+const getCurrentRelease = () => {
   // If we don't know the production URL we can't switch to it so there's no point showing we are in another env
   if (!production) return 'production'
 
@@ -31,6 +31,6 @@ const getCurrnetRelease = () => {
 export const useRelease = () => {
   // Default to production because other envs display a warning
   const [currentRelease, setRelease] = useState<Release>('production')
-  useEffect(() => setRelease(getCurrnetRelease()), [])
+  useEffect(() => setRelease(getCurrentRelease()), [])
   return { currentRelease, production, previous }
 }
