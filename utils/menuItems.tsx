@@ -26,7 +26,10 @@ export const useMenuItems = (builder: MenuItemBuilder, ability: Ability) => {
         return {
           ...mi,
           key: url,
-          label: (
+          // No link when children are present
+          label: children ? (
+            label
+          ) : (
             <Link href={url} style={{ color: 'inherit' }}>
               {label}
             </Link>
@@ -34,6 +37,7 @@ export const useMenuItems = (builder: MenuItemBuilder, ability: Ability) => {
           children: children && mapMenuItems(children)
         }
       })
+      .filter(mi => !Array.isArray(mi.children) || mi.children.length > 0)
 
   const items = mapMenuItems(builder(ability))
 

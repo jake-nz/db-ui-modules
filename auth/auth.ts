@@ -22,10 +22,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (user) token.roles = user.roles
       return token
     },
-    session: async ({ session, token }) => ({
-      ...session,
-      user: { ...session.user, roles: token.roles }
-    })
+    session: async ({ session, token }) => {
+      return {
+        ...session,
+        user: { ...session.user, roles: token.roles, id: token.sub }
+      }
+    }
   }
 })
 

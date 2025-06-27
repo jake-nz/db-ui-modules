@@ -23,18 +23,13 @@ type AnyObject = Record<PropertyKey, any>
 
 export function detailsLinkColumn<RecordType = AnyObject>(
   path: string | ((record: RecordType) => string),
-  label: string = 'Details'
+  label = 'Details'
 ) {
   return {
     dataIndex: 'id',
     key: 'id',
     render: (id: string, record: RecordType) => {
-      let href: string
-      if (typeof path === 'string') {
-        href = path + id
-      } else {
-        href = path(record)
-      }
+      const href = typeof path === 'string' ? path + id : path(record)
 
       return (
         <Link href={href}>
