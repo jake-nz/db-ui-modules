@@ -12,7 +12,7 @@ import type { AdminTableRecord, FetcherQuery, ListQuery } from './antAdminTypes'
 
 const { Text } = Typography
 
-const ITEMS_PER_PAGE = 25
+const DEFAULT_PAGE_SIZE = 25
 
 type AdminTableProps<RecordType extends AdminTableRecord = AdminTableRecord> = {
   fetcher: Fetcher<RecordType[], FetcherQuery>
@@ -290,7 +290,7 @@ const usePagination = <RecordType extends AdminTableRecord = AdminTableRecord>(
   const limit = useLimit(queryPrefix)
 
   return {
-    pageSize: limit ?? ITEMS_PER_PAGE,
+    pageSize: limit ?? DEFAULT_PAGE_SIZE,
     showSizeChanger: false,
     total: data?.[0]?.totalCount,
     showTotal: (total: number) => `Total: ${total}`,
