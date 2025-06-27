@@ -9,7 +9,7 @@ export type PermissionsBase = {
   Role: string // enum e.g. 'User' | 'Admin'
   // Subjects users could have roles for
   Subject: string | 'all'
-  Action: 'read' | 'edit' | 'delete' | 'create' | 'manage' // (manage = all)
+  Action: 'list' | 'read' | 'edit' | 'delete' | 'create' | 'manage' // (manage = all)
 }
 
 // How we define the roles a user has per tenant
