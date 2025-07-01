@@ -1,4 +1,4 @@
-import { permissions, PermissionsTypes } from '@/services/auth/permissions'
+import { permissions, PermissionsTypes } from '@/services/permissions/permissions'
 import { PureAbility } from '@casl/ability'
 import { Session } from 'next-auth'
 import { defineAbilityForRoles } from './defineAbilityForRoles'

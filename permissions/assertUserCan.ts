@@ -1,5 +1,5 @@
 import { auth } from '@/modules/auth/auth'
-import { PermissionsTypes } from '@/services/auth/permissions'
+import { PermissionsTypes } from '@/services/permissions/permissions'
 import { abilityFromSession } from './abilityFromSession'
 import { CanArgs } from './extendAbility'
 
