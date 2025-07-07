@@ -19,7 +19,8 @@ export const selectFilter = (Component: SelectComponent) => {
         includeArchived
         onClear={() => clearFilters && clearFilters()}
         onChange={v => {
-          setSelectedKeys([v as string | number])
+          if (!Array.isArray(v)) v = [v]
+          setSelectedKeys(v as Array<string | number>)
           confirm({ closeDropdown: true })
         }}
       />
