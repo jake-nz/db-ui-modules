@@ -6,7 +6,14 @@ type AuthCardProps = {
 }
 
 export const AuthCard = ({ title, children }: AuthCardProps) => (
-  <Card title={title} style={{ maxWidth: '100%', width: 500 }}>
+  <Card
+    title={title}
+    style={{
+      width: 'calc(100% - 32px)',
+      maxWidth: 500,
+      margin: '0 16px'
+    }}
+  >
     {children}
   </Card>
 )

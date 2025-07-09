@@ -9,7 +9,8 @@ export const AuthLayout = ({ children }: { children: React.ReactNode }) => (
       minHeight: '100vh',
       alignItems: 'center',
       justifyContent: 'center',
-      background: '#fafafa'
+      background: '#fafafa',
+      padding: '16px 0'
     }}
   >
     {children}
