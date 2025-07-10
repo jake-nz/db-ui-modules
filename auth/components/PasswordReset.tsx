@@ -68,7 +68,11 @@ export const PasswordReset = () => {
       ) : error ? (
         <ErrorMessage error={error} />
       ) : (
-        <Form labelCol={{ span: 6 }} wrapperCol={{ span: 18 }} onFinish={setPassword}>
+        <Form
+          labelCol={{ xs: { span: 24 }, sm: { span: 6 } }}
+          wrapperCol={{ xs: { span: 24 }, sm: { span: 18 } }}
+          onFinish={setPassword}
+        >
           <Form.Item label="New Password" name="password" rules={passwordRules}>
             <Input.Password />
           </Form.Item>
@@ -77,8 +81,8 @@ export const PasswordReset = () => {
             <Input.Password />
           </Form.Item>
 
-          <Form.Item wrapperCol={{ offset: 6, span: 18 }}>
-            <Button type="primary" htmlType="submit" loading={status === 'loading'}>
+          <Form.Item wrapperCol={{ xs: { span: 24 }, sm: { offset: 6, span: 18 } }}>
+            <Button type="primary" htmlType="submit" loading={status === 'loading'} block>
               Set Password
             </Button>
           </Form.Item>

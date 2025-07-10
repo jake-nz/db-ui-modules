@@ -31,13 +31,17 @@ export const ForgotPassword = () => {
     <AuthCard title="Reset Password">
       <Space direction="vertical" size="large" style={{ width: '100%' }}>
         {error && <Alert message={error} type="error" />}
-        <Form labelCol={{ span: 6 }} wrapperCol={{ span: 18 }} onFinish={reset}>
+        <Form
+          labelCol={{ xs: { span: 24 }, sm: { span: 6 } }}
+          wrapperCol={{ xs: { span: 24 }, sm: { span: 18 } }}
+          onFinish={reset}
+        >
           <Form.Item label="Email" name="email" rules={emailRules}>
             <Input type="email" />
           </Form.Item>
 
-          <Form.Item wrapperCol={{ offset: 6, span: 18 }}>
-            <Button type="primary" htmlType="submit" loading={loading}>
+          <Form.Item wrapperCol={{ xs: { span: 24 }, sm: { offset: 6, span: 18 } }}>
+            <Button type="primary" htmlType="submit" loading={loading} block>
               Send reset link
             </Button>
           </Form.Item>
