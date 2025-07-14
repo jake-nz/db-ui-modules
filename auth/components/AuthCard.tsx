@@ -9,7 +9,7 @@ export const AuthCard = ({ title, children }: AuthCardProps) => (
   <Card
     title={title}
     style={{
-      width: 'calc(100% - 32px)',
+      width: 'calc(100vw - 32px)',
       maxWidth: 500,
       margin: '0 16px'
     }}
