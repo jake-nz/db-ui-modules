@@ -25,10 +25,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     session: async ({ session, token }) => {
       return {
         ...session,
-        user: { ...session.user, roles: token.roles, id: token.sub }
+        user: { ...session.user, roles: token.roles, id: token.sub },
       }
-    }
-  }
+    },
+  },
 })
 
 // We need to import JWT so we can extend the interface, This line helps it not look like an unused import

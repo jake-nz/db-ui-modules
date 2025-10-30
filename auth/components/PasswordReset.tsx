@@ -45,7 +45,7 @@ export const PasswordReset = () => {
     try {
       const response = await resetPassword({
         token: token!,
-        password: credentials.password
+        password: credentials.password,
       })
 
       if (response.error) throw new Error(response.error || 'Failed to reset password')

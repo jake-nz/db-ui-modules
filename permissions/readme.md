@@ -35,7 +35,7 @@ export const permissions: Permissions<PermissionsTypes> = {
     allow('read', 'Thing')
     // Can edit their own user
     allow('edit', 'User', { id: userId })
-  }
+  },
 }
 ```
 
@@ -44,7 +44,7 @@ export const permissions: Permissions<PermissionsTypes> = {
 ```ts
 const myRoles = [
   { tenantId: 'Client-A', role: 'Admin' },
-  { tenantId: 'Client-B', role: 'User' }
+  { tenantId: 'Client-B', role: 'User' },
 ]
 
 const myAbility = defineAbilityForRoles(myRoles, permissions)
@@ -61,7 +61,7 @@ assertAbilityRequirements(myAbility, { edit: { Thing: { id: 1 } } })
 
 // Assert can edit Things for Client-A
 assertAbilityRequirements(myAbility, {
-  edit: { Thing: { clientId: 'Client-A' } }
+  edit: { Thing: { clientId: 'Client-A' } },
 })
 
 // Assert can edit Things and Events

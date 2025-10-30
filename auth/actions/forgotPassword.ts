@@ -30,7 +30,7 @@ export const forgotPassword = async ({ email, redirectTo }: { email: string; red
     .updateTable('users')
     .set({
       resetToken,
-      resetTokenExpiresAt
+      resetTokenExpiresAt,
     })
     .where('id', '=', user.id)
     .execute()
@@ -51,7 +51,7 @@ export const forgotPassword = async ({ email, redirectTo }: { email: string; red
         <p>This link will expire in 1 hour.</p>
         <p>If you didn't request this, please ignore this email.</p>
       </div>
-    `
+    `,
   })
 
   return { success: true }

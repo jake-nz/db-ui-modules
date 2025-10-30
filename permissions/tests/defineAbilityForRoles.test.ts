@@ -17,7 +17,7 @@ const testPermissions: Permissions<PermissionsTypes> = {
     allow('read', 'Thing', { tenantId })
     // Can edit their own user
     allow('edit', 'User', { id: userId })
-  }
+  },
 }
 
 describe('defineAbilityForRoles', () => {
@@ -25,11 +25,11 @@ describe('defineAbilityForRoles', () => {
     const permissions: Permissions<PermissionsTypes> = {
       Public: vi.fn(),
       Admin: vi.fn(),
-      User: vi.fn()
+      User: vi.fn(),
     }
     const roles: Roles<PermissionsTypes> = [
       { tenantId: 'Client-A', role: 'Admin' },
-      { tenantId: 'Client-B', role: 'User' }
+      { tenantId: 'Client-B', role: 'User' },
     ]
 
     defineAbilityForRoles(permissions, roles)
@@ -37,10 +37,10 @@ describe('defineAbilityForRoles', () => {
     expect(permissions.Public).not.toHaveBeenCalled()
 
     expect(permissions.Admin).toHaveBeenCalledWith(expect.any(AbilityBuilder), {
-      tenantId: 'Client-A'
+      tenantId: 'Client-A',
     })
     expect(permissions.User).toHaveBeenCalledWith(expect.any(AbilityBuilder), {
-      tenantId: 'Client-B'
+      tenantId: 'Client-B',
     })
   })
 
@@ -48,7 +48,7 @@ describe('defineAbilityForRoles', () => {
     const userId = 1
     const roles: Roles<PermissionsTypes> = [
       { tenantId: 'Client-A', role: 'Admin' },
-      { tenantId: 'Client-B', role: 'User' }
+      { tenantId: 'Client-B', role: 'User' },
     ]
     const ability = defineAbilityForRoles(testPermissions, roles, userId)
 
@@ -81,8 +81,8 @@ describe('defineAbilityForRoles', () => {
     const roles: Roles<PermissionsTypes> = [
       {
         tenantId: 'Client-A',
-        role: 'Fish' as PermissionsTypes['Role']
-      }
+        role: 'Fish' as PermissionsTypes['Role'],
+      },
     ]
 
     expect(() => defineAbilityForRoles(testPermissions, roles)).toThrowError('unknown role Fish')

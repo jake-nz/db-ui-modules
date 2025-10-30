@@ -34,7 +34,7 @@ export const useTryNotify = <ActionType extends Action>({ action, start, success
         description: getMessage(err),
         key,
         duration: 0,
-        ...error
+        ...error,
       })
 
       return { success: false, response: err }

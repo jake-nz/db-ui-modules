@@ -17,7 +17,7 @@ export const ForgotPassword = () => {
     try {
       await forgotPassword({
         email: credentials.email,
-        redirectTo: getURL() + 'auth/reset-password'
+        redirectTo: getURL() + 'auth/reset-password',
       })
       setSent(true)
     } catch (err: any) {

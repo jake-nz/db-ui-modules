@@ -13,7 +13,7 @@ export const Details = ({ details, ...props }: DetailsProps) => {
       items={Object.entries(details).map(([key, value]) => ({
         key,
         label: key,
-        children: value
+        children: value,
       }))}
       {...props}
     />

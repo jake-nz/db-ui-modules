@@ -24,7 +24,7 @@ export const resetPassword = async ({ token, password }: { token: string; passwo
     .set({
       password: hashedPassword,
       resetToken: null,
-      resetTokenExpiresAt: null
+      resetTokenExpiresAt: null,
     })
     .where('id', '=', user.id)
     .execute()

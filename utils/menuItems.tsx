@@ -34,7 +34,7 @@ export const useMenuItems = (builder: MenuItemBuilder, ability: Ability) => {
               {label}
             </Link>
           ),
-          children: children && mapMenuItems(children)
+          children: children && mapMenuItems(children),
         }
       })
       .filter(mi => !Array.isArray(mi.children) || mi.children.length > 0)

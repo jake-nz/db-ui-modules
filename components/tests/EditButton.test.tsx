@@ -4,7 +4,7 @@ import { describe, expect, it, vi } from 'vitest'
 import { EditButton } from '../EditButton'
 
 vi.mock('next/link', () => ({
-  default: ({ children, href }: { children: React.ReactNode; href: string }) => <a href={href}>{children}</a>
+  default: ({ children, href }: { children: React.ReactNode; href: string }) => <a href={href}>{children}</a>,
 }))
 
 describe('EditButton', () => {

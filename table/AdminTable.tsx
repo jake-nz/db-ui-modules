@@ -49,7 +49,7 @@ export const AdminTableComponent = <RecordType extends AdminTableRecord = AdminT
   const defaults = {
     filters: defaultFilters,
     sorter: defaultSorter,
-    limit: props?.pagination ? props.pagination.pageSize : DEFAULT_PAGE_SIZE
+    limit: props?.pagination ? props.pagination.pageSize : DEFAULT_PAGE_SIZE,
   }
   // Get page, filters and sorter from URL. Update columns to show filtering and sorting
   const query = useListQuery(defaults, queryPrefix)
@@ -63,7 +63,7 @@ export const AdminTableComponent = <RecordType extends AdminTableRecord = AdminT
     { swrKey, ...query },
     fetcher,
     {
-      refreshInterval: autoRefetch ? autoRefetch * 1000 : undefined
+      refreshInterval: autoRefetch ? autoRefetch * 1000 : undefined,
     }
   )
 
@@ -76,7 +76,7 @@ export const AdminTableComponent = <RecordType extends AdminTableRecord = AdminT
   const pagination = {
     ...usePagination(data, queryPrefix),
     ...props.pagination,
-    pageSize: query.limit
+    pageSize: query.limit,
   }
 
   // updates URL search query when table page, filters or sorter change
@@ -207,7 +207,7 @@ const getSorter = (urlQuery: ReadonlyURLSearchParams | null, queryPrefix: string
 
       sorter.push({
         columnKey,
-        order: order === 'none' ? null : (order as SortOrder)
+        order: order === 'none' ? null : (order as SortOrder),
       })
     }
   }
@@ -226,7 +226,7 @@ export const useListQuery = (defaults: Partial<ListQuery> = {}, queryPrefix?: st
     filters: { ...defaults.filters, ...getFilters(urlQuery, queryPrefix) }, // This now concats the default with the url filters
     sorter: getSorter(urlQuery, queryPrefix) || defaults.sorter || [],
     page: getPage(urlQuery, queryPrefix),
-    limit: getLimit(urlQuery, queryPrefix) ?? defaults.limit
+    limit: getLimit(urlQuery, queryPrefix) ?? defaults.limit,
   }
 }
 
@@ -269,7 +269,7 @@ const useUpdateUrlQuery = <RecordType extends AnyObject>(queryPrefix?: string) =
         page: pagination.current,
         limit: pagination.pageSize,
         filters,
-        sorter: Array.isArray(sorter) ? sorter : [sorter]
+        sorter: Array.isArray(sorter) ? sorter : [sorter],
       },
       queryPrefix
     )
@@ -294,6 +294,6 @@ const usePagination = <RecordType extends AdminTableRecord = AdminTableRecord>(
     showSizeChanger: false,
     total: data?.[0]?.totalCount,
     showTotal: (total: number) => `Total: ${total}`,
-    current: page
+    current: page,
   }
 }

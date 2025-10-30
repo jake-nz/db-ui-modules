@@ -8,7 +8,7 @@ export type CanArgs<P extends PermissionsBase> = [
   action: P['Action'],
   subjectType: P['Subject'],
   specificSubject?: any,
-  field?: string
+  field?: string,
 ]
 
 // Set a default message for forbidden errors that includes the action and subject type
@@ -45,6 +45,6 @@ export const extendAbility = <P extends PermissionsBase>(ability: AppAbility<P>)
     possibleRulesFor: ability.possibleRulesFor.bind(ability),
     detectSubjectType: ability.detectSubjectType.bind(ability),
     update: ability.update.bind(ability),
-    on: ability.on.bind(ability)
+    on: ability.on.bind(ability),
   }
 }

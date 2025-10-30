@@ -8,7 +8,7 @@ describe('Details', () => {
     const details = {
       Name: 'John Doe',
       Email: 'john@example.com',
-      Role: 'Admin'
+      Role: 'Admin',
     }
 
     render(<Details details={details} />)
@@ -31,7 +31,7 @@ describe('Details', () => {
   it('handles ReactNode values', () => {
     const details = {
       Status: <span style={{ color: 'green' }}>Active</span>,
-      'Created Date': <time>2023-01-01</time>
+      'Created Date': <time>2023-01-01</time>,
     }
 
     render(<Details details={details} />)
@@ -54,7 +54,7 @@ describe('Details', () => {
     const details = {
       Field1: 'Value1',
       Field2: 'Value2',
-      Field3: 'Value3'
+      Field3: 'Value3',
     }
 
     const { container } = render(<Details details={details} />)

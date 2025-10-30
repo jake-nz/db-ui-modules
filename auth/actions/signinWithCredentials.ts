@@ -7,7 +7,7 @@ export const signinWithCredentials = async (username: string, password: string) 
     await signIn('credentials', {
       redirect: false,
       username,
-      password
+      password,
     })
     return { success: true }
   } catch (e) {

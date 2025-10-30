@@ -16,7 +16,7 @@ export const idColumn = (basePath: string) => ({
       </Text>
     </Link>
   ),
-  width: 120
+  width: 120,
 })
 
 type AnyObject = Record<PropertyKey, any>
@@ -39,6 +39,6 @@ export function detailsLinkColumn<RecordType = AnyObject>(
         </Link>
       )
     },
-    width: 115
+    width: 115,
   }
 }

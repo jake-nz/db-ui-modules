@@ -7,16 +7,16 @@ import { emptyAbility } from '../../permissions/abilityFromSession'
 vi.mock('@/modules/permissions/useAbility', () => ({
   useAbility: () => ({
     can: vi.fn(() => true),
-    cannot: vi.fn(() => false)
-  })
+    cannot: vi.fn(() => false),
+  }),
 }))
 
 vi.mock('next/navigation', () => ({
-  usePathname: () => '/users/123'
+  usePathname: () => '/users/123',
 }))
 
 vi.mock('next/link', () => ({
-  default: ({ children, href }: { children: React.ReactNode; href: string }) => <a href={href}>{children}</a>
+  default: ({ children, href }: { children: React.ReactNode; href: string }) => <a href={href}>{children}</a>,
 }))
 
 describe('useMenuItems', () => {
@@ -25,13 +25,13 @@ describe('useMenuItems', () => {
       {
         url: '/users',
         icon: <span>👤</span>,
-        label: 'Users'
+        label: 'Users',
       },
       {
         url: '/settings',
         icon: <span>⚙️</span>,
-        label: 'Settings'
-      }
+        label: 'Settings',
+      },
     ]
 
     const { result } = renderHook(() => useMenuItems(builder, emptyAbility))
@@ -39,11 +39,11 @@ describe('useMenuItems', () => {
     expect(result.current.items).toHaveLength(2)
     expect(result.current.items[0]).toMatchObject({
       key: '/users',
-      icon: expect.anything()
+      icon: expect.anything(),
     })
     expect(result.current.items[1]).toMatchObject({
       key: '/settings',
-      icon: expect.anything()
+      icon: expect.anything(),
     })
   })
 
@@ -52,14 +52,14 @@ describe('useMenuItems', () => {
       {
         url: '/users',
         icon: <span>👤</span>,
-        label: 'Users'
+        label: 'Users',
       },
       {
         url: '/admin',
         icon: <span>🔧</span>,
         label: 'Admin',
-        hidden: true
-      }
+        hidden: true,
+      },
     ]
 
     const { result } = renderHook(() => useMenuItems(builder, emptyAbility))
@@ -78,10 +78,10 @@ describe('useMenuItems', () => {
           {
             url: '/users/active',
             icon: <span>✅</span>,
-            label: 'Active Users'
-          }
-        ]
-      }
+            label: 'Active Users',
+          },
+        ],
+      },
     ]
 
     const { result } = renderHook(() => useMenuItems(builder, emptyAbility))
@@ -101,13 +101,13 @@ describe('useMenuItems', () => {
       {
         url: '/users',
         icon: <span>👤</span>,
-        label: 'Users'
+        label: 'Users',
       },
       {
         url: '/settings',
         icon: <span>⚙️</span>,
-        label: 'Settings'
-      }
+        label: 'Settings',
+      },
     ]
 
     const { result } = renderHook(() => useMenuItems(builder, emptyAbility))
@@ -121,8 +121,8 @@ describe('useMenuItems', () => {
       {
         url: '/users',
         icon: <span>👤</span>,
-        label: 'Users'
-      }
+        label: 'Users',
+      },
     ]
 
     const { result } = renderHook(() => useMenuItems(builder, emptyAbility))
@@ -139,8 +139,8 @@ describe('useMenuItems', () => {
         url: '/users',
         icon: <span>👤</span>,
         label: 'Users',
-        disabled: true
-      }
+        disabled: true,
+      },
     ]
 
     const { result } = renderHook(() => useMenuItems(builder, emptyAbility))

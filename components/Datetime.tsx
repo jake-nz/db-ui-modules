@@ -3,7 +3,7 @@ import { Typography } from 'antd'
 const { Text } = Typography
 
 const dateFormatter = new Intl.DateTimeFormat('en-AU', {
-  dateStyle: 'medium'
+  dateStyle: 'medium',
 })
 export const dateFormat = (date: null | undefined | Date | string | number, fallback = '') => {
   if (!date) return fallback
@@ -19,4 +19,6 @@ export const dateFormat = (date: null | undefined | Date | string | number, fall
   }
 }
 
-export const Datetime = ({ children }: { children: Date | string | number | undefined | null }) => <Text ellipsis>{dateFormat(children)}</Text>
+export const Datetime = ({ children }: { children: Date | string | number | undefined | null }) => (
+  <Text ellipsis>{dateFormat(children)}</Text>
+)
