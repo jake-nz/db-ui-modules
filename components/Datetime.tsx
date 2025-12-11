@@ -4,7 +4,7 @@ import { TextProps } from 'antd/es/typography/Text'
 const { Text } = Typography
 
 const dateFormatter = new Intl.DateTimeFormat('en-AU', {
-  dateStyle: 'medium',
+  dateStyle: 'medium'
 })
 
 const datetimeFormatter = new Intl.DateTimeFormat('en-AU', {
@@ -32,10 +32,6 @@ export const dateFormat = (date: null | undefined | Date | string | number, show
   }
 }
 
-<<<<<<< HEAD
-export const Datetime = ({ children }: { children: Date | string | number | undefined | null }) => (
-  <Text ellipsis>{dateFormat(children)}</Text>
-=======
 export const Datetime = ({
   children,
   showTime = false,
@@ -47,5 +43,4 @@ export const Datetime = ({
   <Text ellipsis {...props}>
     {dateFormat(children, showTime)}
   </Text>
->>>>>>> 626f84b (feat(Datetime): Handle dates in epoch seconds)
 )
