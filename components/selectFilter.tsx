@@ -2,7 +2,7 @@ import { Select } from 'antd'
 import { FilterDropdownProps } from 'antd/es/table/interface'
 import { ComponentProps, ReactNode } from 'react'
 
-interface SelectFilterProps extends ComponentProps<typeof Select> {
+interface SelectFilterProps extends ComponentProps<typeof Select<any>> {
   includeArchived?: boolean
 }
 
